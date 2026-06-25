@@ -208,6 +208,15 @@
       .article-nav { grid-template-columns: 1fr; }
       .article-nav-item.next { text-align: left; align-items: flex-start; }
     }
+
+    @media (max-width: 768px) {
+      .article-hero        { height: 240px; }
+      .article-hero-title  { font-size: 26px; letter-spacing: 1px; }
+    }
+    @media (max-width: 480px) {
+      .article-hero-title  { font-size: 20px; letter-spacing: 0; }
+      .article-hero        { height: 200px; }
+    }
   </style>
 </head>
 <body>

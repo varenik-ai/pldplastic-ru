@@ -39,6 +39,13 @@
     .brands-full-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     @media (max-width: 900px) { .brands-full-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 550px) { .brands-full-grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 600px) {
+      .brands-full-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    }
+    @media (max-width: 360px) {
+      .brands-full-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>

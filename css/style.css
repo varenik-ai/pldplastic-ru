@@ -19,12 +19,13 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
   color: var(--text);
   line-height: 1.7;
   font-size: 15px;
+  overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
 a  { text-decoration: none; color: inherit; transition: .2s; }
@@ -1582,3 +1583,110 @@ p.about-text {
   font-size: 14px; color: #555; transition: .2s;
 }
 .apps-nav button:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ================================================================
+   MOBILE — iPhone 14 Pro Max и подобные
+   ================================================================ */
+
+/* Topbar — скрываем на мобильных (слишком много элементов для 430px) */
+@media (max-width: 768px) {
+  .topbar { display: none; }
+}
+
+/* Hero — уменьшаем высоту и шрифты */
+@media (max-width: 480px) {
+  .hero-section { height: 360px; }
+  .hero-content { padding: 0 20px; }
+  .hero-btitle  { font-size: 26px; }
+  .hero-summary { font-size: 14px; margin-bottom: 20px; max-width: 100%; }
+  .btn-hero     { padding: 11px 22px; font-size: 14px; }
+  .heroSwiper .swiper-pagination { bottom: 48px !important; }
+}
+
+/* Вертикальные отступы секций */
+@media (max-width: 768px) {
+  .section          { padding: 52px 0; }
+  .apps-section     { padding: 52px 0; }
+  .stats-section    { padding: 44px 0; }
+  .search-bar       { padding: 32px 0; }
+  .contact-section  { padding: 52px 0; }
+  .footer-top-section { padding: 44px 0 32px; }
+}
+
+/* Заголовки секций */
+@media (max-width: 768px) {
+  .sec-title       { font-size: 24px; }
+  .page-banner     { padding: 32px 0; }
+  .page-banner h2  { font-size: 22px; }
+}
+
+/* Видео — уменьшаем высоту */
+@media (max-width: 768px) {
+  .video-wrap img,
+  .video-wrap video { height: 220px; }
+  .video-thumb img  { height: 220px; }
+}
+
+/* Product-page hero */
+@media (max-width: 768px) {
+  .prod-hero-section { height: 250px; }
+  .prod-hero-h1      { font-size: 38px; letter-spacing: -1px; }
+  .prod-hero-sub     { font-size: 14px; }
+}
+@media (max-width: 480px) {
+  .prod-hero-section { height: 220px; }
+  .prod-hero-h1      { font-size: 30px; letter-spacing: -.5px; }
+  .prod-hero-tags span { font-size: 11px; padding: 4px 10px; }
+}
+
+/* Advantages — уменьшаем минимальные высоты */
+@media (max-width: 768px) {
+  .adv-left     { min-height: 300px; }
+  .adv-card-img { min-height: 150px; }
+}
+@media (max-width: 480px) {
+  .adv-left     { min-height: 240px; }
+}
+
+/* News big image */
+@media (max-width: 480px) {
+  .news-big-img { height: 190px; }
+}
+
+/* App cards — внутренние страницы применения */
+@media (max-width: 768px) {
+  .app-card { flex: 0 0 calc(50% - 10px); }
+}
+@media (max-width: 480px) {
+  .app-card { flex: 0 0 80%; }
+}
+
+/* Apps header — nav-кнопки переносим под заголовок */
+@media (max-width: 600px) {
+  .apps-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Footer — products grid из 3 → 2 колонки */
+@media (max-width: 600px) {
+  .fn-links-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Search form — скрываем select на очень узких */
+@media (max-width: 480px) {
+  .search-form select { display: none; }
+  .search-form { max-width: 100%; }
+}
+
+/* Floating sidebar — не перекрывает контент на узких экранах */
+@media (max-width: 480px) {
+  .float-sidebar {
+    top: auto;
+    bottom: 72px;
+    transform: none;
+  }
+}

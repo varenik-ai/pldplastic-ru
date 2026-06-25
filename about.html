@@ -242,6 +242,18 @@
       .about-stat:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
       .culture-grid { grid-template-columns: 1fr; }
     }
+
+    @media (max-width: 768px) {
+      .about-hero        { height: 280px; }
+      .about-hero-title  { font-size: 28px; }
+      .about-intro       { padding: 44px 0 36px; }
+      .about-stats       { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .about-hero-title  { font-size: 22px; }
+      .about-hero        { height: 240px; }
+      .about-intro       { padding: 36px 0 28px; }
+    }
   </style>
 </head>
 <body>
