@@ -179,6 +179,43 @@ a  { text-decoration: none; color: inherit; transition: .2s; }
 }
 .nav-search:hover { color: var(--blue); }
 
+/* Dropdown toggle button (стрелка отдельно от ссылки) */
+.dd-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 10px 0 2px;
+  height: 72px;
+  color: #555;
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  transition: color .2s;
+}
+.dd-toggle:hover { color: var(--blue); }
+.main-nav ul li.dd-open .dropdown-menu { display: block; }
+
+@media (max-width: 960px) {
+  .main-nav ul li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .main-nav ul li > a {
+    flex: 1;
+  }
+  .dd-toggle {
+    height: auto;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .main-nav ul li .dropdown-menu {
+    width: 100%;
+    flex-basis: 100%;
+  }
+}
+
 /* Burger */
 .burger {
   display: none;

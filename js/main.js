@@ -2,6 +2,30 @@
    SUPULIDE Russia — main.js
    ============================================================ */
 
+/* --- Dropdown toggle (стрелка отдельно от ссылки) --- */
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.dd-toggle');
+    if (btn) {
+      e.stopPropagation();
+      var li = btn.closest('li');
+      var isOpen = li.classList.contains('dd-open');
+      // Закрываем все открытые дропдауны
+      document.querySelectorAll('.main-nav li.dd-open').forEach(function (el) {
+        el.classList.remove('dd-open');
+      });
+      if (!isOpen) li.classList.add('dd-open');
+      return;
+    }
+    // Клик вне nav — закрываем всё
+    if (!e.target.closest('.main-nav')) {
+      document.querySelectorAll('.main-nav li.dd-open').forEach(function (el) {
+        el.classList.remove('dd-open');
+      });
+    }
+  });
+})();
+
 /* --- Mobile burger menu --- */
 (function () {
   var burger = document.getElementById('burger');
