@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новости компании — Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE)</title>
+  <meta name="description" content="Новости компании Jiangsu Pulide Plastic (SUPULIDE) — публикации об отрасли, производстве полимеров и пластиков.">
+  <meta name="keywords" content="новости полимеры, SUPULIDE новости, рынок полимеров, производство пластиков">
+  <link rel="canonical" href="https://pldplastics.com/news.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="SUPULIDE — Jiangsu Pulide Plastic">
+  <meta property="og:title" content="Новости компании — SUPULIDE | Jiangsu Pulide Plastic">
+  <meta property="og:description" content="Новости компании Jiangsu Pulide Plastic (SUPULIDE) — публикации об отрасли, производстве полимеров и пластиков.">
+  <meta property="og:url" content="https://pldplastics.com/news.html">
+  <meta property="og:image" content="https://pldplastics.com/img/og-preview.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── NEWS HERO ── */
+    .news-hero {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .news-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('img/news-hero.webp');
+      background-size: cover;
+      background-position: center;
+    }
+    .news-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,10,40,.38);
+    }
+    .news-hero-title {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      text-shadow: 0 2px 12px rgba(0,0,0,.35);
+    }
+    .news-hero-scroll {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: rgba(255,255,255,.8);
+      font-size: 26px;
+      animation: nhbounce 1.6s ease-in-out infinite;
+    }
+    @keyframes nhbounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .news-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 36px;
+      padding: 48px 0 70px;
+      align-items: start;
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .news-sidebar {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 100px;
+    }
+    .news-sidebar-title {
+      background: var(--blue);
+      color: #fff;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .news-cat-list {
+      list-style: none;
+    }
+    .news-cat-list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: background .2s, color .2s, padding-left .2s;
+    }
+    .news-cat-list li:last-child a { border-bottom: none; }
+    .news-cat-list li a:hover,
+    .news-cat-list li a.active {
+      background: var(--light-bg);
+      color: var(--blue);
+      padding-left: 24px;
+    }
+    .news-cat-list li a i {
+      color: var(--blue);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* ── BREADCRUMB + HEADING ── */
+    .news-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-breadcrumb a { color: var(--blue); }
+    .news-breadcrumb a:hover { text-decoration: underline; }
+    .news-content-heading {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    /* ── ARTICLE CARDS (horizontal) ── */
+    .news-list { display: flex; flex-direction: column; }
+    .news-card {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-card:last-child { border-bottom: none; }
+    .news-card-img {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      aspect-ratio: 4/3;
+      flex-shrink: 0;
+    }
+    .news-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s;
+    }
+    .news-card:hover .news-card-img img { transform: scale(1.05); }
+    .news-card-body {
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.45;
+      margin-bottom: 12px;
+      transition: color .2s;
+      display: block;
+    }
+    .news-card-title:hover { color: var(--blue); }
+    .news-card-excerpt {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+    .news-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+    .news-card-date {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .news-card-date i { color: var(--blue); }
+    .news-card-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--blue);
+      font-weight: 600;
+      border: 1px solid var(--blue);
+      border-radius: 3px;
+      padding: 5px 12px;
+      transition: background .2s, color .2s, gap .2s;
+    }
+    .news-card-more:hover {
+      background: var(--blue);
+      color: #fff;
+      gap: 9px;
+    }
+
+    /* ── PAGINATION ── */
+    .news-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 36px;
+    }
+    .news-page-btn {
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--text);
+      background: #fff;
+      cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .news-page-btn.active,
+    .news-page-btn:hover:not(.disabled) {
+      background: var(--blue); color: #fff; border-color: var(--blue);
+    }
+    .news-page-btn.disabled { opacity: .35; pointer-events: none; }
+
+    @media (max-width: 960px) {
+      .news-layout { grid-template-columns: 1fr; gap: 24px; }
+      .news-sidebar { position: static; display: flex; flex-direction: row; align-items: center; border-radius: var(--radius); }
+      .news-sidebar-title { border-radius: 0; white-space: nowrap; }
+      .news-cat-list { display: flex; flex: 1; }
+      .news-cat-list li { flex: 1; }
+      .news-cat-list li a { border-bottom: none; border-left: 1px solid var(--border); justify-content: center; padding: 14px 10px; }
+    }
+    @media (max-width: 640px) {
+      .news-hero { height: 240px; }
+      .news-hero-title { font-size: 26px; }
+      .news-card { grid-template-columns: 1fr; gap: 14px; }
+      .news-card-img { aspect-ratio: 16/9; }
+      .news-layout { padding: 28px 0 50px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-contacts">
+      <a href="https://wa.me/7XXXXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i>+7 (XXX) XXX-XX-XX</a>
+      <a href="mailto:info@pldplastics.com"><i class="fas fa-envelope"></i>info@pldplastics.com</a>
+      <span><i class="fas fa-map-marker-alt"></i>Уси, пров. Цзянсу, Китай</span>
+    </div>
+    <div class="topbar-right">
+      <a href="contact.html" class="btn-quote"><i class="fas fa-comment-dots"></i>Получить прайс</a>
+      <div class="lang-btn"><i class="fas fa-globe"></i>RU</div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="main-header" id="mainHeader">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="img/logo.png" alt="SUPULIDE — Jiangsu Pulide Plastic" onerror="this.src='img/adv-tech.jpg'">
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li>
+          <a href="about.html">О нас <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="about.html">О компании</a>
+            <a href="about.html#factory">Производство</a>
+          </div>
+        </li>
+        <li>
+          <a href="products.html">Продукты <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="products.html#poe">POE / POP / OBC</a>
+            <a href="products.html#eva">EVA / EAA / EMAA</a>
+            <a href="products.html#evoh">EVOH / PA12</a>
+            <a href="products.html#epdm">EPDM</a>
+            <a href="products.html#other">MLLDPE / XLPE / PC</a>
+          </div>
+        </li>
+        <li><a href="warehouse.html">Склад</a></li>
+        <li>
+          <a href="news.html" class="active">Новости <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="news.html">Новости компании</a>
+            <a href="news-industry.html">Новости отрасли</a>
+          </div>
+        </li>
+        <li><a href="contact.html">Контакты</a></li>
+        <li><button class="nav-search" aria-label="Поиск"><i class="fas fa-search"></i></button></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO BANNER -->
+<div class="news-hero">
+  <div class="news-hero-bg"></div>
+  <div class="news-hero-overlay"></div>
+  <h1 class="news-hero-title">Новости</h1>
+  <div class="news-hero-scroll"><i class="fas fa-angle-double-down"></i></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="news-layout">
+
+    <!-- ── LEFT SIDEBAR: CATEGORIES ── -->
+    <aside class="news-sidebar">
+      <div class="news-sidebar-title">
+        <i class="fas fa-th-list"></i>Категории
+      </div>
+      <ul class="news-cat-list">
+        <li>
+          <a href="news.html" class="active">
+            <i class="fas fa-chevron-right"></i>Новости компании
+          </a>
+        </li>
+        <li>
+          <a href="news-industry.html">
+            <i class="fas fa-chevron-right"></i>Новости отрасли
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- ── RIGHT: BREADCRUMB + ARTICLES ── -->
+    <div class="news-content">
+
+      <nav class="news-breadcrumb" aria-label="Хлебные крошки">
+        <i class="fas fa-home" style="color:var(--blue)"></i>
+        <a href="index.html">Главная</a>
+        <i class="fas fa-chevron-right" style="font-size:10px"></i>
+        <span>Новости компании</span>
+      </nav>
+
+      <h2 class="news-content-heading">Новости компании</h2>
+
+      <div class="news-list">
+
+        <!-- ── СТАТЬЯ 1 ── -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="news-detail-1.html">
+              <img src="img/news-1.jpg"
+                   alt="Взаимосвязь пигментов, пластикового сырья и вспомогательных веществ"
+                   loading="lazy" onerror="this.src='img/adv-tech.jpg'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="news-detail-1.html" class="news-card-title">
+              Взаимосвязь пигментов, пластикового сырья и вспомогательных веществ
+            </a>
+            <p class="news-card-excerpt">
+              Красящие вещества в маточных смесях должны полностью учитывать совместимость
+              красителя, пластиковой основы и других вспомогательных веществ в рецептуре.
+              Основные требования к выбору: краситель не должен вступать в реакцию со смолой
+              и различными вспомогательными веществами, должен обладать отличной растворостойкостью,
+              низкой миграцией и хорошей термостабильностью.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date">
+                <i class="fas fa-calendar-alt"></i>25 декабря 2023
+              </span>
+              <a href="news-detail-1.html" class="news-card-more">
+                Подробнее <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── СТАТЬЯ 2 ── -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="news-detail-2.html">
+              <img src="img/news-2.jpg"
+                   alt="Какие изделия производятся из PBT"
+                   loading="lazy" onerror="this.src='img/adv-tech.jpg'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="news-detail-2.html" class="news-card-title">
+              Какие изделия производятся из PBT
+            </a>
+            <p class="news-card-excerpt">
+              PBT (полибутилентерефталат) широко применяется в электронике и электрооборудовании:
+              автоматические выключатели, электромагнитные переключатели, выходные трансформаторы
+              строчной развёртки, ручки бытовых приборов, разъёмы и корпуса. Также используется
+              в автомобильной промышленности и производстве потребительских товаров.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date">
+                <i class="fas fa-calendar-alt"></i>25 декабря 2023
+              </span>
+              <a href="news-detail-2.html" class="news-card-more">
+                Подробнее <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── СТАТЬЯ 3 ── -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="news-detail-3.html">
+              <img src="img/news-3.jpg"
+                   alt="Контроль параметров температуры, давления и скорости при литье под давлением"
+                   loading="lazy" onerror="this.src='img/adv-tech.jpg'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="news-detail-3.html" class="news-card-title">
+              Контроль параметров температуры, давления и скорости в процессе литья под давлением
+            </a>
+            <p class="news-card-excerpt">
+              Температура расплава является критически важным параметром при литье под давлением.
+              Её можно измерить в сопле инжекционной машины или приблизительно оценить методом
+              воздушного впрыска. Настройка температуры цилиндра должна учитывать температуру
+              плавления расплава, частоту вращения шнека, противодавление и объём впрыска.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date">
+                <i class="fas fa-calendar-alt"></i>28 июля 2022
+              </span>
+              <a href="news-detail-3.html" class="news-card-more">
+                Подробнее <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── СТАТЬЯ 4 ── -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="news-detail-4.html">
+              <img src="img/news-2.jpg"
+                   alt="Причины утечек в гидравлической системе термопластавтомата"
+                   loading="lazy" onerror="this.src='img/adv-tech.jpg'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="news-detail-4.html" class="news-card-title">
+              Причины утечек в гидравлической системе термопластавтомата и способы их устранения
+            </a>
+            <p class="news-card-excerpt">
+              Утечка — распространённая неисправность термопластавтоматов, вызванная разностью
+              давлений и зазорами между деталями при движении жидкости в гидравлических элементах
+              и трубопроводах. Суровые условия эксплуатации также отрицательно влияют на
+              герметичность машины. Рассматриваем причины и методы устранения.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date">
+                <i class="fas fa-calendar-alt"></i>10 января 2022
+              </span>
+              <a href="news-detail-4.html" class="news-card-more">
+                Подробнее <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /news-list -->
+
+      <!-- PAGINATION (1 страница, 4 статьи) -->
+      <div class="news-pagination">
+        <div class="news-page-btn disabled" title="Предыдущая">‹</div>
+        <div class="news-page-btn active">1</div>
+        <div class="news-page-btn disabled" title="Следующая">›</div>
+      </div>
+
+    </div><!-- /news-content -->
+  </div><!-- /news-layout -->
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer class="main-footer" itemscope itemtype="https://schema.org/Organization">
+  <meta itemprop="name" content="SUPULIDE — Jiangsu Pulide Plastic Co., Ltd.">
+  <meta itemprop="url" content="https://pldplastics.com">
+
+  <div class="footer-top-section">
+    <div class="container">
+      <div class="footer-4col">
+
+        <!-- Бренд -->
+        <div class="fn-brand">
+          <a href="index.html" class="fn-logo">
+            <img src="img/logo.png" alt="SUPULIDE" onerror="this.style.display='none'">
+            <span>SUPULIDE</span>
+          </a>
+          <p class="fn-desc">Jiangsu Pulide Plastic Co., Ltd. — специализированный поставщик высокоэффективных инженерных полимеров: POE, LCP, PPSU, PSU, PES, PA66, PA12 и других.</p>
+          <div class="fn-social">
+            <a href="https://wa.me/7XXXXXXXXXX" target="_blank" class="fn-social-wa" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="mailto:info@pldplastics.com" class="fn-social-email" aria-label="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Продукты -->
+        <div>
+          <h4 class="fn-heading">Продукты</h4>
+          <nav aria-label="Продукты SUPULIDE">
+            <ul class="fn-links fn-links-grid">
+              <li><a href="product-poe.html">POE</a></li>
+              <li><a href="product-pop.html">POP</a></li>
+              <li><a href="product-obc.html">OBC</a></li>
+              <li><a href="product-eva.html">EVA</a></li>
+              <li><a href="product-eaa.html">EAA</a></li>
+              <li><a href="product-emaa.html">EMAA</a></li>
+              <li><a href="product-evoh.html">EVOH</a></li>
+              <li><a href="product-epdm.html">EPDM</a></li>
+              <li><a href="product-pa12.html">PA12</a></li>
+              <li><a href="product-pa66.html">PA66</a></li>
+              <li><a href="product-pc.html">PC</a></li>
+              <li><a href="product-pmma.html">PMMA</a></li>
+              <li><a href="product-pom.html">POM</a></li>
+              <li><a href="product-lcp.html">LCP</a></li>
+              <li><a href="product-ppsu.html">PPSU</a></li>
+              <li><a href="product-psu.html">PSU</a></li>
+              <li><a href="product-pes.html">PES</a></li>
+              <li><a href="product-xlpe.html">XLPE</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Компания -->
+        <div>
+          <h4 class="fn-heading">Компания</h4>
+          <nav aria-label="Навигация по сайту">
+            <ul class="fn-links">
+              <li><a href="index.html">Главная</a></li>
+              <li><a href="about.html">О нас</a></li>
+              <li><a href="products.html">Все продукты</a></li>
+              <li><a href="brands.html">Бренды</a></li>
+              <li><a href="applications.html">Применения</a></li>
+              <li><a href="warehouse.html">Склад</a></li>
+              <li><a href="news.html">Новости</a></li>
+              <li><a href="contact.html">Контакты</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Контакты -->
+        <div>
+          <h4 class="fn-heading">Контакты</h4>
+          <address class="fn-contacts" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <div class="fn-contact-row">
+              <i class="fas fa-map-marker-alt"></i>
+              <span itemprop="addressLocality">Уси, пров. Цзянсу, Китай</span>
+            </div>
+            <div class="fn-contact-row">
+              <i class="fas fa-phone"></i>
+              <a href="tel:+7XXXXXXXXXX" itemprop="telephone">+7 (XXX) XXX-XX-XX</a>
+            </div>
+            <div class="fn-contact-row">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:info@pldplastics.com" itemprop="email">info@pldplastics.com</a>
+            </div>
+            <div class="fn-contact-row">
+              <i class="fab fa-whatsapp"></i>
+              <a href="https://wa.me/7XXXXXXXXXX" target="_blank">WhatsApp: +7 (XXX) XXX-XX-XX</a>
+            </div>
+          </address>
+          <a href="contact.html" class="fn-cta">
+            <i class="fas fa-comment-dots"></i>&nbsp;Запросить прайс
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom-bar">
+    <div class="container">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2025 Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE). Все права защищены.</span>
+        <nav class="footer-bottom-nav" aria-label="Доп. ссылки">
+          <a href="about.html">О компании</a>
+          <a href="products.html">Продукты</a>
+          <a href="contact.html">Контакты</a>
+          <a href="news.html">Новости</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING SIDEBAR -->
+<div class="float-sidebar">
+  <a href="https://wa.me/7XXXXXXXXXX" class="float-btn float-wa" target="_blank" title="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="float-label">WhatsApp</span>
+  </a>
+  <a href="tel:+7XXXXXXXXXX" class="float-btn float-phone" title="Позвонить">
+    <i class="fas fa-phone"></i>
+    <span class="float-label">Телефон</span>
+  </a>
+  <a href="mailto:info@pldplastics.com" class="float-btn float-email" title="Email">
+    <i class="fas fa-envelope"></i>
+    <span class="float-label">Email</span>
+  </a>
+</div>
+
+<script>
+  const hdr = document.getElementById('mainHeader');
+  window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 10));
+  document.getElementById('burger').addEventListener('click', () => {
+    document.getElementById('mainNav').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

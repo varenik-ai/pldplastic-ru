@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О компании — SUPULIDE | Jiangsu Pulide Plastic</title>
+  <meta name="description" content="О компании Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE) — 20 лет опыта в сфере инженерных пластиков и эластомеров. Сертификаты ISO 9001, ISO 14001, ISO 45001.">
+  <meta name="keywords" content="Jiangsu Pulide Plastic, SUPULIDE о компании, производитель полимеров Китай, ISO 9001, инженерные пластики">
+  <link rel="canonical" href="https://pldplastics.com/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="SUPULIDE — Jiangsu Pulide Plastic">
+  <meta property="og:title" content="О компании SUPULIDE | Jiangsu Pulide Plastic Co., Ltd.">
+  <meta property="og:description" content="Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE) — 20 лет опыта в сфере инженерных пластиков и эластомеров. Сертификаты ISO 9001, ISO 14001, ISO 45001.">
+  <meta property="og:url" content="https://pldplastics.com/about.html">
+  <meta property="og:image" content="https://pldplastics.com/img/og-preview.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── HERO ── */
+    .about-hero {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('img/about-hero.jpg'), url('img/news-hero.webp');
+      background-size: cover;
+      background-position: center;
+    }
+    .about-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,10,40,.42);
+    }
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+    .about-hero-title {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 14px rgba(0,0,0,.35);
+      margin-bottom: 10px;
+    }
+    .about-hero-sub {
+      font-size: 16px;
+      opacity: .85;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb-bar {
+      background: #f5f6fa;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .breadcrumb-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+    .breadcrumb-bar a { color: var(--accent); text-decoration: none; }
+    .breadcrumb-bar a:hover { text-decoration: underline; }
+    .breadcrumb-bar i { font-size: 12px; color: #bbb; }
+
+    /* ── COMPANY INTRO ── */
+    .about-intro {
+      padding: 70px 0 60px;
+    }
+    .about-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    /* Video block */
+    .about-video-wrap {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+      cursor: pointer;
+    }
+    .about-video-wrap img.about-thumb {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .about-play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.22);
+      transition: background .25s;
+    }
+    .about-video-wrap:hover .about-play-overlay { background: rgba(0,0,0,.38); }
+    .about-play-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      color: var(--accent);
+      transition: transform .2s;
+    }
+    .about-video-wrap:hover .about-play-btn { transform: scale(1.1); }
+    #aboutVideoEl {
+      display: none;
+      width: 100%;
+      background: #000;
+    }
+
+    /* Text block */
+    .about-text-block h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 22px;
+      line-height: 1.3;
+    }
+    .about-text-block p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+
+    /* Stats */
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 32px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .about-stat {
+      text-align: center;
+      padding: 22px 12px;
+      border-right: 1px solid var(--border);
+    }
+    .about-stat:last-child { border-right: none; }
+    .stat-num {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a6fc4;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    /* ── CULTURE SECTION ── */
+    .culture-section {
+      background: #f5f6fa;
+      padding: 60px 0 70px;
+    }
+    .culture-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .culture-header h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .culture-header p {
+      color: var(--text-light);
+      font-size: 15px;
+    }
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .culture-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 36px 28px 32px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .culture-card:hover {
+      box-shadow: 0 8px 28px rgba(0,0,0,.10);
+      transform: translateY(-4px);
+    }
+    .culture-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .culture-icon svg {
+      width: 52px;
+      height: 52px;
+      fill: var(--accent);
+    }
+    .culture-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .culture-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 900px) {
+      .about-intro-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
+      .about-stat:nth-child(2) { border-right: none; }
+      .about-stat:nth-child(3) { border-top: 1px solid var(--border); }
+      .about-stat:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+      .culture-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-contacts">
+      <a href="https://wa.me/7XXXXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i>+7 (XXX) XXX-XX-XX</a>
+      <a href="mailto:info@pldplastics.com"><i class="fas fa-envelope"></i>info@pldplastics.com</a>
+      <span><i class="fas fa-map-marker-alt"></i>Уси, пров. Цзянсу, Китай</span>
+    </div>
+    <div class="topbar-right">
+      <a href="contact.html" class="btn-quote"><i class="fas fa-comment-dots"></i>Получить прайс</a>
+      <div class="lang-btn"><i class="fas fa-globe"></i>RU</div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="main-header" id="mainHeader">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="img/logo.png" alt="SUPULIDE — Jiangsu Pulide Plastic" onerror="this.src='img/adv-tech.jpg'">
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li class="has-dropdown">
+          <a href="about.html" class="active">О нас</a>
+        </li>
+        <li class="has-dropdown">
+          <a href="products.html">Продукты <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="products.html#poe">POE / POP / OBC</a>
+            <a href="products.html#eva">EVA / EAA / EMAA</a>
+            <a href="products.html#evoh">EVOH / PA12</a>
+            <a href="products.html#epdm">EPDM</a>
+            <a href="products.html#other">MLLDPE / XLPE / PC</a>
+          </div>
+        </li>
+        <li><a href="warehouse.html">Склад</a></li>
+        <li class="has-dropdown">
+          <a href="news.html">Новости <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="news.html">Новости компании</a>
+            <a href="news-industry.html">Новости отрасли</a>
+          </div>
+        </li>
+        <li><a href="contact.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-bg"></div>
+  <div class="about-hero-overlay"></div>
+  <div class="about-hero-content">
+    <h1 class="about-hero-title">О компании</h1>
+    <p class="about-hero-sub">Jiangsu Pulide Plastic Co., Ltd. — SUPULIDE</p>
+  </div>
+</section>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+    <i class="fas fa-chevron-right"></i>
+    <span>О компании</span>
+  </div>
+</div>
+
+<!-- COMPANY INTRO -->
+<section class="about-intro">
+  <div class="container">
+    <div class="about-intro-grid">
+
+      <!-- Левый блок: видео (inline) -->
+      <div>
+        <div class="about-video-wrap" id="aboutVideoWrap">
+          <img class="about-thumb" id="aboutThumb" src="img/about-video.jpg" onerror="this.src='img/video-thumb.jpg'" alt="Видео о компании SUPULIDE — Jiangsu Pulide Plastic">
+          <div class="about-play-overlay" id="aboutPlayOverlay">
+            <div class="about-play-btn" id="aboutPlayBtn">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+          <video id="aboutVideoEl" src="img/company-video.mp4" controls preload="none"></video>
+        </div>
+      </div>
+
+      <!-- Правый блок: текст + статистика -->
+      <div class="about-text-block">
+        <h1>Jiangsu Pulide Plastic Co., Ltd.</h1>
+
+        <p>Jiangsu Pulide Plastic Co., Ltd. обладает правом на ведение импортно-экспортной деятельности;
+          годовой объём продаж превышает 1&nbsp;млрд юаней. Компания входит в десятку ведущих предприятий
+          внешней торговли высокотехнологичной зоны Хуэйшань (Уси), является передовой единицей в области
+          торговли и предпринимательства, а также признана предприятием с налоговым кредитным рейтингом
+          класса А. Мы предлагаем инновационные решения в области проектирования полимерных изделий и
+          комплексных материалов. Pulide обладает 20-летним опытом работы в полимерной отрасли и
+          специализируется на инженерных пластиках и эластомерах.</p>
+
+        <p>Специальные пластики Pulide прошли сертификацию по системам ISO:
+          <strong>ISO&nbsp;9001</strong> (менеджмент качества),
+          <strong>ISO&nbsp;14001</strong> (экологический менеджмент) и
+          <strong>ISO&nbsp;45001</strong> (охрана труда и промышленная безопасность).</p>
+
+        <p>Корпоративные сертификаты надёжности: предприятие кредитного рейтинга
+          <strong>AAA</strong> в китайской пластмассовой отрасли; AAA — надёжный партнёр по договорам;
+          AAA — добросовестный поставщик услуг; AAA — гарантия качества продукции;
+          AAA — образцовое управление; AAA — высококачественный сервис.</p>
+
+        <!-- Статистика -->
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="stat-num" data-target="2019">0</div>
+            <div class="stat-label">Год основания</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num" data-target="100" data-suffix="+">0</div>
+            <div class="stat-label">Реализованных проектов</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num" data-target="1000" data-suffix="+">0</div>
+            <div class="stat-label">Клиентов по всему миру</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num" data-target="99" data-suffix="%+">0</div>
+            <div class="stat-label">Удовлетворённость клиентов</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE CULTURE -->
+<section class="culture-section">
+  <div class="container">
+    <div class="culture-header">
+      <h2>Корпоративная культура</h2>
+      <p>Ценности и принципы, определяющие нашу работу</p>
+    </div>
+    <div class="culture-grid">
+
+      <!-- Видение -->
+      <div class="culture-card">
+        <div class="culture-icon">
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <path d="M957.56 184.33c-2.25-5.33-7.49-8.77-13.34-8.77h-74.68v-69.94c0-5.73-3.45-10.88-8.8-13.12-5.45-2.28-11.68-1.09-15.87 3.03l-107.59 106 2.67 63.09-207.76 200.4a63.393 63.393 0 0 0-18.81-2.85c-34.05 0-61.75 26.86-61.75 59.87s27.7 59.87 61.75 59.87 61.75-26.86 61.75-59.87c0-6.24-0.99-12.26-2.83-17.92l206.18-198.86 70.82 2.84 105.34-108.43c3.98-4.09 5.13-10.11 2.92-15.34z"/>
+            <path d="M892.53 383.2c-9.05 0-17.29 4.09-22.63 11.21-5.15 6.88-6.72 15.53-4.31 23.74 9.49 32.29 14.3 65.85 14.3 99.76 0 97.36-39.33 188.91-110.74 257.78-71.5 68.96-166.58 106.93-267.73 106.93s-196.24-37.98-267.73-106.93c-71.41-68.88-110.74-160.42-110.74-257.78 0-97.36 39.33-188.91 110.74-257.78 71.5-68.96 166.58-106.93 267.73-106.93 39.71 0 78.77 5.85 116.1 17.4 8.63 2.67 18.1 1.08 25.33-4.25 7.07-5.21 11.12-13.16 11.12-21.81 0-11.98-7.87-22.46-19.58-26.08-41.92-12.96-85.75-19.66-130.28-19.92-57.56-0.32-113.85 10.19-167.26 31.29-53.44 21.11-101.23 51.7-142.03 90.92C110.37 301.9 64.97 410.01 66.97 525.14c0.94 54.33 12.66 107.28 34.84 157.41 22.15 50.06 53.65 94.85 93.62 133.13 81.91 78.43 190.58 121.62 305.98 121.62 116 0 225.08-43.58 307.13-122.72C890.68 735.36 935.92 630 935.92 517.92c0-39.09-5.53-77.75-16.44-114.92-3.41-11.66-14.5-19.8-26.95-19.8z"/>
+            <path d="M508.42 336.1c9.97 0 19.99 0.75 29.8 2.23 8.34 1.26 16.74-1.13 23.04-6.55 6.01-5.17 9.45-12.62 9.45-20.44 0-13.57-9.95-24.93-23.67-27.02a258.527 258.527 0 0 0-40.24-2.9c-135.64 0.84-246.25 108.1-246.57 239.11-0.15 62.46 24.53 121.68 69.5 166.76 22.93 22.99 49.86 41.07 80.02 53.74 31.22 13.11 64.42 19.76 98.67 19.76 136.85 0 248.19-107.52 248.19-239.69 0-12.91-0.86-24.64-2.64-35.86-2.12-13.38-13.76-23.09-27.68-23.09-8.35 0-16.21 3.59-21.55 9.85-5.13 6.01-7.36 13.89-6.13 21.62 1.32 8.26 1.96 17.25 1.96 27.47 0 48.27-19.28 93.99-54.28 128.73-36.95 36.68-86.42 56.66-139.38 56.27-104.31-0.74-189.83-83.09-190.63-183.53-0.38-48.29 18.52-94.15 53.24-129.14 36.66-36.96 85.99-57.32 138.9-57.32z"/>
+          </svg>
+        </div>
+        <h3>Корпоративное видение</h3>
+        <p>Неуклонно следовать духу компании, реализовывать нашу миссию для клиентов и демонстрировать ценности компании всему миру.</p>
+      </div>
+
+      <!-- Команда -->
+      <div class="culture-card">
+        <div class="culture-icon">
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <path d="M647.6 901.4H315.2c-13.8 0-25-11.2-25-25v-58.2l-61.8-197.4c-37.7-56.4-57.6-122.2-57.6-190.5 0-46.3 9.1-91.2 27-133.5 17.3-40.8 42-77.5 73.5-109s68.2-56.2 109-73.5c42.3-17.9 87.2-27 133.5-27s91.2 9.1 133.5 27c40.8 17.3 77.5 42 109 73.5s56.2 68.2 73.5 109c17 40.2 26 82.8 26.9 126.6l79.5 136.5c4.5 7.7 4.5 17.3 0.1 25s-12.7 12.5-21.7 12.5h-60.1L838.7 791c-1.1 13-11.9 23-24.9 23H672.6v62.4c0 13.8-11.2 25-25 25z m-307.4-50h282.4V789c0-13.8 11.2-25 25-25h143.2l15.8-193.5c1.1-13 11.9-23 24.9-23h39.6l-60.9-104.6c-2.2-3.8-3.4-8.2-3.4-12.6 0-161.6-131.4-293-293-293s-293 131.4-293 293c0 59.5 17.6 116.6 51 165.4 1.4 2 2.5 4.3 3.2 6.7L339 807c0.8 2.4 1.1 4.9 1.1 7.5v36.9z"/>
+            <path d="M376.6 455.3H195.8c-13.8 0-25-11.2-25-25s11.2-25 25-25h180.8c13.8 0 25 11.2 25 25s-11.2 25-25 25z m455.2 0H666.2c-13.8 0-25-11.2-25-25s11.2-25 25-25h165.6c13.8 0 25 11.2 25 25s-11.2 25-25 25z"/>
+          </svg>
+        </div>
+        <h3>Дух команды</h3>
+        <p>Любить компанию как свой дом. Быть практичным, новаторским, преданным делу и стремиться к постоянному профессиональному росту.</p>
+      </div>
+
+      <!-- Стандарты -->
+      <div class="culture-card">
+        <div class="culture-icon">
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <path d="M517.12 583.68c-36.7616 0-66.56-29.58336-66.56-66.56 0-36.48512 29.7984-66.56 66.56-66.56s66.56 30.07488 66.56 66.56c0 36.97664-29.7984 66.56-66.56 66.56z"/>
+            <path d="M360.87808 742.02112c-7.51616-34.17088-13.34272-71.28064-17.24416-110.73536-41.0112-27.91424-78.51008-57.4464-111.24736-87.58272a579.44064 579.44064 0 0 0-32.8192 36.3008c-51.4048 61.96224-70.5536 115.6096-52.3264 147.0464 12.60544 21.72928 45.312 33.75104 92.03712 33.75104 35.49184 0 76.88192-6.52288 121.6-18.78016z m9.04192 36.74112C322.12992 791.78752 277.66784 798.72 239.27808 798.72c-78.0288 0-111.2064-28.672-125.21472-52.71552-32.48128-56.32 4.53632-141.53728 90.60352-229.13024a618.0352 618.0352 0 0 1-36.8128-40.9088c-61.21472-74.9056-80.384-141.49632-53.73952-187.72992C128.13312 264.192 161.31072 235.52 239.34976 235.52c37.72416 0 81.3056 6.7584 128.16384 19.4048C399.85152 130.38592 455.9872 51.2 522.24 51.2c65.67936 0 121.10848 77.09696 153.5488 198.78912C715.264 240.52736 752.0768 235.52 784.5376 235.52c78.0288 0 111.2064 28.672 125.22496 52.71552 32.74752 56.28928-4.096 141.43488-90.12224 228.9664 85.85216 87.48032 122.74688 172.544 90.29632 228.80256C895.44704 770.048 862.73024 798.72 784.2304 798.72c-33.13664 0-70.79936-5.2224-111.21664-15.0528C640.16384 899.76832 585.8816 972.8 522.24 972.8c-64.84992 0-119.72608-74.99776-152.32-194.03776z"/>
+          </svg>
+        </div>
+        <h3>Стандарты работы</h3>
+        <p>Быть вежливым и культурным. Вести себя достойно, строго соблюдать правила и нормы. Проявлять готовность к взаимопомощи и дружелюбие к коллегам.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="main-footer" itemscope itemtype="https://schema.org/Organization">
+  <meta itemprop="name" content="SUPULIDE — Jiangsu Pulide Plastic Co., Ltd.">
+  <meta itemprop="url" content="https://pldplastics.com">
+
+  <div class="footer-top-section">
+    <div class="container">
+      <div class="footer-4col">
+
+        <!-- Бренд -->
+        <div class="fn-brand">
+          <a href="index.html" class="fn-logo">
+            <img src="img/logo.png" alt="SUPULIDE" onerror="this.style.display='none'">
+            <span>SUPULIDE</span>
+          </a>
+          <p class="fn-desc">Jiangsu Pulide Plastic Co., Ltd. — специализированный поставщик высокоэффективных инженерных полимеров: POE, LCP, PPSU, PSU, PES, PA66, PA12 и других.</p>
+          <div class="fn-social">
+            <a href="https://wa.me/7XXXXXXXXXX" target="_blank" class="fn-social-wa" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="mailto:info@pldplastics.com" class="fn-social-email" aria-label="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Продукты -->
+        <div>
+          <h4 class="fn-heading">Продукты</h4>
+          <nav aria-label="Продукты SUPULIDE">
+            <ul class="fn-links fn-links-grid">
+              <li><a href="product-poe.html">POE</a></li>
+              <li><a href="product-pop.html">POP</a></li>
+              <li><a href="product-obc.html">OBC</a></li>
+              <li><a href="product-eva.html">EVA</a></li>
+              <li><a href="product-eaa.html">EAA</a></li>
+              <li><a href="product-emaa.html">EMAA</a></li>
+              <li><a href="product-evoh.html">EVOH</a></li>
+              <li><a href="product-epdm.html">EPDM</a></li>
+              <li><a href="product-pa12.html">PA12</a></li>
+              <li><a href="product-pa66.html">PA66</a></li>
+              <li><a href="product-pc.html">PC</a></li>
+              <li><a href="product-pmma.html">PMMA</a></li>
+              <li><a href="product-pom.html">POM</a></li>
+              <li><a href="product-lcp.html">LCP</a></li>
+              <li><a href="product-ppsu.html">PPSU</a></li>
+              <li><a href="product-psu.html">PSU</a></li>
+              <li><a href="product-pes.html">PES</a></li>
+              <li><a href="product-xlpe.html">XLPE</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Компания -->
+        <div>
+          <h4 class="fn-heading">Компания</h4>
+          <nav aria-label="Навигация по сайту">
+            <ul class="fn-links">
+              <li><a href="index.html">Главная</a></li>
+              <li><a href="about.html">О нас</a></li>
+              <li><a href="products.html">Все продукты</a></li>
+              <li><a href="brands.html">Бренды</a></li>
+              <li><a href="applications.html">Применения</a></li>
+              <li><a href="warehouse.html">Склад</a></li>
+              <li><a href="news.html">Новости</a></li>
+              <li><a href="contact.html">Контакты</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Контакты -->
+        <div>
+          <h4 class="fn-heading">Контакты</h4>
+          <address class="fn-contacts" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <div class="fn-contact-row">
+              <i class="fas fa-map-marker-alt"></i>
+              <span itemprop="addressLocality">Уси, пров. Цзянсу, Китай</span>
+            </div>
+            <div class="fn-contact-row">
+              <i class="fas fa-phone"></i>
+              <a href="tel:+7XXXXXXXXXX" itemprop="telephone">+7 (XXX) XXX-XX-XX</a>
+            </div>
+            <div class="fn-contact-row">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:info@pldplastics.com" itemprop="email">info@pldplastics.com</a>
+            </div>
+            <div class="fn-contact-row">
+              <i class="fab fa-whatsapp"></i>
+              <a href="https://wa.me/7XXXXXXXXXX" target="_blank">WhatsApp: +7 (XXX) XXX-XX-XX</a>
+            </div>
+          </address>
+          <a href="contact.html" class="fn-cta">
+            <i class="fas fa-comment-dots"></i>&nbsp;Запросить прайс
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom-bar">
+    <div class="container">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2025 Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE). Все права защищены.</span>
+        <nav class="footer-bottom-nav" aria-label="Доп. ссылки">
+          <a href="about.html">О компании</a>
+          <a href="products.html">Продукты</a>
+          <a href="contact.html">Контакты</a>
+          <a href="news.html">Новости</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Sticky header
+const header = document.getElementById('mainHeader');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Burger menu
+document.getElementById('burger').addEventListener('click', function() {
+  document.getElementById('mainNav').classList.toggle('open');
+  this.classList.toggle('open');
+});
+
+// Inline video play
+const playBtn  = document.getElementById('aboutPlayBtn');
+const thumb    = document.getElementById('aboutThumb');
+const overlay  = document.getElementById('aboutPlayOverlay');
+const videoEl  = document.getElementById('aboutVideoEl');
+
+if (playBtn && videoEl) {
+  playBtn.addEventListener('click', () => {
+    thumb.style.display   = 'none';
+    overlay.style.display = 'none';
+    videoEl.style.display = 'block';
+    videoEl.play();
+  });
+}
+
+// Animated counters
+function animateCounter(el) {
+  const target = +el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const step = target / (duration / 16);
+  let current = 0;
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      el.textContent = target + suffix;
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current) + (current > target * 0.5 ? suffix : '');
+    }
+  }, 16);
+}
+
+const counters = document.querySelectorAll('.stat-num[data-target]');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+counters.forEach(c => io.observe(c));
+</script>
+</body>
+</html>
