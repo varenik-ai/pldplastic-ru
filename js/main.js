@@ -2,6 +2,45 @@
    SUPULIDE Russia — main.js
    ============================================================ */
 
+/* --- WeChat: копировать ID + toast + открыть на мобиле --- */
+(function () {
+  var WX_ID = 'Leo_Li81';
+
+  function showToast() {
+    var toast = document.getElementById('wechat-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'wechat-toast';
+      toast.innerHTML = '<i class="fab fa-weixin"></i>&nbsp;WeChat ID скопирован: <strong>' + WX_ID + '</strong>';
+      document.body.appendChild(toast);
+    }
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { toast.classList.remove('show'); }, 3000);
+  }
+
+  window.handleWechat = function (e) {
+    e.preventDefault();
+    // Копируем в буфер
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(WX_ID).then(showToast).catch(showToast);
+    } else {
+      var el = document.createElement('textarea');
+      el.value = WX_ID;
+      el.style.position = 'fixed'; el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.focus(); el.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(el);
+      showToast();
+    }
+    // На мобиле дополнительно пробуем открыть WeChat
+    if (/mobile|android|iphone|ipad/i.test(navigator.userAgent)) {
+      setTimeout(function () { window.location.href = 'weixin://dl/chat?' + WX_ID; }, 200);
+    }
+  };
+})();
+
 /* --- Dropdown toggle (стрелка отдельно от ссылки) --- */
 (function () {
   document.addEventListener('click', function (e) {

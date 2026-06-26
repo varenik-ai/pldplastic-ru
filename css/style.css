@@ -1523,6 +1523,26 @@ p.about-text {
 .float-btn:hover .float-label { opacity: 1; }
 .float-wechat { color: #07c160; }
 .float-wechat:hover { background: #07c160 !important; border-color: #07c160 !important; color: #fff !important; }
+
+/* WeChat toast */
+#wechat-toast {
+  position: fixed;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: #07c160;
+  color: #fff;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity .25s, transform .25s;
+  z-index: 99999;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(7,193,96,.35);
+}
+#wechat-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .float-email { color: #e84242; }
 
 @media (max-width: 600px) {
