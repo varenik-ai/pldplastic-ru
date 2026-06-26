@@ -63,6 +63,8 @@ a  { text-decoration: none; color: inherit; transition: .2s; }
   font-size: 13px;
 }
 .topbar-contacts a:hover { color: #fff; }
+.topbar-contacts .wechat-link { color: rgba(255,255,255,.88); }
+.topbar-contacts .wechat-link:hover { color: #07c160; }
 .topbar-right { display: flex; align-items: center; gap: 14px; }
 .btn-quote {
   background: var(--orange);
@@ -1229,8 +1231,8 @@ p.about-text {
   text-decoration: none;
   transition: all .2s;
 }
-.fn-social-wa { background: #25d366; color: #fff; }
-.fn-social-wa:hover { background: #1da851; transform: translateY(-2px); }
+.fn-social-wechat { background: #07c160; color: #fff; }
+.fn-social-wechat:hover { background: #059a4d; transform: translateY(-2px); }
 .fn-social-email {
   background: #e2e6ed;
   color: #555;
@@ -1519,9 +1521,8 @@ p.about-text {
   margin-left: 8px;
 }
 .float-btn:hover .float-label { opacity: 1; }
-.float-wa { color: #25d366; }
-.float-wa:hover { background: #25d366 !important; border-color: #25d366 !important; color: #fff !important; }
-.float-phone { color: var(--blue); }
+.float-wechat { color: #07c160; }
+.float-wechat:hover { background: #07c160 !important; border-color: #07c160 !important; color: #fff !important; }
 .float-email { color: #e84242; }
 
 @media (max-width: 600px) {
