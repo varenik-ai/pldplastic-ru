@@ -37,8 +37,9 @@ a  { text-decoration: none; color: inherit; transition: .2s; }
   background: var(--blue-top);
   color: rgba(255,255,255,.88);
   font-size: 13px;
-  position: relative;
-  z-index: 110;
+  position: sticky;
+  top: 0;
+  z-index: 102;
 }
 .topbar-inner {
   max-width: 1260px;
@@ -99,8 +100,8 @@ a  { text-decoration: none; color: inherit; transition: .2s; }
   background: #fff;
   box-shadow: 0 1px 8px rgba(0,0,0,.08);
   position: sticky;
-  top: 0;
-  z-index: 100;
+  top: 44px;
+  z-index: 101;
   transition: box-shadow .3s;
 }
 .main-header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.14); }
