@@ -19,13 +19,13 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
   color: var(--text);
   line-height: 1.7;
   font-size: 15px;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 img { max-width: 100%; display: block; }
 a  { text-decoration: none; color: inherit; transition: .2s; }
