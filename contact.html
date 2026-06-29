@@ -49,7 +49,7 @@
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "sales",
-      "email": "info@pldplastics.com",
+      "email": "export@pldpolymer.com",
       "availableLanguage": ["Russian", "English", "Chinese"]
     },
     "sameAs": [
@@ -298,7 +298,7 @@
   <div class="topbar-inner">
     <div class="topbar-contacts">
       <a href="javascript:void(0)" onclick="handleWechat(event)" class="wechat-link"><i class="fab fa-weixin"></i>WeChat: Leo_Li81</a>
-      <a href="mailto:info@pldplastics.com"><i class="fas fa-envelope"></i>info@pldplastics.com</a>
+      <a href="mailto:export@pldpolymer.com"><i class="fas fa-envelope"></i>export@pldpolymer.com</a>
       <span><i class="fas fa-map-marker-alt"></i>Уси, пров. Цзянсу, Китай</span>
     </div>
     <div class="topbar-right">
@@ -393,7 +393,7 @@
           <div class="contact-item-body">
             <div class="contact-item-label">Электронная почта</div>
             <div class="contact-item-value">
-              <a href="mailto:info@pldplastics.com">info@pldplastics.com</a>
+              <a href="mailto:export@pldpolymer.com">export@pldpolymer.com</a>
             </div>
           </div>
         </div>
@@ -419,15 +419,11 @@
       </div>
 
       <div class="contact-form">
-        <!--
-          Для работы формы на GitHub Pages подключите Formspree:
-          1. Зарегистрируйтесь на formspree.io
-          2. Создайте форму, получите ID (например, xpznqwab)
-          3. Замените action ниже на: https://formspree.io/f/ВАШИ_ID
-        -->
-        <form action="https://formspree.io/f/XXXXXXXX" method="POST" id="contactForm">
-          <input type="hidden" name="_subject" value="Новый запрос с сайта pldplastics.com">
+        <form action="https://formsubmit.co/export@pldpolymer.com" method="POST" id="contactForm">
+          <input type="hidden" name="_subject" value="Новый запрос с сайта pldpolymer.com">
           <input type="hidden" name="_language" value="ru">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://pldpolymer.com/contact.html?sent=1">
 
           <div class="form-row">
             <div class="form-group">
@@ -491,7 +487,7 @@
             <a href="javascript:void(0)" onclick="handleWechat(event)" class="fn-social-wechat" aria-label="WeChat">
               <i class="fab fa-weixin"></i>
             </a>
-            <a href="mailto:info@pldplastics.com" class="fn-social-email" aria-label="Email">
+            <a href="mailto:export@pldpolymer.com" class="fn-social-email" aria-label="Email">
               <i class="fas fa-envelope"></i>
             </a>
           </div>
@@ -537,7 +533,7 @@
             </div>
             <div class="fn-contact-row">
               <i class="fas fa-envelope"></i>
-              <a href="mailto:info@pldplastics.com" itemprop="email">info@pldplastics.com</a>
+              <a href="mailto:export@pldpolymer.com" itemprop="email">export@pldpolymer.com</a>
             </div>
             <div class="fn-contact-row">
               <i class="fab fa-weixin"></i>
@@ -574,7 +570,7 @@
     <i class="fab fa-weixin"></i>
     <span class="float-label">WeChat</span>
   </a>
-  <a href="mailto:info@pldplastics.com" class="float-btn float-email" title="Email">
+  <a href="mailto:export@pldpolymer.com" class="float-btn float-email" title="Email">
     <i class="fas fa-envelope"></i>
     <span class="float-label">Email</span>
   </a>
@@ -601,12 +597,12 @@
         } else {
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Отправить';
-          alert('Ошибка отправки. Напишите нам на info@pldplastics.com');
+          alert('Ошибка отправки. Напишите нам на export@pldpolymer.com');
         }
       }).catch(() => {
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Отправить';
-        alert('Ошибка сети. Напишите нам на info@pldplastics.com');
+        alert('Ошибка сети. Напишите нам на export@pldpolymer.com');
       });
     });
   }
