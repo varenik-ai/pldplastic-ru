@@ -418,7 +418,7 @@
       </div>
 
       <div class="contact-form">
-        <form action="https://formsubmit.co/ajax/export@pldpolymer.com" method="POST" id="contactForm">
+        <form action="https://formsubmit.co/export@pldpolymer.com" method="POST" id="contactForm">
           <input type="hidden" name="_subject" value="Новый запрос с сайта pldpolymer.com">
           <input type="hidden" name="_language" value="ru">
           <input type="hidden" name="_captcha" value="false">
@@ -578,32 +578,10 @@
 <script>
   const hdr = document.getElementById('mainHeader');
   window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 10));
-  // Formspree AJAX (optional UX improvement)
-  const form = document.getElementById('contactForm');
-  const btn  = document.getElementById('submitBtn');
-  if (form && window.fetch) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px"></i>Отправляем…';
-      fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      }).then(r => {
-        if (r.ok) {
-          form.innerHTML = '<p style="text-align:center;font-size:18px;color:var(--blue);padding:40px 0"><i class="fas fa-check-circle" style="font-size:48px;display:block;margin-bottom:16px"></i>Спасибо! Ваше сообщение получено. Мы свяжемся с вами в течение 24 часов.</p>';
-        } else {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Отправить';
-          alert('Ошибка отправки. Напишите нам на export@pldpolymer.com');
-        }
-      }).catch(() => {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Отправить';
-        alert('Ошибка сети. Напишите нам на export@pldpolymer.com');
-      });
-    });
+  // Показываем сообщение об успехе если вернулись после отправки
+  if (window.location.search.includes('sent=1')) {
+    const form = document.getElementById('contactForm');
+    if (form) form.innerHTML = '<p style="text-align:center;font-size:18px;color:var(--blue);padding:40px 0"><i class="fas fa-check-circle" style="font-size:48px;display:block;margin-bottom:16px"></i>Спасибо! Ваше сообщение получено. Мы свяжемся с вами в течение 24 часов.</p>';
   }
 </script>
 <script src="js/main.js"></script>
