@@ -737,13 +737,7 @@
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 10);
   });
-
-  // ── Burger menu ──
-  document.getElementById('burger').addEventListener('click', () => {
-    document.getElementById('mainNav').classList.toggle('open');
-  });
-
-  // ── Animated counters ──
+// ── Animated counters ──
   function animateCounter(el) {
     const target = +el.dataset.target;
     const suffix = el.dataset.suffix || '';

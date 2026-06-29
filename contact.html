@@ -571,9 +571,6 @@
 <script>
   const hdr = document.getElementById('mainHeader');
   window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 10));
-  document.getElementById('burger').addEventListener('click', () => {
-    document.getElementById('mainNav').classList.toggle('open');
-  });
   // Formspree AJAX (optional UX improvement)
   const form = document.getElementById('contactForm');
   const btn  = document.getElementById('submitBtn');

@@ -1650,6 +1650,8 @@ p.about-text {
 /* Topbar — скрываем на мобильных (слишком много элементов для 430px) */
 @media (max-width: 768px) {
   .topbar { display: none; }
+  /* Шапка на мобиле — не фиксируем, прокручивается со страницей */
+  .main-header { position: relative; top: 0; }
 }
 
 /* Hero — уменьшаем высоту и шрифты */
