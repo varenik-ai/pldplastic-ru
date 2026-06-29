@@ -418,11 +418,10 @@
       </div>
 
       <div class="contact-form">
-        <form action="https://formsubmit.co/export@pldpolymer.com" method="POST" id="contactForm">
-          <input type="hidden" name="_subject" value="Новый запрос с сайта pldpolymer.com">
-          <input type="hidden" name="_language" value="ru">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://pldpolymer.com/contact.html?sent=1">
+        <form id="contactForm">
+          <input type="hidden" name="access_key" value="c44e2f6b-8071-42af-947a-a1ea99ed12dc">
+          <input type="hidden" name="subject" value="Новый запрос с сайта pldpolymer.com">
+          <input type="hidden" name="from_name" value="SUPULIDE Website">
 
           <div class="form-row">
             <div class="form-group">
@@ -578,10 +577,34 @@
 <script>
   const hdr = document.getElementById('mainHeader');
   window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 10));
-  // Показываем сообщение об успехе если вернулись после отправки
-  if (window.location.search.includes('sent=1')) {
-    const form = document.getElementById('contactForm');
-    if (form) form.innerHTML = '<p style="text-align:center;font-size:18px;color:var(--blue);padding:40px 0"><i class="fas fa-check-circle" style="font-size:48px;display:block;margin-bottom:16px"></i>Спасибо! Ваше сообщение получено. Мы свяжемся с вами в течение 24 часов.</p>';
+  // Web3Forms AJAX
+  const form = document.getElementById('contactForm');
+  const btn  = document.getElementById('submitBtn');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px"></i>Отправляем…';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        const data = await res.json();
+        if (data.success) {
+          form.innerHTML = '<p style="text-align:center;font-size:18px;color:var(--blue);padding:40px 0"><i class="fas fa-check-circle" style="font-size:48px;display:block;margin-bottom:16px"></i>Спасибо! Ваше сообщение получено.<br>Мы свяжемся с вами в течение 24 часов.</p>';
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Отправить';
+          alert('Ошибка: ' + (data.message || 'попробуйте ещё раз'));
+        }
+      } catch {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Отправить';
+        alert('Ошибка сети. Напишите нам на export@pldpolymer.com');
+      }
+    });
   }
 </script>
 <script src="js/main.js"></script>
