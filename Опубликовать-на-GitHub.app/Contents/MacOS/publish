@@ -1,0 +1,7 @@
+#!/bin/bash
+osascript <<'APPLESCRIPT'
+tell application "Terminal"
+    activate
+    do script "cd ~/Desktop/pldplastic-ru && rm -f .git/index.lock && git add -A && git commit -m 'Nav: Products link navigates directly, chevron toggles dropdown' && git push origin main && echo '✅ Загружено на GitHub!' || echo '❌ Ошибка'"
+end tell
+APPLESCRIPT
