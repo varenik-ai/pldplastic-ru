@@ -545,7 +545,10 @@
       <div class="enquiry-left">
         <span class="sec-tag">ONLINE ENQUIRY</span>
         <h3 class="enquiry-title">Jiangsu Pulide has an extensive network of domestic and international partners. We will provide you with the best materials.</h3>
-        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="enquiry-form">
+        <form id="contactForm" class="enquiry-form">
+          <input type="hidden" name="access_key" value="c44e2f6b-8071-42af-947a-a1ea99ed12dc">
+          <input type="hidden" name="subject" value="New enquiry from pldpolymer.com homepage (EN)">
+          <input type="hidden" name="from_name" value="SUPULIDE Website">
           <div class="form-group">
             <input type="text" name="name" placeholder="Your name" required>
           </div>
@@ -558,7 +561,7 @@
           <button type="submit" class="btn-submit-enquiry">
             Send Request <i class="fas fa-arrow-right"></i>
           </button>
-          <div class="form-success" id="formSuccess">
+          <div class="form-success" id="formSuccess" style="display:none">
             <i class="fas fa-check-circle"></i> Thank you! We will get back to you within 24 hours.
           </div>
         </form>
@@ -810,18 +813,24 @@
       e.preventDefault();
       const btn = form.querySelector('.btn-submit-enquiry');
       btn.disabled = true;
-      btn.textContent = 'Отправка…';
+      btn.textContent = 'Sending…';
       try {
-        const res = await fetch(form.action, {
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' }
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
         });
-        if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
           form.reset();
           document.getElementById('formSuccess').style.display = 'block';
+          setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 6000);
+        } else {
+          alert('Error: ' + (data.message || 'please try again'));
         }
-      } catch(_) {}
+      } catch(_) {
+        alert('Network error. Please email us at export@pldpolymer.com');
+      }
       btn.disabled = false;
       btn.innerHTML = 'Send Request <i class="fas fa-arrow-right"></i>';
     });

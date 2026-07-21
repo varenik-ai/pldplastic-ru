@@ -213,10 +213,12 @@
   check();
 })();
 
-/* --- Contact form --- */
+/* --- Contact form (fallback only — skip if Web3Forms inline handler present) --- */
 (function () {
   var form = document.getElementById('contactForm');
   if (!form) return;
+  /* If form has Web3Forms access_key — it has its own handler, don't interfere */
+  if (form.querySelector('[name="access_key"]')) return;
   var ok   = document.getElementById('formSuccess');
   form.addEventListener('submit', function (e) {
     e.preventDefault();

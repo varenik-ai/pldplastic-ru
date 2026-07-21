@@ -546,7 +546,10 @@
       <div class="enquiry-left">
         <span class="sec-tag">ОНЛАЙН-ЗАПРОС</span>
         <h3 class="enquiry-title">Jiangsu Pulide располагает широкой сетью партнёров внутри страны и за рубежом. Мы предоставим вам наилучшие материалы.</h3>
-        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="enquiry-form">
+        <form id="contactForm" class="enquiry-form">
+          <input type="hidden" name="access_key" value="c44e2f6b-8071-42af-947a-a1ea99ed12dc">
+          <input type="hidden" name="subject" value="Новый запрос с главной страницы pldpolymer.com">
+          <input type="hidden" name="from_name" value="SUPULIDE Website">
           <div class="form-group">
             <input type="text" name="name" placeholder="Имя" required>
           </div>
@@ -559,7 +562,7 @@
           <button type="submit" class="btn-submit-enquiry">
             Отправить заявку <i class="fas fa-arrow-right"></i>
           </button>
-          <div class="form-success" id="formSuccess">
+          <div class="form-success" id="formSuccess" style="display:none">
             <i class="fas fa-check-circle"></i> Спасибо! Мы свяжемся с вами в течение 24 часов.
           </div>
         </form>
@@ -813,16 +816,22 @@
       btn.disabled = true;
       btn.textContent = 'Отправка…';
       try {
-        const res = await fetch(form.action, {
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' }
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
         });
-        if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
           form.reset();
           document.getElementById('formSuccess').style.display = 'block';
+          setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 6000);
+        } else {
+          alert('Ошибка: ' + (data.message || 'попробуйте ещё раз'));
         }
-      } catch(_) {}
+      } catch(_) {
+        alert('Ошибка сети. Напишите нам на export@pldpolymer.com');
+      }
       btn.disabled = false;
       btn.innerHTML = 'Отправить заявку <i class="fas fa-arrow-right"></i>';
     });
