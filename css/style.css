@@ -1766,3 +1766,31 @@ p.about-text {
     transform: none;
   }
 }
+
+/* ── Language Switcher ── */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+.lang-switcher .lang-active {
+  font-weight: 700;
+  color: #fff;
+  font-size: 13px;
+  padding: 3px 8px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+.lang-switcher .lang-link {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.lang-switcher .lang-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
