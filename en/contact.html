@@ -595,11 +595,11 @@
         });
         const data = await res.json();
         if (data.success) {
-          form.innerHTML = '<p style="text-align:center;font-size:18px;color:var(--blue);padding:40px 0"><i class="fas fa-check-circle" style="font-size:48px;display:block;margin-bottom:16px"></i>Спасибо! Ваше сообщение получено.<br>Мы свяжемся с вами в течение 24 hours.</p>';
+          form.innerHTML = '<p style="text-align:center;font-size:18px;color:var(--blue);padding:40px 0"><i class="fas fa-check-circle" style="font-size:48px;display:block;margin-bottom:16px"></i>Thank you! Your message has been received.<br>We will contact you within 24 hours.</p>';
         } else {
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Send';
-          alert('Ошибка: ' + (data.message || 'попробуйте ещё раз'));
+          alert('Error: ' + (data.message || 'please try again'));
         }
       } catch {
         btn.disabled = false;
