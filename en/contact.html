@@ -29,7 +29,8 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="SUPULIDE — Jiangsu Pulide Plastic">
   <meta property="og:title" content="Contact Us — Request a Quote | SUPULIDE">
-  <meta property="og:description" content="Contact us SUPULIDE — Jiangsu Pulide Plastic Co., Ltd.<br><meta property="og:url" content="https://pldpolymer.com/en/contact.html">
+  <meta property="og:description" content="Contact SUPULIDE (Jiangsu Pulide Plastic Co., Ltd.) — email, WeChat. We reply within 24 hours.">
+  <meta property="og:url" content="https://pldpolymer.com/en/contact.html">
   <meta property="og:image" content="https://pldpolymer.com/img/og-preview.webp">
   <script type="application/ld+json">
   {
@@ -552,7 +553,7 @@
   <div class="footer-bottom-bar">
     <div class="container">
       <div class="footer-bottom-inner">
-        <span>&copy; 2025 Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE). All rights reserved.</span>
+        <span>&copy; 2026 Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE). All rights reserved.</span>
         <nav class="footer-bottom-nav" aria-label="Quick Links">
           <a href="about.html">About Us</a>
           <a href="products.html">Products</a>
@@ -586,7 +587,7 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px"></i>Отправляем…';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px"></i>Sending…';
       try {
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
@@ -604,7 +605,7 @@
       } catch {
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Send';
-        alert('Ошибка сети. Напишите нам на export@pldpolymer.com');
+        alert('Network error. Please email us at export@pldpolymer.com');
       }
     });
   }
