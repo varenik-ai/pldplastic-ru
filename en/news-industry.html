@@ -29,24 +29,23 @@
   <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Company News — Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE)</title>
-  <meta name="description" content="Company news from Jiangsu Pulide Plastic (SUPULIDE) — industry updates, polymer and plastics manufacturing articles.">
-  <meta name="keywords" content="polymer news, SUPULIDE news, polymer market, plastics manufacturing">
-  <link rel="canonical" href="https://pldpolymer.com/en/news.html">
-  <link rel="alternate" hreflang="ru" href="https://pldpolymer.com/news.html">
-  <link rel="alternate" hreflang="en" href="https://pldpolymer.com/en/news.html">
-  <link rel="alternate" hreflang="x-default" href="https://pldpolymer.com/news.html">
+  <title>Industry News — Jiangsu Pulide Plastic Co., Ltd. (SUPULIDE)</title>
+  <meta name="description" content="Polymer industry news from Jiangsu Pulide Plastic (SUPULIDE) — trends, technologies, and plastics market analysis.">
+  <meta name="keywords" content="polymer industry news, plastics market, SUPULIDE, Jiangsu Pulide">
+  <link rel="canonical" href="https://pldpolymer.com/en/news-industry.html">
+  <link rel="alternate" hreflang="ru" href="https://pldpolymer.com/news-industry.html">
+  <link rel="alternate" hreflang="en" href="https://pldpolymer.com/en/news-industry.html">
+  <link rel="alternate" hreflang="x-default" href="https://pldpolymer.com/news-industry.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="SUPULIDE — Jiangsu Pulide Plastic">
-  <meta property="og:title" content="Company News — SUPULIDE | Jiangsu Pulide Plastic">
-  <meta property="og:description" content="Company news from Jiangsu Pulide Plastic (SUPULIDE) — industry updates, polymer and plastics manufacturing articles.">
-  <meta property="og:url" content="https://pldpolymer.com/en/news.html">
+  <meta property="og:title" content="Industry News — SUPULIDE | Jiangsu Pulide Plastic">
+  <meta property="og:description" content="Industry news on the polymers and plastics market from SUPULIDE (Jiangsu Pulide Plastic).">
+  <meta property="og:url" content="https://pldpolymer.com/en/news-industry.html">
   <meta property="og:image" content="https://pldpolymer.com/img/og-preview.webp">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* ── NEWS HERO ── */
     .news-hero {
       position: relative;
       height: 380px;
@@ -91,8 +90,6 @@
       0%,100% { transform: translateX(-50%) translateY(0); }
       50%      { transform: translateX(-50%) translateY(7px); }
     }
-
-    /* ── MAIN LAYOUT ── */
     .news-layout {
       display: grid;
       grid-template-columns: 220px 1fr;
@@ -100,8 +97,6 @@
       padding: 48px 0 70px;
       align-items: start;
     }
-
-    /* ── LEFT SIDEBAR ── */
     .news-sidebar {
       background: #fff;
       border: 1px solid var(--border);
@@ -120,9 +115,7 @@
       align-items: center;
       gap: 8px;
     }
-    .news-cat-list {
-      list-style: none;
-    }
+    .news-cat-list { list-style: none; }
     .news-cat-list li a {
       display: flex;
       align-items: center;
@@ -140,13 +133,7 @@
       color: var(--blue);
       padding-left: 24px;
     }
-    .news-cat-list li a i {
-      color: var(--blue);
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-
-    /* ── BREADCRUMB + HEADING ── */
+    .news-cat-list li a i { color: var(--blue); font-size: 12px; flex-shrink: 0; }
     .news-breadcrumb {
       display: flex;
       align-items: center;
@@ -165,8 +152,6 @@
       color: var(--text);
       margin-bottom: 28px;
     }
-
-    /* ── ARTICLE CARDS (horizontal) ── */
     .news-list { display: flex; flex-direction: column; }
     .news-card {
       display: grid;
@@ -191,10 +176,7 @@
       transition: transform .4s;
     }
     .news-card:hover .news-card-img img { transform: scale(1.05); }
-    .news-card-body {
-      display: flex;
-      flex-direction: column;
-    }
+    .news-card-body { display: flex; flex-direction: column; }
     .news-card-title {
       font-size: 17px;
       font-weight: 700;
@@ -243,13 +225,7 @@
       padding: 5px 12px;
       transition: background .2s, color .2s, gap .2s;
     }
-    .news-card-more:hover {
-      background: var(--blue);
-      color: #fff;
-      gap: 9px;
-    }
-
-    /* ── PAGINATION ── */
+    .news-card-more:hover { background: var(--blue); color: #fff; gap: 9px; }
     .news-pagination {
       display: flex;
       align-items: center;
@@ -269,22 +245,19 @@
       transition: background .2s, color .2s, border-color .2s;
     }
     .news-page-btn.active,
-    .news-page-btn:hover:not(.disabled) {
-      background: var(--blue); color: #fff; border-color: var(--blue);
-    }
+    .news-page-btn:hover:not(.disabled) { background: var(--blue); color: #fff; border-color: var(--blue); }
     .news-page-btn.disabled { opacity: .35; pointer-events: none; }
-
     @media (max-width: 960px) {
       .news-layout { grid-template-columns: 1fr; gap: 24px; }
-      .news-sidebar { position: static; display: flex; flex-direction: row; align-items: center; border-radius: var(--radius); }
-      .news-sidebar-title { border-radius: 0; white-space: nowrap; }
+      .news-sidebar { position: static; display: flex; flex-direction: row; align-items: center; }
+      .news-sidebar-title { white-space: nowrap; }
       .news-cat-list { display: flex; flex: 1; }
       .news-cat-list li { flex: 1; }
       .news-cat-list li a { border-bottom: none; border-left: 1px solid var(--border); justify-content: center; padding: 14px 10px; }
-    }
-    @media (max-width: 640px) {
       .news-hero { height: 240px; }
       .news-hero-title { font-size: 26px; }
+    }
+    @media (max-width: 640px) {
       .news-card { grid-template-columns: 1fr; gap: 14px; }
       .news-card-img { aspect-ratio: 16/9; }
       .news-layout { padding: 28px 0 50px; }
@@ -321,7 +294,7 @@
 <header class="main-header" id="mainHeader">
   <div class="header-inner">
     <a href="index.html" class="logo">
-      <img src="../img/logo.png" alt="SUPULIDE — Jiangsu Pulide Plastic" onerror="this.src='img/adv-tech.webp'">
+      <img src="../img/logo.png" alt="SUPULIDE — Jiangsu Pulide Plastic" onerror="this.src='../img/adv-tech.webp'">
     </a>
     <nav class="main-nav" id="mainNav">
       <ul>
@@ -364,171 +337,208 @@
 <div class="container">
   <div class="news-layout">
 
-    <!-- ── LEFT SIDEBAR: CATEGORIES ── -->
+    <!-- LEFT SIDEBAR -->
     <aside class="news-sidebar">
       <div class="news-sidebar-title">
         <i class="fas fa-th-list"></i>Categories
       </div>
       <ul class="news-cat-list">
         <li>
-          <a href="news.html" class="active">
+          <a href="news.html">
             <i class="fas fa-chevron-right"></i>Company News
           </a>
         </li>
         <li>
-          <a href="news-industry.html">
+          <a href="news-industry.html" class="active">
             <i class="fas fa-chevron-right"></i>Industry News
           </a>
         </li>
       </ul>
     </aside>
 
-    <!-- ── RIGHT: BREADCRUMB + ARTICLES ── -->
+    <!-- RIGHT: ARTICLES -->
     <div class="news-content">
 
       <nav class="news-breadcrumb" aria-label="Breadcrumb">
         <i class="fas fa-home" style="color:var(--blue)"></i>
         <a href="index.html">Home</a>
         <i class="fas fa-chevron-right" style="font-size:10px"></i>
-        <span>Company News</span>
+        <span>Industry News</span>
       </nav>
 
-      <h2 class="news-content-heading">Company News</h2>
+      <h2 class="news-content-heading">Industry News</h2>
 
       <div class="news-list">
 
-        <!-- ── ARTICLE 1 ── -->
+        <!-- ARTICLE 1 -->
         <article class="news-card">
           <div class="news-card-img">
-            <a href="news-detail-1.html">
+            <a href="../new-ind-1.html">
+              <img src="../img/news-main.webp"
+                   alt="Key applications of high-performance plastics"
+                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="../new-ind-1.html" class="news-card-title">
+              Key Applications of High-Performance Plastics
+            </a>
+            <p class="news-card-excerpt">
+              High-performance plastics offer numerous unique properties and advantages, making
+              them widely used across a range of industries. Key application areas include
+              aerospace (lightweight high-strength structural components), automotive (bumpers,
+              body panels, engine components), electronics, medical devices, and packaging.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date"><i class="fas fa-calendar-alt"></i>February 26, 2024</span>
+              <a href="../new-ind-1.html" class="news-card-more">Read more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARTICLE 2 -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="../new-ind-2.html">
+              <img src="../img/ind-1.webp"
+                   alt="High-performance plastics — materials with superior physical and chemical properties"
+                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="../new-ind-2.html" class="news-card-title">
+              High-Performance Plastics — Materials With Superior Physical, Chemical and Mechanical Properties
+            </a>
+            <p class="news-card-excerpt">
+              High-performance plastics are a class of plastic materials with superior physical,
+              chemical and mechanical properties. They offer high strength, stiffness, wear
+              resistance, chemical resistance and thermal stability, maintaining optimal
+              performance under demanding operating conditions.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date"><i class="fas fa-calendar-alt"></i>February 26, 2024</span>
+              <a href="../new-ind-2.html" class="news-card-more">Read more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARTICLE 3 -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="../new-ind-3.html">
+              <img src="../img/ind-2.webp"
+                   alt="Modified plastics: rapid demand growth"
+                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="../new-ind-3.html" class="news-card-title">
+              Modified Plastics: Rapid Demand Growth and Broad Development Prospects
+            </a>
+            <p class="news-card-excerpt">
+              Overall demand for modified-plastics feedstock is very high. Market volume is
+              estimated to have already reached 13.61 million tons, with consumption growing
+              rapidly. Since 2004, the average annual growth rate has been 14.3%, exceeding the
+              overall plastics industry rate (9.6%). The leading consumers are the automotive
+              (23.5%) and home-appliance (37.0%) sectors.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date"><i class="fas fa-calendar-alt"></i>December 25, 2023</span>
+              <a href="../new-ind-3.html" class="news-card-more">Read more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARTICLE 4 -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="../new-ind-4.html">
+              <img src="../img/ind-2.webp"
+                   alt="Parameter control in injection molding"
+                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="../new-ind-4.html" class="news-card-title">
+              Controlling Temperature, Pressure and Speed Parameters in Injection Molding
+            </a>
+            <p class="news-card-excerpt">
+              Melt temperature is a critical parameter in injection molding. It is measured at
+              the nozzle of the injection machine or estimated using the air-shot method. Barrel
+              temperature settings must account for the melt point of the material, screw speed,
+              back pressure, and injection volume.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date"><i class="fas fa-calendar-alt"></i>December 25, 2023</span>
+              <a href="../new-ind-4.html" class="news-card-more">Read more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARTICLE 5 -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="../new-ind-5.html">
+              <img src="../img/ind-2.webp"
+                   alt="Impact of the automotive market on the injection molding machine industry"
+                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
+            </a>
+          </div>
+          <div class="news-card-body">
+            <a href="../new-ind-5.html" class="news-card-title">
+              How Much Does the Automotive Market Influence the Injection Molding Machine Industry?
+            </a>
+            <p class="news-card-excerpt">
+              Within the injection molding machine industry, the automotive market is the single
+              segment capable of driving momentum across all related players. Regarding the
+              relationship between the automotive market and the injection molding machine
+              market, US equipment manufacturers remain optimistic thanks to rising vehicle sales.
+            </p>
+            <div class="news-card-footer">
+              <span class="news-card-date"><i class="fas fa-calendar-alt"></i>December 25, 2023</span>
+              <a href="../new-ind-5.html" class="news-card-more">Read more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARTICLE 6 -->
+        <article class="news-card">
+          <div class="news-card-img">
+            <a href="../new-ind-6.html">
               <img src="../img/news-1.webp"
                    alt="Relationship between pigments, plastic resin and processing aids"
                    loading="lazy" onerror="this.src='../img/adv-tech.webp'">
             </a>
           </div>
           <div class="news-card-body">
-            <a href="news-detail-1.html" class="news-card-title">
+            <a href="../new-ind-6.html" class="news-card-title">
               Relationship Between Pigments, Plastic Resin and Processing Aids
             </a>
             <p class="news-card-excerpt">
-              Colorants used in masterbatches must fully account for the compatibility of the
-              colorant, the plastic carrier resin and other formulation additives. Key selection
-              criteria: the colorant must not react with the resin or other additives, and must
-              have excellent solvent resistance, low migration and good thermal stability.
+              Colorants in masterbatches must account for compatibility between the colorant,
+              the plastic base resin, and other processing aids. The colorant must not react
+              with the resin or auxiliary components, and should offer good solvent resistance,
+              low migration, and good thermal stability.
             </p>
             <div class="news-card-footer">
-              <span class="news-card-date">
-                <i class="fas fa-calendar-alt"></i>December 25, 2023
-              </span>
-              <a href="news-detail-1.html" class="news-card-more">
-                Read more <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ── ARTICLE 2 ── -->
-        <article class="news-card">
-          <div class="news-card-img">
-            <a href="news-detail-2.html">
-              <img src="../img/news-2.webp"
-                   alt="Which products are made from PBT"
-                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
-            </a>
-          </div>
-          <div class="news-card-body">
-            <a href="news-detail-2.html" class="news-card-title">
-              Which Products Are Made From PBT
-            </a>
-            <p class="news-card-excerpt">
-              PBT (polybutylene terephthalate) is widely used in electronics and electrical
-              equipment: circuit breakers, electromagnetic switches, flyback transformers,
-              appliance handles, connectors and housings. It is also used in the automotive
-              industry and consumer goods manufacturing.
-            </p>
-            <div class="news-card-footer">
-              <span class="news-card-date">
-                <i class="fas fa-calendar-alt"></i>December 25, 2023
-              </span>
-              <a href="news-detail-2.html" class="news-card-more">
-                Read more <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ── ARTICLE 3 ── -->
-        <article class="news-card">
-          <div class="news-card-img">
-            <a href="news-detail-3.html">
-              <img src="../img/news-3.webp"
-                   alt="Controlling temperature, pressure and speed parameters in injection molding"
-                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
-            </a>
-          </div>
-          <div class="news-card-body">
-            <a href="news-detail-3.html" class="news-card-title">
-              Controlling Temperature, Pressure and Speed Parameters in Injection Molding
-            </a>
-            <p class="news-card-excerpt">
-              Melt temperature is a critical parameter in injection molding. It can be measured
-              at the injection machine nozzle or estimated using the air-shot method. Barrel
-              temperature settings must account for the melt temperature, screw speed,
-              back pressure and injection volume.
-            </p>
-            <div class="news-card-footer">
-              <span class="news-card-date">
-                <i class="fas fa-calendar-alt"></i>July 28, 2022
-              </span>
-              <a href="news-detail-3.html" class="news-card-more">
-                Read more <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ── ARTICLE 4 ── -->
-        <article class="news-card">
-          <div class="news-card-img">
-            <a href="news-detail-4.html">
-              <img src="../img/news-2.webp"
-                   alt="Causes of leaks in the hydraulic system of an injection molding machine"
-                   loading="lazy" onerror="this.src='../img/adv-tech.webp'">
-            </a>
-          </div>
-          <div class="news-card-body">
-            <a href="news-detail-4.html" class="news-card-title">
-              Causes of Hydraulic System Leaks in Injection Molding Machines and How to Fix Them
-            </a>
-            <p class="news-card-excerpt">
-              Leakage is a common fault in injection molding machines, caused by pressure
-              differences and clearances between parts as fluid moves through hydraulic
-              components and piping. Harsh operating conditions also negatively affect machine
-              sealing. We look at the causes and remedies.
-            </p>
-            <div class="news-card-footer">
-              <span class="news-card-date">
-                <i class="fas fa-calendar-alt"></i>January 10, 2022
-              </span>
-              <a href="news-detail-4.html" class="news-card-more">
-                Read more <i class="fas fa-arrow-right"></i>
-              </a>
+              <span class="news-card-date"><i class="fas fa-calendar-alt"></i>November 12, 2021</span>
+              <a href="../new-ind-6.html" class="news-card-more">Read more <i class="fas fa-arrow-right"></i></a>
             </div>
           </div>
         </article>
 
       </div><!-- /news-list -->
 
-      <!-- PAGINATION (1 страница, 4 статьи) -->
+      <!-- PAGINATION (1 page, 6 articles) -->
       <div class="news-pagination">
-        <div class="news-page-btn disabled" title="Previous">‹</div>
+        <div class="news-page-btn disabled">‹</div>
         <div class="news-page-btn active">1</div>
-        <div class="news-page-btn disabled" title="Next">›</div>
+        <div class="news-page-btn disabled">›</div>
       </div>
 
     </div><!-- /news-content -->
   </div><!-- /news-layout -->
-</div><!-- /container -->
+</div>
 
 <!-- FOOTER -->
 <footer class="main-footer" itemscope itemtype="https://schema.org/Organization">

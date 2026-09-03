@@ -7,15 +7,15 @@
   <url><loc>https://pldpolymer.com/products.html</loc><lastmod>2026-08-07</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://pldpolymer.com/about.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://pldpolymer.com/contact.html</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://pldpolymer.com/warehouse.html</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://pldpolymer.com/news.html</loc><lastmod>2026-08-07</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://pldpolymer.com/news-industry.html</loc><lastmod>2026-08-07</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://pldpolymer.com/applications.html</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://pldpolymer.com/brands.html</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://pldpolymer.com/news-detail-1.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://pldpolymer.com/news-detail-2.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://pldpolymer.com/news-detail-3.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://pldpolymer.com/news-detail-4.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://pldpolymer.com/warehouse.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/news.html</loc><lastmod>2026-09-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pldpolymer.com/news-industry.html</loc><lastmod>2026-09-03</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/applications.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/brands.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/news-detail-1.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://pldpolymer.com/news-detail-2.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://pldpolymer.com/news-detail-3.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://pldpolymer.com/news-detail-4.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://pldpolymer.com/new-ind-1.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://pldpolymer.com/new-ind-2.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://pldpolymer.com/new-ind-3.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
@@ -50,6 +50,15 @@
   <url><loc>https://pldpolymer.com/en/about.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://pldpolymer.com/en/products.html</loc><lastmod>2026-08-07</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://pldpolymer.com/en/contact.html</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pldpolymer.com/en/warehouse.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/en/news.html</loc><lastmod>2026-09-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pldpolymer.com/en/news-industry.html</loc><lastmod>2026-09-03</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/en/applications.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/en/brands.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pldpolymer.com/en/news-detail-1.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://pldpolymer.com/en/news-detail-2.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://pldpolymer.com/en/news-detail-3.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://pldpolymer.com/en/news-detail-4.html</loc><lastmod>2026-09-03</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://pldpolymer.com/en/product-poe.html</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://pldpolymer.com/en/product-pop.html</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://pldpolymer.com/en/product-obc.html</loc><lastmod>2026-09-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
