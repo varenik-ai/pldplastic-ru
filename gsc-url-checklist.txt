@@ -1,0 +1,114 @@
+СПИСОК СТРАНИЦ ДЛЯ ПРОВЕРКИ В GOOGLE SEARCH CONSOLE
+(search.google.com/search-console → Проверка URL → вставить адрес → если "URL is not on Google" — нажать "Запросить индексирование")
+
+Всего страниц в sitemap.xml: 74 (37 RU + 37 EN)
+Дата актуальности списка: 09.09.2026
+
+===========================================
+ПРИОРИТЕТ 1 — новые страницы (добавлены 03.09.2026, проверить в первую очередь)
+===========================================
+https://pldpolymer.com/en/warehouse.html
+https://pldpolymer.com/en/news.html
+https://pldpolymer.com/en/news-industry.html
+https://pldpolymer.com/en/applications.html
+https://pldpolymer.com/en/brands.html
+https://pldpolymer.com/en/news-detail-1.html
+https://pldpolymer.com/en/news-detail-2.html
+https://pldpolymer.com/en/news-detail-3.html
+https://pldpolymer.com/en/news-detail-4.html
+
+===========================================
+RU — главные и служебные страницы
+===========================================
+https://pldpolymer.com/
+https://pldpolymer.com/products.html
+https://pldpolymer.com/about.html
+https://pldpolymer.com/contact.html
+https://pldpolymer.com/warehouse.html
+https://pldpolymer.com/news.html
+https://pldpolymer.com/news-industry.html
+https://pldpolymer.com/applications.html
+https://pldpolymer.com/brands.html
+
+RU — новости (детальные статьи)
+https://pldpolymer.com/news-detail-1.html
+https://pldpolymer.com/news-detail-2.html
+https://pldpolymer.com/news-detail-3.html
+https://pldpolymer.com/news-detail-4.html
+https://pldpolymer.com/new-ind-1.html
+https://pldpolymer.com/new-ind-2.html
+https://pldpolymer.com/new-ind-3.html
+https://pldpolymer.com/new-ind-4.html
+https://pldpolymer.com/new-ind-5.html
+https://pldpolymer.com/new-ind-6.html
+
+RU — карточки продуктов
+https://pldpolymer.com/product-poe.html
+https://pldpolymer.com/product-pop.html
+https://pldpolymer.com/product-obc.html
+https://pldpolymer.com/product-eva.html
+https://pldpolymer.com/product-eaa.html
+https://pldpolymer.com/product-emaa.html
+https://pldpolymer.com/product-evoh.html
+https://pldpolymer.com/product-epdm.html
+https://pldpolymer.com/product-mlldpe.html
+https://pldpolymer.com/product-xlpe.html
+https://pldpolymer.com/product-pa12.html
+https://pldpolymer.com/product-pa12e.html
+https://pldpolymer.com/product-pa66.html
+https://pldpolymer.com/product-pc.html
+https://pldpolymer.com/product-pcabs.html
+https://pldpolymer.com/product-pmma.html
+https://pldpolymer.com/product-pom.html
+https://pldpolymer.com/product-pes.html
+https://pldpolymer.com/product-ppsu.html
+https://pldpolymer.com/product-psu.html
+https://pldpolymer.com/product-lcp.html
+
+===========================================
+EN — главные и служебные страницы
+===========================================
+https://pldpolymer.com/en/
+https://pldpolymer.com/en/about.html
+https://pldpolymer.com/en/products.html
+https://pldpolymer.com/en/contact.html
+https://pldpolymer.com/en/warehouse.html
+https://pldpolymer.com/en/news.html
+https://pldpolymer.com/en/news-industry.html
+https://pldpolymer.com/en/applications.html
+https://pldpolymer.com/en/brands.html
+
+EN — новости (детальные статьи)
+https://pldpolymer.com/en/news-detail-1.html
+https://pldpolymer.com/en/news-detail-2.html
+https://pldpolymer.com/en/news-detail-3.html
+https://pldpolymer.com/en/news-detail-4.html
+
+EN — карточки продуктов
+https://pldpolymer.com/en/product-poe.html
+https://pldpolymer.com/en/product-pop.html
+https://pldpolymer.com/en/product-obc.html
+https://pldpolymer.com/en/product-eva.html
+https://pldpolymer.com/en/product-eaa.html
+https://pldpolymer.com/en/product-emaa.html
+https://pldpolymer.com/en/product-evoh.html
+https://pldpolymer.com/en/product-epdm.html
+https://pldpolymer.com/en/product-mlldpe.html
+https://pldpolymer.com/en/product-xlpe.html
+https://pldpolymer.com/en/product-pa12.html
+https://pldpolymer.com/en/product-pa12e.html
+https://pldpolymer.com/en/product-pa66.html
+https://pldpolymer.com/en/product-pc.html
+https://pldpolymer.com/en/product-pcabs.html
+https://pldpolymer.com/en/product-pmma.html
+https://pldpolymer.com/en/product-pom.html
+https://pldpolymer.com/en/product-pes.html
+https://pldpolymer.com/en/product-ppsu.html
+https://pldpolymer.com/en/product-psu.html
+https://pldpolymer.com/en/product-lcp.html
+
+===========================================
+СПРАВОЧНО — эти URL НЕ нужно запрашивать (специально noindex)
+===========================================
+https://pldpolymer.com/products/{slug}/  — legacy-версии карточек, специально закрыты от индексации (noindex, follow), дублируют product-*.html
+https://pldpolymer.com/404.html — служебная страница ошибки
