@@ -460,6 +460,7 @@
       .prod-sidebar { position: static; }
       .prod-sidebar-toggle { display: block; }
       .prod-cat-list.collapsed { display: none; }
+      .prod-sidebar > h3 { display: none; }
       .proddet-top { grid-template-columns: 1fr; }      .related-grid { grid-template-columns: repeat(2,1fr); }
     }
     @media (max-width: 560px) {
@@ -497,7 +498,7 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-contacts">
-      <a href="javascript:void(0)" onclick="handleWechat(event)" class="wechat-link">
+      <a href="#wechat" onclick="handleWechat(event)" rel="nofollow" class="wechat-link">
         <i class="fab fa-weixin"></i>WeChat: Leo_Li81
       </a>
       <a href="mailto:export@pldpolymer.com">
@@ -561,7 +562,7 @@
      HERO BANNER
      ============================================================ -->
 <section class="prod-hero-section">
-  <img src="../img/prod-psu.webp"
+  <img src="../img/prod-psu.webp" fetchpriority="high" decoding="async"
        onerror="this.src='img/hero-1.webp'"
        alt="PSU — SUPULIDE products"
        class="prod-hero-bg">
@@ -594,12 +595,12 @@
 
     <!-- ── LEFT SIDEBAR ── -->
     <aside class="prod-sidebar">
-      <button class="prod-sidebar-toggle" id="sidebarToggle">
+      <button class="prod-sidebar-toggle" id="sidebarToggle" aria-controls="prodCatList" aria-expanded="false">
         <i class="fas fa-list" style="margin-right:8px;"></i>All Products
         <i class="fas fa-chevron-down" style="float:right;margin-top:2px;"></i>
       </button>
       <h3><i class="fas fa-th-list" style="margin-right:8px;opacity:.8;"></i>All Products</h3>
-      <ul class="prod-cat-list" id="prodCatList">
+      <ul class="prod-cat-list collapsed" id="prodCatList">
         <li><a href="product-poe.html">POE <i class="fas fa-chevron-right"></i></a></li>
         <li><a href="product-pop.html">POP <i class="fas fa-chevron-right"></i></a></li>
         <li><a href="product-obc.html">OBC <i class="fas fa-chevron-right"></i></a></li>
@@ -634,7 +635,7 @@
     <main>
 <div class="proddet-top">
         <div class="proddet-img">
-          <img src="../img/prod-psu.webp"
+          <img src="../img/prod-psu.webp" fetchpriority="high" decoding="async"
                onerror="this.src='../img/app-poe.webp'"
                alt="PSU — Polysulfone">
         </div>
@@ -828,7 +829,7 @@
           </a>
           <p class="fn-desc">Jiangsu Pulide Plastic Co., Ltd. — specialised supplier of high-performance engineering polymers: POE, LCP, PPSU, PSU, PES, PA66, PA12 and others.</p>
           <div class="fn-social">
-            <a href="javascript:void(0)" onclick="handleWechat(event)" class="fn-social-wechat" aria-label="WeChat">
+            <a href="#wechat" onclick="handleWechat(event)" rel="nofollow" class="fn-social-wechat" aria-label="WeChat">
               <i class="fab fa-weixin"></i>
             </a>
             <a href="mailto:export@pldpolymer.com" class="fn-social-email" aria-label="Email">
