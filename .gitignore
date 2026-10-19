@@ -1,3 +1,6 @@
 .DS_Store
 *.command
 CONTEXT.md
+*.app
+*.app/
+СКАЧАТЬ-*

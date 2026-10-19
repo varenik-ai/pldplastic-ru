@@ -1,95 +1,52 @@
-# Инструкция по публикации сайта
+# Публикация и обслуживание pldpolymer.com
 
-## 1. GitHub Pages
+Актуально на 2026-10-19.
 
-### Создать репозиторий
-1. Зайдите на github.com → New repository
-2. Название: `pldplastics` (или другое)
-3. Публичный (Public)
-4. Загрузите все файлы папки в репозиторий
+## 1. Хостинг (GitHub Pages)
 
-### Включить GitHub Pages
-1. Settings → Pages
-2. Source: Deploy from branch → `main` → `/ (root)`
-3. Сайт появится по адресу: `https://username.github.io/pldplastics/`
+- Репозиторий: `varenik-ai/pldplastic-ru`, ветка `main`, корень `/`.
+- Файл `CNAME` содержит `pldpolymer.com`; `.nojekyll` присутствует.
+- Деплой: запустить `push.command` двойным кликом в Finder (коммит + push).
+  Токен GitHub лежит внутри скрипта — не публиковать и не пересылать файл.
 
----
+## 2. Домен (reg.ru)
 
-## 2. Домен на reg.ru
+- NS: `ns1.reg.ru`, `ns2.reg.ru`.
+- 4 записи A для `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+- В GitHub: Settings → Pages → Custom domain = `pldpolymer.com`, «Enforce HTTPS» включено.
+- Cloudflare / Workers не задействованы.
 
-### Рекомендуемый домен
-`pldplastics.com` — ближайший к оригиналу `pldplastic.com`
+## 3. Контакты на сайте
 
-Альтернативы: `pld-plastic.com`, `pulide.com`, `pulide.ru`
-
-### Привязать домен к GitHub Pages
-1. На reg.ru зайдите в управление DNS домена
-2. Удалите стандартные записи A
-3. Добавьте 4 записи A:
-   ```
-   @ → 185.199.108.153
-   @ → 185.199.109.153
-   @ → 185.199.110.153
-   @ → 185.199.111.153
-   ```
-4. Добавьте CNAME:
-   ```
-   www → username.github.io
-   ```
-5. На GitHub: Settings → Pages → Custom domain → введите `pldplastics.com`
-6. Поставьте галочку "Enforce HTTPS"
-
-SSL (HTTPS) включается автоматически через ~24 часа после привязки DNS.
-
----
-
-## 3. Заполнить контакты
-
-Найдите в файлах и замените:
-- `+7 (XXX) XXX-XX-XX` → ваш реальный номер
-- `info@pldplastics.com` → ваш email
-- `https://wa.me/7XXXXXXXXXX` → ваш WhatsApp
-- `https://t.me/username` → ваш Telegram
-
----
+- Email: `export@pldpolymer.com`; WeChat: `Leo_Li81`.
+- Телефон — только placeholder в поле формы `+7 (XXX) XXX-XX-XX` (`contact.html`, `en/contact.html`); публичного номера на сайте нет.
 
 ## 4. Форма обратной связи
 
-На странице contact.html форма настроена под **Formspree**:
-1. Зарегистрируйтесь на formspree.io
-2. Создайте форму и получите ID (вида `f/xpzgkwqo`)
-3. В contact.html замените `YOUR_FORM_ID` на ваш ID
+Форма в `contact.html` / `en/contact.html`. Отправка идёт через web3forms (`https://api.web3forms.com/submit`, скрытое поле `access_key` в обеих contact-страницах). Письма приходят на почту владельца ключа; при смене почты получить новый ключ на web3forms.com.
 
----
+## 5. Аналитика
 
-## 5. Яндекс.Метрика
+- Яндекс.Метрика: счётчик `111389593` (старый `110251458` удалён).
+- Google Analytics 4: `G-J4C1XB482H`.
+- Google Search Console: ресурс-домен `pldpolymer.com`, sitemap `https://pldpolymer.com/sitemap.xml` (74 URL).
 
-Добавьте код Яндекс.Метрики перед `</head>` на каждой странице:
-```html
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){...})(...);
-</script>
+## 6. Чек-лист после изменений
+
+1. Обновить `sitemap.xml` (lastmod) и `gsc-url-checklist.txt` при добавлении страниц.
+2. Проверить взаимные hreflang RU↔EN и canonical у новых страниц.
+3. Задеплоить через `push.command`, затем запросить индексирование новых URL в GSC (лимит ~10/сутки).
+
+## 7. Структура
+
 ```
-Получить код: metrika.yandex.ru → Добавить счётчик
-
----
-
-## Структура файлов
-```
-pldplastics/
-├── index.html          ← Главная
-├── about.html          ← О компании
-├── products.html       ← Каталог продуктов
-├── brands.html         ← Бренды
-├── applications.html   ← Применение
-├── news.html           ← Новости
-├── contact.html        ← Контакты
-├── css/
-│   └── style.css
-├── js/
-│   └── main.js
-├── img/                ← Добавьте изображения с оригинального сайта
-├── .nojekyll
-└── DEPLOY.md
+pldplastic-ru/
+├── index.html, products.html, about.html, contact.html, applications.html,
+│   brands.html, news.html, news-industry.html, warehouse.html, 404.html
+├── product-*.html (21), news-detail-1..4.html, new-ind-1..6.html
+├── en/            ← английская версия (21 product + 13 страниц разделов)
+├── css/style.css, js/main.js, img/, products/
+├── sitemap.xml, robots.txt, CNAME, .nojekyll
+├── gsc-url-checklist.txt, push.command (локально, в .gitignore), download-media.sh
+└── CONTEXT.md, DEPLOY.md
 ```
