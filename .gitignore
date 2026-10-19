@@ -4,3 +4,5 @@ CONTEXT.md
 *.app
 *.app/
 СКАЧАТЬ-*
+
+audit/*.zip
