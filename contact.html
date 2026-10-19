@@ -327,12 +327,12 @@
 <!-- HEADER -->
 <header class="main-header" id="mainHeader">
   <div class="header-inner">
-    <a href="index.html" class="logo">
+    <a href="/" class="logo">
       <img src="img/logo.png" alt="SUPULIDE — Jiangsu Pulide Plastic" onerror="this.src='img/adv-tech.webp'">
     </a>
     <nav class="main-nav" id="mainNav">
       <ul>
-        <li><a href="index.html">Главная</a></li>
+        <li><a href="/">Главная</a></li>
         <li>
           <a href="about.html">О нас <i class="fas fa-chevron-down"></i></a>
           <div class="dropdown-menu">
@@ -376,7 +376,7 @@
 
       <!-- Left: side image -->
       <div class="contact-side-img">
-        <img src="img/contact-side.webp" alt="Jiangsu Pulide Plastic — производство" onerror="this.src='img/adv-tech.webp'">
+        <img src="img/contact-side.webp" alt="Jiangsu Pulide Plastic — производство" onerror="this.src='img/adv-tech.webp'" loading="lazy">
       </div>
 
       <!-- Right: contact details -->
@@ -493,7 +493,7 @@
 
         <!-- Бренд -->
         <div class="fn-brand">
-          <a href="index.html" class="fn-logo">
+          <a href="/" class="fn-logo">
             <img src="img/logo.png" alt="SUPULIDE" onerror="this.style.display='none'">
             <span>SUPULIDE</span>
           </a>
@@ -609,7 +609,7 @@
           body: JSON.stringify(Object.fromEntries(new FormData(form)))
         });
         const data = await res.json();
-        if (data.success) {
+        if (data.success) { if (window.trackEvent) trackEvent("form_submit");
           form.innerHTML = '<p style="text-align:center;font-size:18px;color:var(--blue);padding:40px 0"><i class="fas fa-check-circle" style="font-size:48px;display:block;margin-bottom:16px"></i>Спасибо! Ваше сообщение получено.<br>Мы свяжемся с вами в течение 24 часов.</p>';
         } else {
           btn.disabled = false;

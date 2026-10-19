@@ -227,3 +227,18 @@
     setTimeout(function () { if (ok) ok.style.display = 'none'; }, 6000);
   });
 })();
+
+/* --- Аналитика: события GA4 + Яндекс.Метрика --- */
+window.trackEvent = function (name, goal) {
+  try { if (window.gtag) gtag('event', name, { page_location: location.href }); } catch (e) {}
+  try { if (window.ym) ym(111389593, 'reachGoal', goal || name); } catch (e) {}
+};
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a');
+  if (!a) return;
+  var href = a.getAttribute('href') || '';
+  if (href.indexOf('mailto:') === 0) trackEvent('click_email');
+  else if (href.indexOf('tel:') === 0) trackEvent('click_phone');
+  else if (/fn-social-wechat|float-wechat/.test(a.className)) trackEvent('click_wechat');
+  else if (/\.pdf($|\?)/i.test(href)) trackEvent('download_doc');
+});
