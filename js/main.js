@@ -255,7 +255,7 @@ document.addEventListener('click', function (e) {
     : { sending: 'Отправляем…', send: 'Отправить запрос', ok: 'Спасибо! Ваш запрос получен. Мы ответим в течение 24 часов.', errNet: 'Ошибка сети. Напишите нам на export@pldpolymer.com', err: 'Ошибка: ' };
   var btn = form.querySelector('button[type="submit"]');
   var btnHtml = btn ? btn.innerHTML : '';
-  /* Поля для квалификации запроса: объём, страна, нужен ли TDS/COA/образец */
+  /* Поля для квалификации запроса: объём, страна, нужен ли TDS/MSDS/образец */
   if (btn && !form.querySelector('[name="volume"]')) {
     var extra = document.createElement('div');
     extra.className = 'form-row';
@@ -265,7 +265,7 @@ document.addEventListener('click', function (e) {
     var docs = document.createElement('label');
     docs.style.cssText = 'display:flex;align-items:center;gap:10px;margin:8px 0 12px;font-size:14px;cursor:pointer';
     docs.innerHTML = '<input type="checkbox" name="need_docs" value="' + (en ? 'Yes' : 'Да') + '" style="width:auto;margin:0;flex:none">'
-      + (en ? 'I need TDS / COA / a test sample' : 'Нужны TDS / COA / образец для испытаний');
+      + (en ? 'I need TDS / MSDS / a test sample' : 'Нужны TDS / MSDS / образец для испытаний');
     btn.parentNode.insertBefore(extra, btn);
     btn.parentNode.insertBefore(docs, btn);
   }
