@@ -1,0 +1,51 @@
+# Новые и обновлённые URL для отправки на индексацию (GSC: «Проверка URL» → «Запросить индексирование»)
+# Лимит GSC около 10 запросов в сутки: идите по дням, как разбито ниже. Свойство: sc-domain:pldpolymer.com
+# Яндекс Вебмастер: Индексирование → Переобход страниц, те же списки.
+
+## День 1 (10 URL): подбор марки + главные страницы марок (RU)
+https://pldpolymer.com/selector.html
+https://pldpolymer.com/en/selector.html
+https://pldpolymer.com/grade-evasis-ev3251f.html
+https://pldpolymer.com/grade-sinopec-evoh-ew-3201s.html
+https://pldpolymer.com/grade-yuntianhua-pom-gm90.html
+https://pldpolymer.com/grade-kepital-f20-03.html
+https://pldpolymer.com/grade-clarnate-pc-a1105.html
+https://pldpolymer.com/grade-lucene-poe-lc565.html
+https://pldpolymer.com/grade-basf-ultrason-e-pes-2010.html
+https://pldpolymer.com/grade-exact-poe-5101.html
+
+## День 2 (10 URL): страницы марок
+https://pldpolymer.com/grade-clarnate-pc-a1227.html
+https://pldpolymer.com/grade-clarnate-pc-hl6157.html
+https://pldpolymer.com/grade-evasine-eva-ue4055.html
+https://pldpolymer.com/grade-lucene-poe-lc670.html
+https://pldpolymer.com/en/grade-evasis-ev3251f.html
+https://pldpolymer.com/en/grade-sinopec-evoh-ew-3201s.html
+https://pldpolymer.com/en/grade-yuntianhua-pom-gm90.html
+https://pldpolymer.com/en/grade-kepital-f20-03.html
+https://pldpolymer.com/en/grade-clarnate-pc-a1105.html
+https://pldpolymer.com/en/grade-lucene-poe-lc565.html
+
+## День 3 (6 URL): страницы марок
+https://pldpolymer.com/en/grade-basf-ultrason-e-pes-2010.html
+https://pldpolymer.com/en/grade-exact-poe-5101.html
+https://pldpolymer.com/en/grade-clarnate-pc-a1227.html
+https://pldpolymer.com/en/grade-clarnate-pc-hl6157.html
+https://pldpolymer.com/en/grade-evasine-eva-ue4055.html
+https://pldpolymer.com/en/grade-lucene-poe-lc670.html
+
+## День 4 (14 URL): обновлённые страницы (новые марки, ссылки на страницы марок, формы)
+https://pldpolymer.com/product-poe.html
+https://pldpolymer.com/product-evoh.html
+https://pldpolymer.com/product-pom.html
+https://pldpolymer.com/product-pc.html
+https://pldpolymer.com/product-eva.html
+https://pldpolymer.com/product-pes.html
+https://pldpolymer.com/en/product-poe.html
+https://pldpolymer.com/en/product-evoh.html
+https://pldpolymer.com/en/product-pom.html
+https://pldpolymer.com/en/product-pc.html
+https://pldpolymer.com/en/product-eva.html
+https://pldpolymer.com/en/product-pes.html
+https://pldpolymer.com/contact.html
+https://pldpolymer.com/en/contact.html

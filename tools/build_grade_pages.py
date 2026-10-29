@@ -28,6 +28,8 @@ FEATURED = [
     ('pc', 'HL6157', 'Clarnate'),
     ('pc', 'A1227', 'Clarnate'),
     ('eva', 'UE4055', 'EVASINE'),
+    ('poe', '5101', 'EXACT'),
+    ('pes', 'Ultrason® E PES 2010', 'BASF'),
 ]
 CAT = {
     'evoh': ('EVOH (этилен-винилспиртовый сополимер)', 'EVOH (ethylene-vinyl alcohol copolymer)',
@@ -40,9 +42,19 @@ CAT = {
     'pc': ('PC (поликарбонат)', 'PC (polycarbonate)',
            'Применяется для корпусов электроники, LED-линз и деталей высокоточного литья.',
            'Used for electronics housings, LED lenses and precision injection-moulded parts.'),
+    'pes': ('PES (полиэфирсульфон)', 'PES (polyethersulfone)', '', ''),
     'eva': ('EVA (сополимер этилена и винилацетата)', 'EVA (ethylene-vinyl acetate copolymer)',
             'Применяется для инкапсуляции фотоэлектрических модулей и в обувной промышленности.',
             'Used for photovoltaic module encapsulation and in footwear.'),
+}
+# Дополнительные сведения по марке из открытых паспортов производителей (ru, en)
+NOTES = {
+    ('poe', '5101'): (
+        'Этилен-октеновый пластомер ExxonMobil на металлоценовом катализаторе для моно- и многослойной выдувной плёнки: низкая температура запечатывания, высокая прочность и ударная вязкость, низкий модуль, мало экстрактов в гексане. Температура размягчения по Вика 76,6 °C, пик плавления 92 °C (паспорт ExxonMobil от 12.08.2022).',
+        'ExxonMobil ethylene-octene plastomer made with metallocene technology for mono- and multilayer blown film: low sealing temperature, high toughness and impact strength, low modulus, low hexane extractables. Vicat softening temperature 76.6 °C, peak melting temperature 92 °C (ExxonMobil datasheet, 12/08/2022).'),
+    ('pes', 'Ultrason® E PES 2010'): (
+        'Ненаполненный полиэфирсульфон BASF средней вязкости для литья под давлением. По данным BASF: плотность 1370 кг/м³ (ISO 1183), показатель текучести расплава MVR 70 см³/10 мин (360 °C, 10 кг, ISO 1133), температура расплава 340–390 °C, температура формы 140–180 °C, сушка 4 ч при 140 °C, усадка при литье 0,82 % вдоль и 0,86 % поперёк (паспорт BASF, 09/2026).',
+        'Unreinforced, medium-viscosity BASF polyethersulfone for injection moulding. Per BASF: density 1370 kg/m³ (ISO 1183), melt volume rate MVR 70 cm³/10 min (360 °C, 10 kg, ISO 1133), melt temperature 340–390 °C, mould temperature 140–180 °C, drying 4 h at 140 °C, moulding shrinkage 0.82 % parallel and 0.86 % normal (BASF processing data sheet, 09/2026).'),
 }
 T = {
     'ru': dict(h1sub='Характеристики марки и запрос цены', props='Показатели по каталогу', similar='Похожие марки',
@@ -110,9 +122,11 @@ def main_html(lang, pid, prod, idx, feat_slugs):
     t = T[lang]
     g = prod['grades'][idx]
     cat = CAT[pid][t['sidx']]
-    app = CAT[pid][2 + t['sidx']]
+    app = '' if (pid, g['grade']) in NOTES else CAT[pid][2 + t['sidx']]
+    note = NOTES.get((pid, g['grade']))
+    note_html = f'<p>{H.escape(note[t["sidx"]])}</p>' if note else ''
     cols = list(g['props'].keys())
-    ptxt = '; '.join(f'{k}: {g["props"][k]}' for k in cols)
+    ptxt = '; '.join(f'{k}: {g["props"][k]}' for k in cols if g['props'][k] not in ('—', ''))
     brand, grade = g['brand'], g['grade']
     q = f'contact.html?product={H.escape(prod["name"])}&amp;grade={H.escape((brand + " " + grade).replace(" ", "%20"))}#contact-form'
     sim = similar(prod, idx)
@@ -135,6 +149,7 @@ def main_html(lang, pid, prod, idx, feat_slugs):
   <div class="container">
     <div class="grade-card">
       <p class="grade-lead">{intro} {H.escape(app)}</p>
+      {note_html}
       <h2>{t["props"]}</h2>
       {table(g, cols)}
       <p>{H.escape(t["tail"])}</p>
@@ -200,7 +215,7 @@ def main():
             g = prod['grades'][idx]
             t = T[lang]
             cat = CAT[pid][t['sidx']]
-            ptxt = '; '.join(f'{k}: {v}' for k, v in g['props'].items())
+            ptxt = '; '.join(f'{k}: {v}' for k, v in g['props'].items() if v not in ('—', ''))
             pre = 'en/' if lang == 'en' else ''
             cfg = dict(
                 lang=lang, title=t['title'].format(b=g['brand'], g=g['grade'], c=cat),
@@ -221,6 +236,16 @@ def main():
                 if key[0] != pid:
                     continue
                 _, grade, brand = key
+                if pid == 'pes':
+                    raw = re.escape(grade).replace('®', '<sup>®</sup>').replace(r'\ ', ' ')
+                    pat = re.compile(r'(<td>)(' + raw + r')(</td>)')
+                    if f'href="{sl}.html"' in s:
+                        continue
+                    s, n = pat.subn(lambda m: m.group(1) + f'<a href="{sl}.html">' + m.group(2) + '</a>' + m.group(3), s, count=1)
+                    linked += n
+                    if not n:
+                        print('нет ссылки в таблице:', path, key)
+                    continue
                 pat = re.compile(r'(<tr[^>]*>(?:(?!</tr>).)*?>\s*' + re.escape(brand) + r'\s*</t[dh]>\s*<td[^>]*>)(\s*' + re.escape(grade) + r'\s*)(</td>)', re.S)
                 if f'href="{sl}.html"' in s:
                     continue
