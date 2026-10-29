@@ -242,3 +242,55 @@ document.addEventListener('click', function (e) {
   else if (/fn-social-wechat|float-wechat/.test(a.className)) trackEvent('click_wechat');
   else if (/\.pdf($|\?)/i.test(href)) trackEvent('download_doc');
 });
+
+/* --- Форма запроса КП на страницах продуктов: отправка через Web3Forms (как на contact.html) --- */
+(function () {
+  var form = document.querySelector('.proddet-form form');
+  if (!form) return;
+  var en = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+  var T = en
+    ? { sending: 'Sending…', send: 'Send Request', ok: 'Thank you! We have received your request and will reply within 24 hours.', errNet: 'Network error. Please write to export@pldpolymer.com', err: 'Error: ' }
+    : { sending: 'Отправляем…', send: 'Отправить запрос', ok: 'Спасибо! Ваш запрос получен. Мы ответим в течение 24 часов.', errNet: 'Ошибка сети. Напишите нам на export@pldpolymer.com', err: 'Ошибка: ' };
+  var btn = form.querySelector('button[type="submit"]');
+  var btnHtml = btn ? btn.innerHTML : '';
+  function key(el) {
+    if (el.name) return el.name;
+    if (el.tagName === 'TEXTAREA') return 'message';
+    if (el.type === 'email') return 'email';
+    if (el.type === 'tel' || /тел|phone|whats/i.test(el.placeholder || '')) return 'phone';
+    return el.placeholder || 'field';
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var h1 = document.querySelector('h1');
+    var product = h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : document.title;
+    var data = {
+      access_key: 'c44e2f6b-8071-42af-947a-a1ea99ed12dc',
+      subject: (en ? 'Quote request: ' : 'Запрос КП: ') + product,
+      from_name: 'SUPULIDE Website',
+      page_url: location.href,
+      product: product
+    };
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (el.tagName === 'BUTTON' || el.type === 'hidden' || !el.value) return;
+      data[key(el)] = el.value;
+    });
+    if (btn) { btn.disabled = true; btn.textContent = T.sending; }
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function (r) { return r.json(); }).then(function (res) {
+      if (res.success) {
+        if (window.trackEvent) trackEvent('form_submit');
+        form.innerHTML = '<p style="text-align:center;font-size:18px;padding:32px 0">' + T.ok + '</p>';
+      } else {
+        if (btn) { btn.disabled = false; btn.innerHTML = btnHtml; }
+        alert(T.err + (res.message || ''));
+      }
+    }).catch(function () {
+      if (btn) { btn.disabled = false; btn.innerHTML = btnHtml; }
+      alert(T.errNet);
+    });
+  });
+})();
