@@ -240,6 +240,8 @@ document.addEventListener('click', function (e) {
   if (href.indexOf('mailto:') === 0) trackEvent('click_email');
   else if (href.indexOf('tel:') === 0) trackEvent('click_phone');
   else if (/fn-social-wechat|float-wechat/.test(a.className)) trackEvent('click_wechat');
+  else if (/float-telegram/.test(a.className)) trackEvent('click_telegram');
+  else if (/float-whatsapp/.test(a.className)) trackEvent('click_whatsapp');
   else if (/\.pdf($|\?)/i.test(href)) trackEvent('download_doc');
 });
 
@@ -253,6 +255,20 @@ document.addEventListener('click', function (e) {
     : { sending: 'Отправляем…', send: 'Отправить запрос', ok: 'Спасибо! Ваш запрос получен. Мы ответим в течение 24 часов.', errNet: 'Ошибка сети. Напишите нам на export@pldpolymer.com', err: 'Ошибка: ' };
   var btn = form.querySelector('button[type="submit"]');
   var btnHtml = btn ? btn.innerHTML : '';
+  /* Поля для квалификации запроса: объём, страна, нужен ли TDS/COA/образец */
+  if (btn && !form.querySelector('[name="volume"]')) {
+    var extra = document.createElement('div');
+    extra.className = 'form-row';
+    extra.innerHTML = en
+      ? '<input type="text" name="volume" placeholder="Volume, t/month"><input type="text" name="country" placeholder="Country of delivery">'
+      : '<input type="text" name="volume" placeholder="Объём, т/мес"><input type="text" name="country" placeholder="Страна / город поставки">';
+    var docs = document.createElement('label');
+    docs.style.cssText = 'display:block;margin:8px 0 12px;font-size:14px;cursor:pointer';
+    docs.innerHTML = '<input type="checkbox" name="need_docs" value="' + (en ? 'Yes' : 'Да') + '" style="margin-right:8px">'
+      + (en ? 'I need TDS / COA / a test sample' : 'Нужны TDS / COA / образец для испытаний');
+    btn.parentNode.insertBefore(extra, btn);
+    btn.parentNode.insertBefore(docs, btn);
+  }
   function key(el) {
     if (el.name) return el.name;
     if (el.tagName === 'TEXTAREA') return 'message';
@@ -273,6 +289,7 @@ document.addEventListener('click', function (e) {
     };
     Array.prototype.forEach.call(form.elements, function (el) {
       if (el.tagName === 'BUTTON' || el.type === 'hidden' || !el.value) return;
+      if (el.type === 'checkbox' && !el.checked) return;
       data[key(el)] = el.value;
     });
     if (btn) { btn.disabled = true; btn.textContent = T.sending; }
@@ -293,4 +310,49 @@ document.addEventListener('click', function (e) {
       alert(T.errNet);
     });
   });
+})();
+
+/* --- Контакты для кнопок связи ---
+   Заполните нужные поля — кнопки появятся на всех страницах (боковая панель).
+   phone: '+7 495 000-00-00' | telegram: 'username' или полная ссылка | whatsapp: '79990000000' (цифры, с кодом страны) */
+window.SITE_CONTACTS = { phone: '', telegram: '', whatsapp: '' };
+
+(function () {
+  var c = window.SITE_CONTACTS || {};
+  var bar = document.querySelector('.float-sidebar');
+  if (!bar) return;
+  var en = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+  function add(cls, href, icon, label, title, external) {
+    var a = document.createElement('a');
+    a.href = href;
+    a.className = 'float-btn ' + cls;
+    a.title = title;
+    if (external) { a.target = '_blank'; a.rel = 'noopener nofollow'; }
+    a.innerHTML = '<i class="' + icon + '"></i><span class="float-label">' + label + '</span>';
+    bar.insertBefore(a, bar.firstChild);
+  }
+  if (c.phone) {
+    var tel = String(c.phone).replace(/[^\d+]/g, '');
+    add('float-phone', 'tel:' + tel, 'fas fa-phone', en ? 'Call' : 'Позвонить', c.phone, false);
+  }
+  if (c.whatsapp) {
+    add('float-whatsapp', 'https://wa.me/' + String(c.whatsapp).replace(/\D/g, ''), 'fab fa-whatsapp', 'WhatsApp', 'WhatsApp', true);
+  }
+  if (c.telegram) {
+    var t = String(c.telegram);
+    add('float-telegram', /^https?:/.test(t) ? t : 'https://t.me/' + t.replace(/^@/, ''), 'fab fa-telegram-plane', 'Telegram', 'Telegram', true);
+  }
+})();
+
+/* --- Предзаполнение формы на contact.html из ссылки (?product=…&grade=…), например из «Подбора марки» --- */
+(function () {
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  var q = new URLSearchParams(location.search);
+  var product = (q.get('product') || '').slice(0, 80);
+  var grade = (q.get('grade') || '').slice(0, 120);
+  var ta = form.querySelector('textarea');
+  if (!ta || ta.value || (!product && !grade)) return;
+  var en = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+  ta.value = (en ? 'Request for: ' : 'Запрос по марке: ') + [product, grade].filter(Boolean).join(' — ') + '\n';
 })();

@@ -1560,6 +1560,11 @@ p.about-text {
 }
 #wechat-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .float-email { color: #e84242; }
+.float-telegram { color: #229ed9; }
+.float-telegram:hover { background: #229ed9 !important; border-color: #229ed9 !important; color: #fff !important; }
+.float-whatsapp { color: #25d366; }
+.float-whatsapp:hover { background: #25d366 !important; border-color: #25d366 !important; color: #fff !important; }
+.float-phone { color: #1a6fe0; }
 
 @media (max-width: 600px) {
   .float-btn { width: 40px; height: 40px; font-size: 17px; padding: 0 11px; }
@@ -1794,3 +1799,21 @@ p.about-text {
   background: rgba(255,255,255,0.15);
   color: #fff;
 }
+
+/* ===== Подбор марки (selector.html) ===== */
+.selector-section { padding: 48px 0 64px; background: #f7f9fc; }
+.sel-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; }
+.sel-row label { display: flex; flex-direction: column; font-size: 13px; color: #555; gap: 4px; min-width: 180px; flex: 1; }
+.sel-row select, .sel-row input, .sel-range input { padding: 9px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; background: #fff; }
+.sel-range { display: flex; align-items: center; gap: 8px; flex: 1 1 320px; background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; }
+.sel-range span { flex: 1; font-size: 13px; color: #444; min-width: 120px; }
+.sel-range input { width: 100px; }
+.sel-count { margin: 18px 0 10px; font-size: 14px; color: #444; }
+.sel-scroll { overflow-x: auto; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
+.sel-table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.sel-table th, .sel-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+.sel-table th { background: #eef3fb; font-weight: 600; font-size: 12px; }
+.sel-btn { display: inline-block; padding: 6px 12px; background: var(--blue); color: #fff !important; border-radius: 6px; text-decoration: none; font-size: 13px; }
+.sel-hint { color: #666; font-size: 14px; margin: 14px 0; }
+.sel-ask { margin-top: 16px; font-size: 14px; }
+.sel-note { margin-top: 22px; font-size: 12px; color: #777; line-height: 1.5; }
