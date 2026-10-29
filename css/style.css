@@ -1832,3 +1832,6 @@ p.about-text {
 .faq-item { border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; background: #fff; }
 .faq-item summary { cursor: pointer; font-weight: 600; }
 .faq-item p { margin: 10px 0 2px; line-height: 1.6; }
+
+/* Колонка с описанием продукта не должна растягиваться широкой таблицей марок */
+.proddet-wrap > main { min-width: 0; }
