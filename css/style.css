@@ -1816,4 +1816,3 @@ p.about-text {
 .sel-btn { display: inline-block; padding: 6px 12px; background: var(--blue); color: #fff !important; border-radius: 6px; text-decoration: none; font-size: 13px; }
 .sel-hint { color: #666; font-size: 14px; margin: 14px 0; }
 .sel-ask { margin-top: 16px; font-size: 14px; }
-.sel-note { margin-top: 22px; font-size: 12px; color: #777; line-height: 1.5; }
