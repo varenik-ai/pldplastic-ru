@@ -263,8 +263,8 @@ document.addEventListener('click', function (e) {
       ? '<input type="text" name="volume" placeholder="Volume, t/month"><input type="text" name="country" placeholder="Country of delivery">'
       : '<input type="text" name="volume" placeholder="Объём, т/мес"><input type="text" name="country" placeholder="Страна / город поставки">';
     var docs = document.createElement('label');
-    docs.style.cssText = 'display:block;margin:8px 0 12px;font-size:14px;cursor:pointer';
-    docs.innerHTML = '<input type="checkbox" name="need_docs" value="' + (en ? 'Yes' : 'Да') + '" style="margin-right:8px">'
+    docs.style.cssText = 'display:flex;align-items:center;gap:10px;margin:8px 0 12px;font-size:14px;cursor:pointer';
+    docs.innerHTML = '<input type="checkbox" name="need_docs" value="' + (en ? 'Yes' : 'Да') + '" style="width:auto;margin:0;flex:none">'
       + (en ? 'I need TDS / COA / a test sample' : 'Нужны TDS / COA / образец для испытаний');
     btn.parentNode.insertBefore(extra, btn);
     btn.parentNode.insertBefore(docs, btn);
