@@ -196,6 +196,17 @@ def shell(src, dst, cfg):
     open(dst, 'w', encoding='utf-8').write(s)
 
 
+def fit_desc(tpl, brand, grade, ptxt, limit=158):
+    """Описание ≤ limit знаков: цельные показатели, без служебных «Прим.»."""
+    items = [x for x in ptxt.split('; ') if x and not re.match(r'(Прим\.|Note|Notes|Remark)', x)]
+    while items:
+        d = tpl.format(b=brand, g=grade, p='; '.join(items))
+        if len(d) <= limit:
+            return d
+        items = items[:-1]
+    return tpl.format(b=brand, g=grade, p='').replace(': . ', '. ')
+
+
 def main():
     data = load()
     feat = {'ru': {}, 'en': {}}
@@ -218,8 +229,8 @@ def main():
             ptxt = '; '.join(f'{k}: {v}' for k, v in g['props'].items() if v not in ('—', ''))
             pre = 'en/' if lang == 'en' else ''
             cfg = dict(
-                lang=lang, title=t['title'].format(b=g['brand'], g=g['grade'], c=cat),
-                desc=t['desc'].format(b=g['brand'], g=g['grade'], p=ptxt)[:300],
+                lang=lang, title=t['title'].format(b=g['brand'], g=g['grade'], c=re.sub(r' \([^)]*\)$', '', cat)),
+                desc=fit_desc(t['desc'], g['brand'], g['grade'], ptxt),
                 kw=f'{g["grade"]}, {g["brand"]} {g["grade"]}, {prod["name"]}',
                 url=f'{SITE}{pre}{sl}.html', ru=f'{SITE}{sl}.html', en=f'{SITE}en/{sl}.html',
                 h1=f'{g["brand"]} {g["grade"]}', sub=f'{t["h1sub"]}',
