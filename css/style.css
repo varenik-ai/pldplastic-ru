@@ -1835,3 +1835,19 @@ p.about-text {
 
 /* Колонка с описанием продукта не должна растягиваться широкой таблицей марок */
 .proddet-wrap > main { min-width: 0; }
+
+/* popular grades + names (tools/build_popular_and_names.py) */
+.popular-grades { margin-top: 24px; }
+.pg-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 8px; }
+.pg-chip { display: inline-block; padding: 6px 12px; border: 1px solid var(--border); border-radius: 18px; background: #f5f8ff; font-size: 13.5px; font-weight: 600; color: #223; text-decoration: none; }
+a.pg-chip { color: var(--blue); }
+a.pg-chip:hover { background: #e6efff; }
+.pg-note { font-size: 12.5px; color: #777; margin: 4px 0 0; }
+.prod-card-pop { font-size: 12.5px; color: #555; line-height: 1.6; margin-bottom: 14px; }
+.prod-card-pop strong { color: #223; }
+.names-faq { margin-top: 28px; }
+.glossary-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.glossary-table th, .glossary-table td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; vertical-align: top; }
+.glossary-table th { background: #f0f5ff; }
+.glossary-table td:first-child { font-weight: 700; white-space: nowrap; }
+@media (max-width: 700px) { .glossary-table td:first-child { white-space: normal; } .glossary-table { font-size: 13px; } }
