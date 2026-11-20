@@ -1,0 +1,499 @@
+<title>Аудит PolymerGranules.com</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~760px) with wide tables allowed to scroll; severity encoded as a left chip on each finding */
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --ink:#15202b; --muted:#56636f; --line:#d8dee4; --accent:#1d4f91; --accent-soft:#e3ecf8;
+  --crit:#b42318; --crit-bg:#fdecea; --high:#b54708; --high-bg:#fef3e2; --med:#7a5d00; --med-bg:#fbf6dc; --low:#475467; --low-bg:#eef1f4; --opp:#067647; --opp-bg:#e5f6ee;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f151b; --surface:#16202a; --ink:#e6ebf0; --muted:#9aa7b3; --line:#2a3744; --accent:#7fb0f0; --accent-soft:#1b2c42;
+  --crit:#ff8a80; --crit-bg:#3a1714; --high:#ffb86b; --high-bg:#3a2510; --med:#e9cf6a; --med-bg:#33290c; --low:#b4c0cc; --low-bg:#222d38; --opp:#6fd6a4; --opp-bg:#0f3021; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --surface:#16202a; --ink:#e6ebf0; --muted:#9aa7b3; --line:#2a3744; --accent:#7fb0f0; --accent-soft:#1b2c42;
+  --crit:#ff8a80; --crit-bg:#3a1714; --high:#ffb86b; --high-bg:#3a2510; --med:#e9cf6a; --med-bg:#33290c; --low:#b4c0cc; --low-bg:#222d38; --opp:#6fd6a4; --opp-bg:#0f3021; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.page{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2rem;font-weight:700}
+h2{font-size:1.45rem;font-weight:600;padding-top:12px;border-top:2px solid var(--ink)}
+h3{font-size:1.1rem;font-weight:600}
+p{margin:0}
+section{display:flex;flex-direction:column;gap:14px}
+.meta{font:500 .8rem var(--mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.lead{font-size:1.1rem;color:var(--muted)}
+a{color:var(--accent)}
+code,.mono{font-family:var(--mono);font-size:.88em}
+code{background:var(--accent-soft);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+ul,ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.kpi b{display:block;font:600 1.4rem var(--mono);font-variant-numeric:tabular-nums}
+.kpi span{font-size:.82rem;color:var(--muted)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-weight:600;background:var(--accent-soft)}
+tr:last-child td{border-bottom:0}
+td.n{font:600 1rem var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.f{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.f h3{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.f dl{display:grid;grid-template-columns:minmax(110px,max-content) 1fr;gap:4px 14px;margin:0;font-size:.93rem}
+.f dt{color:var(--muted)}
+.f dd{margin:0;min-width:0}
+.sev{font:600 .72rem var(--mono);letter-spacing:.06em;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.C{color:var(--crit);background:var(--crit-bg)} .H{color:var(--high);background:var(--high-bg)} .M{color:var(--med);background:var(--med-bg)} .L{color:var(--low);background:var(--low-bg)} .O{color:var(--opp);background:var(--opp-bg)}
+.tag{font:500 .72rem var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 6px;white-space:nowrap}
+nav.toc ol{columns:2;column-gap:28px;display:block}
+nav.toc li{margin-bottom:4px}
+@media (max-width:560px){nav.toc ol{columns:1} h1{font-size:1.6rem} .f dl{grid-template-columns:1fr} .f dt{margin-top:4px}}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font:.84rem/1.5 var(--mono);margin:0}
+</style>
+
+<div class="page">
+
+<header style="display:flex;flex-direction:column;gap:10px">
+  <p class="meta">Аудит сайта · проведён 12.11.2026</p>
+  <h1>PolymerGranules.com: технический, SEO-, UX- и коммерческий аудит</h1>
+  <p class="lead">Объект: <code>https://polymergranules.com/ru/</code> и связанные EN/ZH-версии. Задача: подготовить сайт к международному B2B-продвижению и получить основу для ТЗ разработчику.</p>
+</header>
+
+<section class="box">
+  <h3>Как проводилась проверка и что осталось непроверенным</h3>
+  <p><b>Проверено фактически:</b> все 60 URL из <code>sitemap.xml</code> (по 20 на RU/EN/ZH) скачаны и разобраны: title, description, H1–H2, canonical, hreflang, schema.org, alt, внутренние ссылки; HTTP-заголовки, редиректы, 404, сжатие и кэш; локальный Lighthouse 12.2.1 (мобильная эмуляция) для <code>/ru/</code> и <code>/ru/materials/evoh.html</code>; встроенный браузер на 8 ширинах (320–1920 px) по 6 страницам; поиск по материалам и форма запроса цены (с тестовым адресом <code>test@example.com</code>, письмо никуда не уходит); whois и DNS.</p>
+  <p><b>Не проверено (данных нет, результаты не имитируются):</b> PageSpeed Insights (дневная квота API исчерпана); полевые Core Web Vitals (CrUX) и INP: у нового домена данных быть не может; Search Console, Яндекс.Вебмастер, Метрика/GA4 (нет доступа); частотность запросов (нет доступа к Wordstat / Keyword Planner); скорость из Китая и ЕС; реальные устройства iOS/Android (только эмуляция ширины в Chromium); Safari и Firefox.</p>
+  <p><b>Ключевой контекст:</b> домен зарегистрирован <b>11.11.2026</b> (whois, регистратор Porkbun), то есть за день до аудита. Сервер <code>5.23.50.122</code>, почта и SPF у Timeweb (Россия). В CSS прямо написано <code>/* Prototype design system */</code>, у формы атрибут <code>data-prototype</code>. Поэтому оценивался сайт как прототип перед запуском: индексации, трафика и позиций ещё нет.</p>
+</section>
+
+<nav class="toc box" aria-label="Содержание">
+  <h3>Содержание</h3>
+  <ol>
+    <li><a href="#summary">Executive Summary</a></li>
+    <li><a href="#scores">Общая оценка</a></li>
+    <li><a href="#issues">Подробный аудит: проблемы</a></li>
+    <li><a href="#journeys">Сценарии трёх покупателей</a></li>
+    <li><a href="#seo">SEO: метатеги, семантика, архитектура</a></li>
+    <li><a href="#cro">Заявка, карточка марки, функции</a></li>
+    <li><a href="#competitors">Лучшие решения конкурентов</a></li>
+    <li><a href="#plan">План модернизации</a></li>
+    <li><a href="#top20">ТОП-20 улучшений</a></li>
+    <li><a href="#verdict">Итоговый вердикт</a></li>
+  </ol>
+</nav>
+
+<!-- 1 -->
+<section id="summary">
+  <h2>1. Executive Summary</h2>
+  <div class="kpis">
+    <div class="kpi"><b>94 / 97</b><span>Lighthouse Performance, моб. (главная / EVOH)</span></div>
+    <div class="kpi"><b>1.1 с</b><span>LCP, лабораторный замер</span></div>
+    <div class="kpi"><b>0</b><span>CLS, битых ссылок, ошибок hreflang</span></div>
+    <div class="kpi"><b>16</b><span>страниц материалов на язык, марок: 0</span></div>
+    <div class="kpi"><b>1</b><span>канал связи (email); форма не отправляет</span></div>
+  </div>
+  <p><b>Насколько качественно реализован проект.</b> Технически сайт собран аккуратно: статический HTML без фреймворков, HTTPS с HSTS, корректные canonical и взаимные hreflang на всех 60 URL, лёгкие страницы (HTML 39 КБ, CSS 33 КБ, JS 9 КБ до сжатия), доступная разметка (skip-link, aria, <code>prefers-reduced-motion</code>), Lighthouse SEO 100 и Accessibility 99. Тексты о классах полимеров написаны грамотно и честно: везде указано, что это типичные диапазоны по открытым TDS, а не гарантии.</p>
+  <p><b>Главная проблема в другом.</b> Как инструмент продаж сайт сейчас почти не работает. Форма «Запросить цену» не отправляет заявку, а только собирает черновик письма для почтовой программы. Единственный контакт — email. Нет страницы о компании, телефона, мессенджеров, фото склада, сертификатов. В каталоге нет ни одной конкретной марки, только 16 обзорных страниц по классам. На странице «Поставка» все шесть условий (Incoterms, MOQ, сроки, упаковка, оплата, пункт отгрузки) заполнены фразой «Подтверждается в предложении».</p>
+  <p><b>Готов ли к активному продвижению.</b> Нет. Привлекать платный трафик сейчас означает терять большую часть заявок на mailto-форме. Органика на новом домене с 16 обзорными страницами на язык будет минимальной: закупщики ищут по марке и производителю, а таких страниц нет.</p>
+  <p><b>Готов ли к международному рынку.</b> Архитектура готова: <code>/</code> (EN, x-default), <code>/ru/</code>, <code>/zh/</code>, переведённые title и URL. Рыночная часть нет: нет локальных каналов связи (WeChat для Китая, WhatsApp для СНГ/Ближнего Востока, Telegram для РФ), GA4 не работает в материковом Китае, нет Яндекс.Метрики для RU, нет политики конфиденциальности для ЕС.</p>
+  <p><b>Главные возможности роста.</b> (1) Страницы конкретных марок и таблицы аналогов: это основной поисковый спрос закупщика и основной сценарий «подобрать замену», который сайт уже обещает. (2) Рабочая форма RFQ с несколькими позициями и загрузкой спецификации. (3) Блок доверия: реквизиты, склад, команда, документы. Всё это недорого, потому что технический фундамент уже хороший.</p>
+</section>
+
+<!-- 2 -->
+<section id="scores">
+  <h2>2. Общая оценка</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Направление</th><th>Оценка</th><th>Обоснование</th></tr></thead>
+    <tbody>
+      <tr><td>Дизайн</td><td class="n">6/10</td><td>Собственная последовательная система («Lab Precision»), тёмный hero, интерактивная схема барьерной плёнки выделяют сайт среди шаблонов. Минусы: стоковые фото (морковь в плёнке, стеллажи, терминал), нет ни одного фото самой компании, два разных бренда (словесный знак «Polymer Granules» и логотип «Yican» в подвале), шрифт Onest объявлен, но не подключён.</td></tr>
+      <tr><td>UI/UX</td><td class="n">5/10</td><td>Короткое меню и сводная таблица материалов удобны. Слабые места: поиск ищет подстроку («PE» находит PEEK и PEI, «Admer» не находит ничего), ссылки в подвале ведут не туда, форма не отправляет, плавающая кнопка перекрывает контент на телефоне.</td></tr>
+      <tr><td>SEO</td><td class="n">5/10</td><td>Техника на 9: canonical, hreflang, sitemap с alternate, ЧПУ, BreadcrumbList, OG. Семантика на 2–3: 16 страниц на язык, нет марок, нет коммерческих формулировок в title, нет информационных статей, домен возрастом один день.</td></tr>
+      <tr><td>Техническое состояние</td><td class="n">8/10</td><td>Все 60 URL отдают 200, 404 настоящий, сжатие gzip, год кэша на версионированных ресурсах. Минусы: редирект <code>/ru</code> → <code>http://</code> → <code>https://</code>, дубли <code>/ru/index.html</code> с кодом 200, нет CSP / X-Frame-Options.</td></tr>
+      <tr><td>Скорость</td><td class="n">9/10</td><td>Лаборатория: FCP 1.0 с, LCP 1.1 с, CLS 0, TBT 210–230 мс. Speed Index главной 3.6 с из-за анимаций появления. Полевых данных нет, оценка предварительная.</td></tr>
+      <tr><td>Адаптивность</td><td class="n">7/10</td><td>Горизонтального скролла страницы нет ни на одной из 8 ширин. Таблицы на ≤427 px прокручиваются внутри блока. На 375 px 24 ссылки высотой 20 px (меньше 24 px по WCAG 2.2), плавающая кнопка закрывает контент.</td></tr>
+      <tr><td>Контент</td><td class="n">4/10</td><td>Точные и аккуратные описания классов с методами ISO/ASTM. Но для закупщика не хватает главного: марок, производителей по каждому материалу, фасовки, наличия, TDS/SDS, сертификатов. Страницы однотипны (460–810 слов), FAQ повторяется.</td></tr>
+      <tr><td>Коммерческая эффективность</td><td class="n">3/10</td><td>CTA заметны и стоят везде, путь «материал → запрос» короткий. Но заявка не доходит до компании без почтового клиента, доверия нет, условий поставки нет, позвонить или написать в мессенджер нельзя.</td></tr>
+      <tr><td>Международная готовность</td><td class="n">5/10</td><td>Три языка с правильной разметкой и переводом URL. Нет локальных каналов, аналитики для Китая и РФ, политики конфиденциальности, реальных условий доставки по регионам.</td></tr>
+      <tr><td>Современность</td><td class="n">6/10</td><td>Визуально и технически сайт современный (2025–2026). Функционально отстаёт: нет RFQ-корзины, загрузки спецификации, фильтров по свойствам, карточек марок.</td></tr>
+      <tr><td>Качество реализации</td><td class="n">7/10</td><td>Чистый семантичный код и хорошая доступность. Видно, что это прототип: форма-заглушка, пустые условия поставки.</td></tr>
+      <tr><td>Потенциал развития</td><td class="n">8/10</td><td>Быстрая статическая основа, правильная мультиязычность и узкая ниша (барьерные смолы, адгезивы, специальные полиолефины) с понятным спросом «аналог марки X». Карточки марок и рабочая RFQ дадут заметный эффект при умеренных затратах.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 3 -->
+<section id="issues">
+  <h2>3. Подробный аудит: проблемы</h2>
+  <p>Пометки: <span class="tag">подтверждено</span> воспроизведено при проверке; <span class="tag">риск</span> потенциальная проблема, нужна проверка; <span class="tag">рекомендация</span> экспертное мнение. <span class="tag">сервер</span>, <span class="tag">аналитика</span>, <span class="tag">бизнес</span> — что нужно для исправления: доступ к серверу, к аналитике или данные от компании.</p>
+
+  <h3>CRITICAL</h3>
+
+  <div class="f"><h3><span class="sev C">CRITICAL</span>C1. Форма «Запросить цену» не отправляет заявку <span class="tag">подтверждено</span><span class="tag">сервер</span></h3><dl>
+    <dt>Где</dt><dd>Блок <code>#request</code> на всех страницах (RU/EN/ZH), кнопка «Создать черновик письма».</dd>
+    <dt>Воспроизведение</dt><dd>Заполнить Email и марку, нажать кнопку. Появляется текст письма и ссылка <code>mailto:sales@polymergranules.com?subject=…</code>. На сервер ничего не уходит, на странице прямо написано: «С этой страницы ничего не отправляется».</dd>
+    <dt>Влияние</dt><dd>У многих корпоративных пользователей почтовая программа не настроена (Gmail/Outlook в браузере, рабочие ПК с ограничениями), и <code>mailto</code> ничего не делает. Часть посетителей бросит запрос. Кроме того, событие GA4 <code>form_submit</code> срабатывает при создании черновика, поэтому статистика заявок будет завышена.</dd>
+    <dt>Решение</dt><dd>Серверный обработчик (PHP/Node на Timeweb или Cloudflare Worker), который сохраняет заявку, отправляет письмо в sales@ и автоответ клиенту. Защита от спама: honeypot + Cloudflare Turnstile или Яндекс SmartCaptcha. После отправки редирект на <code>/ru/spasibo/</code> с целью в аналитике. <code>mailto</code> оставить запасным вариантом при ошибке сервера. Структура формы — в <a href="#cro">разделе 6</a>.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev C">CRITICAL</span>C2. Единственный канал связи — email <span class="tag">подтверждено</span><span class="tag">бизнес</span></h3><dl>
+    <dt>Где</dt><dd><code>/ru/kontakty/</code>, верхняя полоса, подвал, schema Organization (нет <code>telephone</code>, <code>contactPoint</code>).</dd>
+    <dt>Влияние</dt><dd>B2B-закупщик сырья часто хочет уточнить наличие голосом или в мессенджере. Сайт без телефона и имён менеджеров выглядит как однодневка, что усиливается возрастом домена.</dd>
+    <dt>Решение</dt><dd>Телефон с кодом страны, WhatsApp, Telegram (RU/СНГ), WeChat ID и QR (ZH), часы работы с часовым поясом (UTC+8), имя и фото ответственного менеджера по каждому языку. Добавить в шапку на десктопе и в плавающую панель на мобильном. Добавить <code>contactPoint</code> в schema.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev C">CRITICAL</span>C3. Нет оснований доверять компании, а заявления о брендах ничем не подтверждены <span class="tag">подтверждено</span><span class="tag">риск</span><span class="tag">бизнес</span></h3><dl>
+    <dt>Где</dt><dd>Главная, блок «Представляемые бренды»; страницы адгезивов, СВМПЭ, ABS; отсутствие страницы «О компании» (<code>/ru/o-kompanii/</code>, <code>/about/</code> → 404).</dd>
+    <dt>Доказательство</dt><dd>Текст: «Мы также являемся агентом ведущих мировых химических компаний, в том числе Wanhua Chemical, Hengli…». Рядом стена из 24 логотипов (Dow, BASF, Covestro, Borealis, NatureWorks, Huntsman и др.), причём часть логотипов не упомянута в тексте, а в каталоге нет ни одной марки этих производителей. Юрлицо указано только как «JiangsuYican Special Plastic Co., Ltd.» без пробела, без регистрационного номера, года основания, фото, команды.</dd>
+    <dt>Влияние</dt><dd>Международный закупщик сначала проверяет поставщика. Стена чужих логотипов без подтверждения у опытного покупателя вызывает обратный эффект. Есть юридический риск использования товарных знаков с формулировкой «агент» или «представляемые бренды» без договоров.</dd>
+    <dt>Решение</dt><dd>Страница «О компании»: полное название, единый код соц. кредита (USCC), год, адрес склада, фото склада, упаковки и маркировки, команда, география поставок. Оставить логотипы только тех производителей, с которыми есть договор, и показать сканы дистрибьюторских писем. В остальных случаях писать нейтрально: «поставляем материалы производства …». Формулировки проверить у юриста.</dd>
+  </dl></div>
+
+  <h3>HIGH</h3>
+
+  <div class="f"><h3><span class="sev H">HIGH</span>H1. Каталог без марок: 16 обзорных страниц, 0 карточек марок <span class="tag">подтверждено</span><span class="tag">бизнес</span></h3><dl>
+    <dt>Где</dt><dd><code>/ru/materials/</code> и все 16 страниц материалов.</dd>
+    <dt>Влияние</dt><dd>Закупщик ищет по марке («Admer QF551», «GUR 4120», «Elvax 260») или просит аналог конкретной марки. Сайт обещает «подбор по марке, которую вы используете сейчас», но ни одной марки не показывает. Это главная причина слабого SEO и низкой конверсии.</dd>
+    <dt>Решение</dt><dd>Шаблон карточки марки (поля — в <a href="#cro">разделе 6</a>), старт с 30–50 марок, которые реально есть в наличии или под заказ. URL: <code>/ru/materials/evoh/&lt;proizvoditel&gt;-&lt;marka&gt;/</code>. Страницу класса превратить в хаб со списком марок и фильтром.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev H">HIGH</span>H2. Страница «Поставка» не содержит ни одного условия <span class="tag">подтверждено</span><span class="tag">бизнес</span></h3><dl>
+    <dt>Где</dt><dd><code>/ru/postavka/</code>, таблица «Условия».</dd>
+    <dt>Доказательство</dt><dd>Incoterms, минимальная партия, срок, упаковка, оплата, пункт отгрузки: везде «Подтверждается в предложении». В FAQ на вопрос о малых партиях ответ «указываются в предложении».</dd>
+    <dt>Решение</dt><dd>Опубликовать реальные диапазоны: базовые Incoterms (например, FOB/CIF Шанхай, DAP для РФ/СНГ), MOQ (от 1 мешка 25 кг на пробу, от 1 паллеты на заказ — если это правда), сроки со склада и под заказ, упаковку (мешки 25 кг, биг-бэги), оплату (T/T, L/C), порты отгрузки. Отдельный блок «Доставка в РФ/СНГ» с типовым маршрутом и сроком.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev H">HIGH</span>H3. Поиск по материалам работает как поиск подстроки <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>Поле «Найти материал» на главной (фильтр таблицы <code>#finder</code>).</dd>
+    <dt>Воспроизведение</dt><dd>«PE» → mLLDPE, PEEK, PEI; «полиэтилен» → только СВМПЭ (mLLDPE не найден); «полипропилен» → POE; «Admer», «EVAL F101», «ПЭНД», «гранулы» → ничего.</dd>
+    <dt>Решение</dt><dd>Словарь синонимов и брендов (полиэтилен → mLLDPE, СВМПЭ; ЭВА/СЭВА → EVA; нейлон/ПА66 → PA66; Admer/Bynel/Orevac → адгезивы; GUR/UTEC → СВМПЭ), поиск по целым словам, поиск по маркам после появления карточек. При пустом результате показывать кнопку «Прислать марку менеджеру» с подставленным запросом в форме.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev H">HIGH</span>H4. Ссылки на материалы в подвале ведут на общий каталог <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>Подвал всех RU-страниц, колонка «Материалы».</dd>
+    <dt>Доказательство</dt><dd>«EVOH», «EVA», «POE», «Адгезивы» и «Все материалы» — все пять ссылок <code>href="../ru/materials/"</code>.</dd>
+    <dt>Решение</dt><dd>Указать <code>materials/evoh.html</code>, <code>eva.html</code>, <code>poe.html</code>, <code>adgezivy.html</code>. Проверить EN/ZH-шаблон.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev H">HIGH</span>H5. Title и Description не отвечают на коммерческие запросы <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>«Материалы | Polymer Granules», «Контакты | Polymer Granules», «PEEK для ответственных применений | Polymer Granules» и т. д.</dd>
+    <dt>Решение</dt><dd>Добавить тип предложения (купить, поставка, оптом), географию, если она подтверждена, и примеры марок. Конкретные варианты — в <a href="#seo">разделе 5</a>.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev H">HIGH</span>H6. Аналитика не покрывает два из трёх рынков <span class="tag">подтверждено</span><span class="tag">аналитика</span></h3><dl>
+    <dt>Где</dt><dd>Все страницы: подключён только GA4 (<code>G-HBWM9W8Y0R</code>).</dd>
+    <dt>Доказательство</dt><dd>Яндекс.Метрики нет, хотя домен подтверждён в Яндекс.Вебмастере (TXT <code>yandex-verification</code>). Сервисы Google в материковом Китае заблокированы, поэтому ZH-аудитория в GA4 почти не попадёт. Цель <code>form_submit</code> считает черновики, а не заявки.</dd>
+    <dt>Решение</dt><dd>Яндекс.Метрика с целями на RU-версии, Baidu Tongji на ZH (если Китай — целевой рынок), цели «заявка отправлена» по ответу сервера, клики по телефону и мессенджерам, просмотр карточки марки. Учитывать согласие на cookie (H7).</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev H">HIGH</span>H7. Нет политики конфиденциальности и уведомления о cookie <span class="tag">подтверждено</span><span class="tag">риск</span><span class="tag">бизнес</span></h3><dl>
+    <dt>Где</dt><dd>Весь сайт. GA4 загружается сразу, форма собирает email и компанию.</dd>
+    <dt>Влияние</dt><dd>Для посетителей из ЕС это нарушение GDPR, для РФ есть требования 152-ФЗ (уведомление РКН, трансграничная передача). Отсутствие политики также снижает доверие.</dd>
+    <dt>Решение</dt><dd>Страница политики на трёх языках, ссылка в подвале и у формы, баннер согласия с Google Consent Mode v2 для ЕС. Формулировки согласовать с юристом.</dd>
+  </dl></div>
+
+  <h3>MEDIUM</h3>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M1. Редирект без слэша уходит на HTTP и делает две пересылки <span class="tag">подтверждено</span><span class="tag">сервер</span></h3><dl>
+    <dt>Воспроизведение</dt><dd><code>curl -I https://polymergranules.com/ru</code> → <code>301 Location: http://polymergranules.com/ru/</code> → затем 301 на https. То же для <code>/zh</code>, <code>/ru/materials</code>.</dd>
+    <dt>Решение</dt><dd>В nginx: <code>absolute_redirect off;</code> или явное правило <code>return 301 https://$host$uri/;</code> для каталогов. Проверить, что получается один 301 сразу на https.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M2. Дубли <code>index.html</code> отдают 200 <span class="tag">подтверждено</span><span class="tag">сервер</span></h3><dl>
+    <dt>Воспроизведение</dt><dd><code>/ru/index.html</code>, <code>/ru/materials/index.html</code> → 200. Canonical на странице есть, поэтому вред небольшой, но лучше 301 на адрес со слэшем.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M3. Не хватает заголовков безопасности <span class="tag">подтверждено</span><span class="tag">сервер</span></h3><dl>
+    <dt>Доказательство</dt><dd>Есть HSTS (без <code>includeSubDomains</code>), <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code>. Нет <code>Content-Security-Policy</code>, <code>X-Frame-Options</code> / <code>frame-ancestors</code>, <code>Permissions-Policy</code>. <code>/.git/</code> и <code>/.env</code> закрыты (403), это хорошо.</dd>
+    <dt>Решение</dt><dd>CSP с разрешением только своего домена и <code>googletagmanager.com</code> / <code>google-analytics.com</code> (+ Метрика), <code>frame-ancestors 'none'</code>, <code>Permissions-Policy: camera=(), microphone=(), geolocation=()</code>. Активные тесты безопасности не проводились.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M4. Латинские единицы и английские подсказки в русской версии <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>Таблица на <code>/ru/</code> и таблицы данных материалов: «1.12–1.20 g/cm³», «g/10 min», «MPa»; плейсхолдер поля объёма «t / month».</dd>
+    <dt>Решение</dt><dd>г/см³, г/10 мин, МПа, «т/мес». Десятичная запятая для RU — на усмотрение (в техдокументации допустима точка, но единообразно).</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M5. Мелкие зоны нажатия на мобильном <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd><code>/ru/</code> при 375 px: 24 ссылки высотой 20 px (чипы «Часто ищут», ссылки материалов в карточках «Где работают смолы»).</dd>
+    <dt>Решение</dt><dd>Минимум 24×24 px (WCAG 2.2 AA), лучше 40–44 px по высоте за счёт padding.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M6. Плавающая кнопка «Запросить цену» перекрывает контент <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>Все страницы при ширине &lt;720 px. На главной при 375 px кнопка закрывает строки mLLDPE и СВМПЭ в графике плотности.</dd>
+    <dt>Решение</dt><dd><code>padding-bottom</code> у body на высоту кнопки, скрывать кнопку, когда форма <code>#request</code> в зоне видимости. Добавить в панель вторую кнопку (WhatsApp/Telegram).</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M7. Первый экран на мобильном отдан декоративному графику плотности <span class="tag">рекомендация</span></h3><dl>
+    <dt>Где</dt><dd><code>/ru/</code>, блок «Плотность полимеров» сразу под hero.</dd>
+    <dt>Почему</dt><dd>Закупщику плотность класса почти ничего не говорит о поставщике. На телефоне график занимает около полутора экранов до первого коммерческого блока.</dd>
+    <dt>Решение</dt><dd>На мобильном поставить под hero полосу доверия (год, склад, страны, срок ответа) и «Как заказать: 3 шага». График перенести ниже или в каталог.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M8. Стоковые фото и раздвоение бренда <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>Главная (гранулы на белом фоне, морковь в плёнке), «Поставка» (терминал, стеллажи), «Контакты» (карусель). Подвал: логотип «Yican», в шапке словесный знак «Polymer Granules».</dd>
+    <dt>Решение</dt><dd>Свои фото: склад, мешки с маркировкой, погрузка контейнера, лаборатория/офис. Определить бренд: «Polymer Granules by Yican» с единым логотипом в шапке и подвале.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M9. Нет разметки Product для материалов <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>Страницы материалов размечены только как <code>WebPage</code> + <code>BreadcrumbList</code>.</dd>
+    <dt>Решение</dt><dd>На карточках марок: <code>Product</code> с <code>brand</code>, <code>manufacturer</code>, <code>mpn</code> (марка), <code>additionalProperty</code> (ПТР, плотность). Цену без реальной цены не выдумывать. Расширенный сниппет Google без <code>offers</code> может не показать, но Яндекс и AI-поиск разметку используют.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M10. Шрифт Onest объявлен, но не загружается <span class="tag">подтверждено</span></h3><dl>
+    <dt>Доказательство</dt><dd><code>font-family: Onest, Manrope, system-ui…</code>, при этом <code>@font-face</code> в CSS нет и Google Fonts не подключены. У большинства посетителей будет системный шрифт, внешний вид отличается на разных устройствах.</dd>
+    <dt>Решение</dt><dd>Самостоятельно хостить Onest woff2 (латиница + кириллица, 2 начертания, <code>font-display: swap</code>) или убрать из стека.</dd>
+  </dl></div>
+
+  <div class="f"><h3><span class="sev M">MEDIUM</span>M11. Повторяющиеся промо-блоки и FAQ <span class="tag">подтверждено</span></h3><dl>
+    <dt>Где</dt><dd>Блоки «Поставляем ADMER, Plexar…» и «Поставляем порошок СВМПЭ и гранулы ABS…» стоят на главной, в каталоге и на странице «Поставка», где не к месту. Вопрос «Вы публикуете цены и техпаспорта?» повторяется на каждой странице материала.</dd>
+    <dt>Решение</dt><dd>Промо оставить на главной и в каталоге; на «Поставке» заменить блоком о логистике. FAQ сделать уникальным для каждого материала.</dd>
+  </dl></div>
+
+  <h3>LOW</h3>
+
+  <div class="f"><h3><span class="sev L">LOW</span>L1. Порядок заголовков (Lighthouse) <span class="tag">подтверждено</span></h3><dl><dt>Где</dt><dd><code>&lt;h4&gt;</code> в подвале после <code>&lt;h2&gt;</code>. Заменить на <code>&lt;p class="foot-h"&gt;</code> или <code>&lt;h2&gt;</code> с визуальным стилем h4.</dd></dl></div>
+  <div class="f"><h3><span class="sev L">LOW</span>L2. Speed Index главной 3.6 с <span class="tag">подтверждено</span></h3><dl><dt>Где</dt><dd>Lighthouse, мобильная эмуляция. Причина — анимации появления (<code>.in-1…in-4</code>, <code>.reveal</code>, бегущая строка, «аврора»). Сократить задержки до 0–150 мс, бегущую строку убрать на мобильном.</dd></dl></div>
+  <div class="f"><h3><span class="sev L">LOW</span>L3. Schema Organization неполная <span class="tag">подтверждено</span></h3><dl><dt>Где</dt><dd>Нет <code>telephone</code>, <code>contactPoint</code>, <code>sameAs</code> (LinkedIn, Alibaba, Made-in-China, если есть), <code>foundingDate</code>. <code>legalName</code> без пробела.</dd></dl></div>
+  <div class="f"><h3><span class="sev L">LOW</span>L4. Одинаковая OG-картинка на всех страницах <span class="tag">подтверждено</span></h3><dl><dt>Где</dt><dd>Все страницы используют <code>og-pellets.jpg</code>. Для материалов сделать шаблонные OG с названием материала.</dd></dl></div>
+  <div class="f"><h3><span class="sev L">LOW</span>L5. Нет <code>security.txt</code> и внешних профилей <span class="tag">подтверждено</span></h3><dl><dt>Где</dt><dd><code>/.well-known/security.txt</code> → 404; на сайте ноль внешних ссылок (LinkedIn, торговые площадки, выставки).</dd></dl></div>
+  <div class="f"><h3><span class="sev L">LOW</span>L6. Хостинг в РФ для китайской компании с аудиторией в Китае и ЕС <span class="tag">риск</span></h3><dl><dt>Где</dt><dd>Сервер Timeweb (<code>5.23.50.122</code>). Скорость из Китая и ЕС не проверялась. Если ZH-рынок приоритетен, измерить из Китая и при необходимости поставить CDN.</dd></dl></div>
+
+  <h3>OPPORTUNITY</h3>
+  <div class="f"><h3><span class="sev O">OPPORTUNITY</span>O1. Таблицы аналогов (cross-reference)</h3><dl><dt>Идея</dt><dd>Страницы вида «Аналоги Admer: Bynel, Orevac, Plexar и китайские марки по применению». Закрывают обещание «подобрать замену», собирают запросы «аналог &lt;марка&gt;» и дают повод оставить заявку. Публиковать только проверенные соответствия с оговоркой «подтверждается по TDS и испытаниям».</dd></dl></div>
+  <div class="f"><h3><span class="sev O">OPPORTUNITY</span>O2. Интерактив барьерной плёнки как вход в подбор</h3><dl><dt>Идея</dt><dd>Схема 5/7 слоёв уже есть. Добавить к каждому слою кнопку «Подобрать марку для этого слоя», которая открывает форму с подставленным материалом и структурой.</dd></dl></div>
+  <div class="f"><h3><span class="sev O">OPPORTUNITY</span>O3. Запрос образца</h3><dl><dt>Идея</dt><dd>Для переработчика пробная партия 1–25 кг важнее цены. Кнопка «Запросить образец» на карточке марки.</dd></dl></div>
+</section>
+
+<!-- 4 -->
+<section id="journeys">
+  <h2>4. Сценарии трёх покупателей</h2>
+  <p>Пройдены вручную в браузере (десктоп 1440 px и телефон 375 px). Время не замерялось секундомером, оценка качественная.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Шаг</th><th>Закупщик крупного завода</th><th>Небольшой переработчик</th><th>Международный трейдер</th></tr></thead>
+    <tbody>
+      <tr><td>Найти материал</td><td>Быстро, если знает класс (меню → таблица). По марке найти нельзя.</td><td>Ищет «гранулы полиэтилена», «ПЭНД»: поиск ничего не находит, PE/PP нет в ассортименте.</td><td>Ищет по марке и производителю: марок нет.</td></tr>
+      <tr><td>Понять назначение</td><td>Хорошо: применение и особенности описаны.</td><td>Хорошо, язык понятный.</td><td>Достаточно.</td></tr>
+      <tr><td>Характеристики</td><td>Только типичные диапазоны класса. TDS по email.</td><td>То же; не видно, какую марку брать.</td><td>Нужны точные марки и TDS сразу — их нет.</td></tr>
+      <tr><td>Доступность</td><td>Нет: наличие, склад, сроки, MOQ скрыты.</td><td>Не понятно, продают ли мешок или только контейнер. <b>Точка ухода.</b></td><td>Нет Incoterms, портов, объёмов. <b>Точка ухода.</b></td></tr>
+      <tr><td>Запросить цену</td><td>Форма выглядит нормально, но после нажатия открывается почтовик или ничего. <b>Точка ухода.</b></td><td>То же.</td><td>Отправит письмо вручную, если уже заинтересован.</td></tr>
+      <tr><td>Связаться</td><td>Только email. Нет телефона, реквизитов для проверки контрагента. <b>Точка ухода</b> для службы безопасности закупок.</td><td>Хотел бы WhatsApp/Telegram — нет.</td><td>Хотел бы WeChat/WhatsApp и профиль на площадках — нет.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 5 -->
+<section id="seo">
+  <h2>5. SEO: метатеги, семантика, архитектура</h2>
+
+  <h3>5.1. Техническое SEO: сводка</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Пункт</th><th>Состояние</th></tr></thead>
+    <tbody>
+      <tr><td>robots.txt</td><td>OK: <code>Allow: /</code>, ссылка на sitemap.</td></tr>
+      <tr><td>sitemap.xml</td><td>OK: 60 URL, все 200, с <code>xhtml:link</code> alternate. Нет <code>lastmod</code> — добавить.</td></tr>
+      <tr><td>Canonical</td><td>OK: самоссылочный на всех 60 страницах.</td></tr>
+      <tr><td>Hreflang</td><td>OK: en / ru / zh-Hans / x-default, взаимность проверена скриптом, ошибок 0.</td></tr>
+      <tr><td>HTTPS, WWW</td><td>OK: http и www → 301 на <code>https://polymergranules.com/</code>. HSTS 1 год.</td></tr>
+      <tr><td>Редиректы</td><td>Проблема M1 (через http), дубли M2.</td></tr>
+      <tr><td>404</td><td>OK: настоящий код 404.</td></tr>
+      <tr><td>URL</td><td>ЧПУ, транслит в RU (<code>postavka</code>, <code>kontakty</code>, <code>adgezivy</code>, <code>svmpe</code>). Смешение: каталоги со слэшем, материалы с <code>.html</code>. Для будущих марок выбрать одну схему.</td></tr>
+      <tr><td>JS-рендеринг</td><td>OK: весь контент в исходном HTML, JS только для интерактива.</td></tr>
+      <tr><td>Schema.org</td><td>Organization, WebSite, CollectionPage + ItemList, BreadcrumbList. Нет Product (M9), FAQPage не нужен (Google показывает FAQ-сниппеты только авторитетным гос- и медсайтам).</td></tr>
+      <tr><td>Open Graph</td><td>OK на всех страницах, картинка одна (L4).</td></tr>
+      <tr><td>Перелинковка</td><td>Хорошая между материалами (связанные материалы, применение). Ошибка в подвале (H4). Нет перелинковки по маркам и аналогам: их пока нет.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5.2. Примеры новых Title / Description / H1</h3>
+  <p>В квадратных скобках — данные, которые должна подтвердить компания. Не публиковать обещания (сроки, склад, география), если их нет на деле.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Страница</th><th>Title</th><th>Description</th><th>H1</th></tr></thead>
+    <tbody>
+      <tr><td><code>/ru/</code></td><td>Полимерное сырьё оптом: EVOH, EVA, POE, адгезивы, PA66 — поставщик из Китая</td><td>Гранулы для барьерных плёнок, клеев-расплавов и инженерных деталей. Подбор аналога по вашей марке, TDS и цена за [24 часа]. Поставка в [РФ, СНГ, ЕС].</td><td>Полимерные гранулы для плёнок, клеев и инженерных деталей</td></tr>
+      <tr><td><code>/ru/materials/</code></td><td>Каталог полимерного сырья: барьерные смолы, эластомеры, инженерные пластики</td><td>16 классов и [N] марок: EVOH, EVA, POE, адгезивные смолы, PA66, POM, PEEK, ТПУ, СВМПЭ. Характеристики, применение, запрос TDS.</td><td>Каталог полимерных гранул и порошков</td></tr>
+      <tr><td><code>/ru/materials/evoh.html</code></td><td>EVOH (этиленвиниловый спирт) — купить гранулы, марки и TDS</td><td>EVOH для барьерных плёнок, лотков и бутылок: марки с содержанием этилена 27–48 мол. %, подбор аналога, TDS и цена по запросу.</td><td>EVOH для барьерных плёнок: марки и поставка</td></tr>
+      <tr><td><code>/ru/materials/adgezivy.html</code></td><td>Адгезивные смолы для соэкструзии: Admer, Bynel, Orevac и аналоги</td><td>Адгезивы для связи EVOH и PA с PE/PP: марки ADMER, Plexar, Bynel, Fusabond, OREVAC и аналоги. Подбор по структуре плёнки.</td><td>Адгезивные смолы (tie-layer) для соэкструзии</td></tr>
+      <tr><td><code>/ru/materials/svmpe.html</code></td><td>Порошок СВМПЭ (UHMWPE) — GUR, UTEC, Lubmer и аналоги оптом</td><td>Сверхвысокомолекулярный полиэтилен для футеровки, листа и деталей машин. Марки по молекулярной массе, TDS и цена по запросу.</td><td>Порошок СВМПЭ для износостойких изделий</td></tr>
+      <tr><td><code>/ru/postavka/</code></td><td>Доставка полимерного сырья в [Россию и СНГ]: Incoterms, сроки, документы</td><td>Условия поставки гранул: [FOB/CIF/DAP], партии от [25 кг], сроки [N] дней, документы COA, TDS, SDS, сертификат происхождения.</td><td>Поставка и условия заказа</td></tr>
+      <tr><td><code>/ru/kontakty/</code></td><td>Контакты отдела продаж Polymer Granules: телефон, WhatsApp, WeChat</td><td>Менеджер по [России и СНГ]: телефон, email, мессенджеры. Офис и склад в Уси (Китай), часы работы UTC+8.</td><td>Связаться с отделом продаж</td></tr>
+      <tr><td>Карточка марки (шаблон)</td><td>{Марка} {Производитель} — {класс}, ПТР {x}, купить | Polymer Granules</td><td>{Марка} ({класс}) от {производителя}: ПТР {x} г/10 мин, плотность {y} г/см³, для {применение}. TDS, наличие и цена по запросу.</td><td>{Производитель} {Марка}: {класс} для {применение}</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5.3. Семантическое ядро: группы и посадочные страницы</h3>
+  <p>Частотность не проверялась (нет доступа к Wordstat и Keyword Planner). Ниже — структура групп для проверки в этих сервисах; география проверки: Россия (Яндекс), США/ЕС/ОАЭ/Турция (Google).</p>
+  <div class="tw"><table>
+    <thead><tr><th>Группа</th><th>Примеры запросов RU / EN</th><th>Посадочная</th><th>Есть сейчас</th></tr></thead>
+    <tbody>
+      <tr><td>Марка + производитель</td><td>admer qf551, bynel 4104, gur 4120 купить / admer qf551 datasheet, eval f101 supplier</td><td>Карточка марки</td><td>Нет</td></tr>
+      <tr><td>Аналоги</td><td>аналог admer, чем заменить bynel / admer equivalent, orevac alternative</td><td>Страница аналогов</td><td>Нет</td></tr>
+      <tr><td>Класс + коммерция</td><td>EVOH купить, адгезив для соэкструзии цена, порошок СВМПЭ оптом / EVOH resin supplier, tie layer resin price</td><td>Страница класса</td><td>Есть, без коммерческих формулировок</td></tr>
+      <tr><td>Класс + применение</td><td>EVA для клея-расплава, POE для модификации PP / EVA for hot melt, POE for PP impact modification</td><td>Раздел или отдельная страница</td><td>Частично (блоки на страницах)</td></tr>
+      <tr><td>Отрасль</td><td>сырьё для барьерной плёнки, сырьё для кабельных компаундов / barrier film resins, wire and cable compounds</td><td>Страницы отраслей (на месте <code>#applications</code>)</td><td>Только якорь на главной</td></tr>
+      <tr><td>Поставщик / импорт</td><td>полимерное сырьё из Китая, поставщик инженерных пластиков / polymer resin supplier China, engineering plastics distributor</td><td>Главная, «О компании», «Поставка»</td><td>Частично</td></tr>
+      <tr><td>Commodity PE/PP/ABS</td><td>гранулы полиэтилена, гранулы полипропилена, ABS оптом / polyethylene granules, PP resin wholesale</td><td>Только если компания реально продаёт PE/PP</td><td>ABS есть, PE/PP нет</td></tr>
+      <tr><td>Информационные</td><td>EVOH что это, структура барьерной плёнки, ПТР как выбрать, содержание винилацетата в EVA / what is EVOH, EVOH vs PVDC, tie layer resin explained</td><td>Статьи с переходом в каталог</td><td>Нет</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Отдельные страницы обязательны</b> для: каждой реально поставляемой марки; аналогов по адгезивам, EVOH, СВМПЭ, POE; четырёх-шести отраслей (барьерная упаковка, клеи-расплавы, кабель, обувь и пены, автокомпоненты, износостойкие детали). <b>Не создавать</b> страницы под PE/PP/masterbatch/вторичку, если компания этого не продаёт: трафик без ассортимента даст отказы и подорвёт доверие.</p>
+  <p><b>Первые 10 статей</b> (каждая со ссылкой на материалы и форму): EVOH: как выбрать содержание этилена; Как устроена 5- и 7-слойная барьерная плёнка; Адгезивы для соэкструзии: как подобрать под PP, PE, PA; EVA для клея-расплава: VA% и ПТР; POE против EPDM для модификации PP; СВМПЭ: молекулярная масса и применение; PA66 ненаполненный и стеклонаполненный; ПТР: что значит и как перевести между методами; Какие документы нужны при импорте полимеров в РФ (COA, SDS, сертификат происхождения); Как проверить поставщика полимеров из Китая.</p>
+
+  <h3>5.4. Международная архитектура</h3>
+  <p>Текущая схема (подпапки на одном домене, EN в корне как x-default) правильная, менять её не нужно. Рекомендации:</p>
+  <ul>
+    <li>Перенести EN в <code>/en/</code> не обязательно; при текущей схеме оставить, это сохранит простоту.</li>
+    <li>Для ZH с приоритетом Китая: проверить доступность и скорость из материка, добавить Baidu Tongji, рассмотреть отдельную площадку (Alibaba / 1688), так как Google там не работает.</li>
+    <li>Переводы title и URL уже локализованы (<code>/ru/postavka/</code>, <code>/zh/shipping/</code>). Для новых языков (тур., араб., исп., вьет. — если есть продажи) использовать тот же шаблон и проверять терминологию у носителя-технолога.</li>
+    <li>Региональные блоки на «Поставке»: РФ/СНГ, ЕС, Ближний Восток, ЮВА — свои Incoterms, сроки, документы.</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section id="cro">
+  <h2>6. Заявка, карточка марки, функции</h2>
+
+  <h3>6.1. Форма запроса коммерческого предложения</h3>
+<pre>Шаг 1 — обязательное (видно сразу)
+  Email *                        [                    ]
+  Позиции *  ┌ Материал / марка (автоподсказка из каталога) ┬ Объём, т/мес ┬ ✕ ┐
+             └ + добавить позицию                                              ┘
+  Страна назначения *            [                    ]
+  [ Получить предложение ]   Ответ в течение [N] часов (UTC+8)
+
+Шаг 2 — по желанию (раскрывается)
+  Компания · Телефон / WhatsApp / Telegram / WeChat (переключатель)
+  Применение и процесс  (плёнка рукавная / литьё / экструзия / компаундирование …)
+  Нужны документы: ☐ Цена ☐ TDS ☐ SDS ☐ COA ☐ Образец
+  Желаемые условия: Incoterms [FOB ▾]  порт/город [     ]
+  Файл спецификации или ТЗ (PDF, XLSX, до 10 МБ)
+  Комментарий
+  ☐ Согласен с политикой конфиденциальности *
+
+После отправки: страница «Спасибо» с номером заявки, именем менеджера,
+сроком ответа и кнопками WhatsApp/Telegram/WeChat.</pre>
+  <p>Почему так: три обязательных поля снижают порог входа, а позиции с объёмом дают продажам всё нужное для первого ответа. Поле «Компания» сейчас стоит первым, его лучше сделать необязательным и убрать во второй шаг.</p>
+
+  <h3>6.2. Карточка марки: обязательные поля</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Блок</th><th>Содержимое</th></tr></thead>
+    <tbody>
+      <tr><td>Заголовок</td><td>Производитель, марка, класс, международное обозначение (EVOH, EVA, PA66…), статус: «На складе [город]» / «Под заказ, [N] недель».</td></tr>
+      <tr><td>Ключевые параметры</td><td>ПТР (метод и условия), плотность, профильный параметр класса (содержание этилена / VA / твёрдость / молекулярная масса), форма (гранулы/порошок). Только из TDS производителя.</td></tr>
+      <tr><td>Применение и процесс</td><td>Тип переработки, отрасли, допуски (контакт с пищей — только если указаны в документах производителя).</td></tr>
+      <tr><td>Коммерция</td><td>Фасовка (мешок 25 кг, биг-бэг), MOQ, Incoterms, код ТН ВЭД/HS.</td></tr>
+      <tr><td>Документы</td><td>TDS / SDS: «Скачать» (если производитель разрешает) или «Запросить»; сертификаты, если есть.</td></tr>
+      <tr><td>Действия</td><td>«Запросить цену» (марка подставляется в форму), «Добавить в запрос», «Запросить образец», «Написать в WhatsApp».</td></tr>
+      <tr><td>Аналоги</td><td>Список близких марок других производителей со ссылками и оговоркой о проверке по TDS.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>6.3. Какие функции оправданы</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Функция</th><th>Вердикт</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td>Request a Quote с сервером</td><td><b>Сделать сразу</b></td><td>Без этого заявки теряются (C1).</td></tr>
+      <tr><td>Запрос цены из карточки материала</td><td><b>Сделать сразу</b></td><td>Кнопки уже есть, нужно подставлять материал в форму.</td></tr>
+      <tr><td>Несколько материалов в одном запросе</td><td><b>Сделать</b></td><td>Типично для переработчика: EVOH + адгезив + PE в одной структуре. Реализация: список в localStorage + строки в форме.</td></tr>
+      <tr><td>Загрузка ТЗ / спецификации</td><td><b>Сделать</b></td><td>Недорого, повышает качество заявки.</td></tr>
+      <tr><td>Запрос TDS</td><td><b>Сделать</b></td><td>Чекбокс в форме и кнопка на карточке.</td></tr>
+      <tr><td>Мессенджеры</td><td><b>Сделать сразу</b></td><td>C2, низкая стоимость.</td></tr>
+      <tr><td>Кнопка связи с менеджером</td><td><b>Сделать</b></td><td>Совмещается с мессенджерами, имя и фото менеджера.</td></tr>
+      <tr><td>Каталог с фильтрами по свойствам</td><td>После 50+ марок</td><td>При 16 классах фильтр избыточен; таблица с чипами уже справляется.</td></tr>
+      <tr><td>Сравнение марок</td><td>Позже</td><td>Полезно трейдеру и технологу, когда в классе 5+ марок.</td></tr>
+      <tr><td>AI-помощник подбора</td><td>Эксперимент</td><td>Без базы марок и аналогов ему не на что опираться; риск неверных рекомендаций по техническим свойствам.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 7 -->
+<section id="competitors">
+  <h2>7. Лучшие решения конкурентов и ориентиров</h2>
+  <p>M. Holland и Plastribution открыты и разобраны (навигация, функции). Knowde открыт, но главная теперь продаёт AI-платформу, маркетплейс оценён по общеизвестной структуре. UL Prospector, SpecialChem Omnexus, Entec Polymers и Ravago заблокировали автоматический доступ (403), поэтому их решения описаны по общедоступным сведениям, без проверки в этот день.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Компания</th><th>Сайт</th><th>Сильные стороны</th><th>Интересные решения</th><th>Перенять</th><th>Не копировать</th></tr></thead>
+    <tbody>
+      <tr><td>M. Holland (дистрибьютор, США)</td><td><code>mholland.com</code></td><td>Навигация по рынкам: Automotive, Packaging, Wire &amp; Cable, Healthcare, Rotational Molding.</td><td>Technical Support и лабораторные услуги, Glossary, Quality Standards/ISO, «Become a Client».</td><td>Раздел «Отрасли» вместо якоря, глоссарий терминов для SEO, страница качества и документов.</td><td>Тяжёлые корпоративные разделы (карьера, DEI, события), которые не нужны небольшому трейдеру.</td></tr>
+      <tr><td>Plastribution (дистрибьютор, Великобритания)</td><td><code>plastribution.co.uk</code></td><td>Телефон в шапке, сертификат ISO 9001, «Meet the Team», «Supply Partners».</td><td>«Price Know-How» (обзоры цен рынка), загрузка заказа (Upload Purchase Order), личный кабинет, ссылка на WhatsApp.</td><td>Команда с фото, страница поставщиков-партнёров с подтверждением, ежемесячный обзор цен как повод для подписки и SEO.</td><td>Брендовые видео и мероприятия.</td></tr>
+      <tr><td>Knowde (маркетплейс химии)</td><td><code>knowde.com</code></td><td>Единая модель данных продукта у сотен производителей.</td><td>Кнопки «Request quote / sample / document» на каждой карточке.</td><td>Строгий шаблон карточки и три действия на ней.</td><td>Сложность маркетплейса, регистрацию для просмотра.</td></tr>
+      <tr><td>UL Prospector (база материалов)</td><td><code>ulprospector.com</code></td><td>Поиск марок по свойствам, единые таблицы с методами испытаний.</td><td>Фильтры по ПТР, плотности, твёрдости; сравнение марок.</td><td>Формат таблицы свойств с методом и условиями для карточек марок.</td><td>Платный доступ и регистрационные стены.</td></tr>
+      <tr><td>SpecialChem Omnexus (контент о пластиках)</td><td><code>omnexus.specialchem.com</code></td><td>Справочники по классам полимеров, руководства по выбору.</td><td>Статьи «как выбрать» со ссылками на марки.</td><td>Модель «статья → класс → марка → запрос».</td><td>Всплывающие окна и обязательную регистрацию.</td></tr>
+      <tr><td>Entec Polymers / Ravago (дистрибуция)</td><td><code>entecpolymers.com</code></td><td>Line card: список поставщиков и их линеек.</td><td>Поиск по марке и производителю.</td><td>Страница «Линейка поставщиков» с реально поставляемыми брендами.</td><td>Огромный каталог без описаний — у небольшого сайта сильнее работает экспертный контент.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 8 -->
+<section id="plan">
+  <h2>8. План модернизации</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Этап</th><th>Задача</th><th>Зачем</th><th>Как</th><th>Результат</th><th>Приоритет</th><th>Сложность</th></tr></thead>
+    <tbody>
+      <tr><td>1. Критические</td><td>Рабочая форма RFQ</td><td>Заявки теряются</td><td>Серверный обработчик, антиспам, автоответ, страница «Спасибо» <span class="tag">сервер</span></td><td>Все заявки доходят и учитываются</td><td>CRITICAL</td><td>Средняя</td></tr>
+      <tr><td>1</td><td>Телефон и мессенджеры</td><td>Один канал отпугивает</td><td>В шапку, контакты, плавающую панель, schema <span class="tag">бизнес</span></td><td>Альтернативные каналы для 3 рынков</td><td>CRITICAL</td><td>Низкая</td></tr>
+      <tr><td>1</td><td>«О компании» и проверка брендовых заявлений</td><td>Доверие, юр. риск</td><td>Реквизиты, фото, команда; убрать неподтверждённые логотипы <span class="tag">бизнес</span></td><td>Покупатель может проверить поставщика</td><td>CRITICAL</td><td>Низкая</td></tr>
+      <tr><td>1</td><td>Политика конфиденциальности, cookie</td><td>GDPR, 152-ФЗ</td><td>Страница на 3 языках, баннер, Consent Mode v2 <span class="tag">бизнес</span></td><td>Снят правовой риск</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>1</td><td>Ссылки в подвале</td><td>Ошибка навигации</td><td>Исправить href в шаблоне</td><td>Рабочая навигация</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>2. Техника</td><td>Редиректы и дубли</td><td>Лишние хопы через http</td><td><code>absolute_redirect off</code>, 301 с index.html <span class="tag">сервер</span></td><td>Один 301 на https</td><td>MEDIUM</td><td>Низкая</td></tr>
+      <tr><td>2</td><td>Заголовки безопасности</td><td>Защита от clickjacking, XSS</td><td>CSP, frame-ancestors, Permissions-Policy <span class="tag">сервер</span></td><td>Безопаснее, выше доверие</td><td>MEDIUM</td><td>Низкая</td></tr>
+      <tr><td>2</td><td>Аналитика</td><td>Нет данных по RU/ZH, ложные цели</td><td>Метрика, Baidu (если нужен), цели по факту отправки <span class="tag">аналитика</span></td><td>Измеримая воронка</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>2</td><td>Шрифт, анимации, lastmod</td><td>Единый вид, Speed Index</td><td>Self-host Onest, укоротить reveal, lastmod в sitemap</td><td>Стабильный вид, быстрее первый экран</td><td>LOW</td><td>Низкая</td></tr>
+      <tr><td>3. Дизайн и UX</td><td>Полоса доверия и «Как заказать»</td><td>Первый экран продаёт поставщика</td><td>Год, склад, страны, срок ответа; 3 шага; график ниже</td><td>Понятно, кто и как продаёт</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>3</td><td>Свои фото и единый бренд</td><td>Стоковые фото снижают доверие</td><td>Фотосъёмка склада и упаковки, логотип в шапке <span class="tag">бизнес</span></td><td>Сайт реального поставщика</td><td>MEDIUM</td><td>Средняя</td></tr>
+      <tr><td>3</td><td>Поиск с синонимами</td><td>Поиск не находит очевидное</td><td>Словарь синонимов и брендов, пустой результат → форма</td><td>Меньше тупиков</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>3</td><td>Мобильные мелочи</td><td>Перекрытия и мелкие цели</td><td>Отступ под sticky CTA, зоны 40+ px, единицы в RU</td><td>Удобнее на телефоне</td><td>MEDIUM</td><td>Низкая</td></tr>
+      <tr><td>4. SEO</td><td>Карточки марок</td><td>Главный спрос закупщика</td><td>Шаблон + 30–50 марок, Product schema <span class="tag">бизнес</span></td><td>Охват запросов по маркам</td><td>HIGH</td><td>Средняя</td></tr>
+      <tr><td>4</td><td>Страницы аналогов</td><td>Сценарий «замена»</td><td>Таблицы по адгезивам, EVOH, СВМПЭ, POE</td><td>Запросы «аналог X», заявки на подбор</td><td>HIGH</td><td>Средняя</td></tr>
+      <tr><td>4</td><td>Отрасли и статьи</td><td>Информационный спрос</td><td>6 страниц отраслей, 10 статей из раздела 5.3</td><td>Рост органики и экспертности</td><td>MEDIUM</td><td>Средняя</td></tr>
+      <tr><td>4</td><td>Новые Title/Description</td><td>Коммерческие запросы</td><td>По образцам из 5.2</td><td>Выше CTR в выдаче</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>5. Конверсия</td><td>Мультипозиционный запрос и загрузка ТЗ</td><td>Качество заявок</td><td>«Добавить в запрос», файл до 10 МБ</td><td>Полные заявки</td><td>MEDIUM</td><td>Средняя</td></tr>
+      <tr><td>5</td><td>Реальные условия поставки</td><td>Покупатель не понимает, подходит ли</td><td>Incoterms, MOQ, сроки, упаковка, оплата <span class="tag">бизнес</span></td><td>Меньше уходов на этапе «доступность»</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>5</td><td>Запрос образца</td><td>Порог для переработчика</td><td>Кнопка и поле в форме</td><td>Больше первых контактов</td><td>MEDIUM</td><td>Низкая</td></tr>
+      <tr><td>5</td><td>CRM</td><td>Не терять заявки и историю</td><td>Передача из формы в amoCRM/Bitrix24/HubSpot <span class="tag">сервер</span></td><td>Учёт и скорость ответа</td><td>MEDIUM</td><td>Средняя</td></tr>
+      <tr><td>6. Международное</td><td>Локальные каналы и регионы</td><td>Разные рынки — разные ожидания</td><td>WeChat для ZH, WhatsApp для EN, Telegram для RU; региональные условия</td><td>Выше отклик по рынкам</td><td>HIGH</td><td>Низкая</td></tr>
+      <tr><td>6</td><td>Китай: скорость и площадки</td><td>Google недоступен</td><td>Замер из КНР, CDN, Baidu, профиль на 1688/Alibaba <span class="tag">сервер</span></td><td>Работающий ZH-канал</td><td>MEDIUM</td><td>Средняя</td></tr>
+      <tr><td>6</td><td>Новые языки</td><td>Рынки с продажами</td><td>Только под реальные продажи, перевод проверяет технолог</td><td>Расширение охвата</td><td>OPPORTUNITY</td><td>Средняя</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 9 -->
+<section id="top20">
+  <h2>9. ТОП-20 улучшений по влиянию на бизнес</h2>
+  <ol>
+    <li>Серверная форма RFQ с антиспамом, автоответом и страницей «Спасибо».</li>
+    <li>Телефон, WhatsApp, Telegram, WeChat и имя менеджера в шапке и контактах.</li>
+    <li>Страница «О компании»: реквизиты, USCC, склад, команда, фото.</li>
+    <li>Убрать неподтверждённые логотипы и формулировку «агент» либо показать документы.</li>
+    <li>Карточки 30–50 реально поставляемых марок с параметрами из TDS.</li>
+    <li>Реальные условия поставки: Incoterms, MOQ, сроки, упаковка, оплата.</li>
+    <li>Страницы аналогов для адгезивов, EVOH, СВМПЭ, POE.</li>
+    <li>Коммерческие Title/Description по образцам из раздела 5.2.</li>
+    <li>Яндекс.Метрика и цели по факту отправки заявки.</li>
+    <li>Политика конфиденциальности и баннер согласия.</li>
+    <li>Полоса доверия и «Как заказать: 3 шага» под hero.</li>
+    <li>Запрос нескольких позиций и загрузка спецификации.</li>
+    <li>Кнопка «Запросить образец».</li>
+    <li>Поиск с синонимами и брендами, пустой результат ведёт в форму.</li>
+    <li>Свои фотографии склада, упаковки и маркировки.</li>
+    <li>Шесть страниц отраслей вместо якоря <code>#applications</code>.</li>
+    <li>Product schema на карточках марок, полная Organization.</li>
+    <li>Исправить ссылки в подвале, редирект через http, дубли index.html.</li>
+    <li>Мобильные правки: отступ под sticky CTA, зоны нажатия, русские единицы.</li>
+    <li>Десять экспертных статей со ссылками на марки.</li>
+  </ol>
+</section>
+
+<!-- 10 -->
+<section id="verdict">
+  <h2>10. Итоговый вердикт</h2>
+  <p><b>Насколько сайт хорош сегодня.</b> Как технический прототип — хорош: быстрый, чистый, правильно размеченный, с аккуратными текстами. Как сайт поставщика — слабый: он рассказывает о классах полимеров, но не продаёт и не доказывает, что за ним стоит реальная компания со складом и условиями.</p>
+  <p><b>Что мешает стать сильным международным B2B-проектом.</b> Отсутствие марок, условий поставки, подтверждений и рабочей заявки. Дизайн и техника здесь не узкое место.</p>
+  <p><b>Что даст наибольший результат.</b> Рабочая RFQ, мессенджеры и страница «О компании» дадут эффект сразу после запуска. Карточки марок и таблицы аналогов дадут основной органический рост через 3–6 месяцев (новому домену нужно время на индексацию и доверие поисковиков).</p>
+  <p><b>Что исправить до привлечения трафика.</b> C1–C3, H2, H6, H7: рабочая форма, каналы связи, «О компании», условия поставки, аналитика, политика конфиденциальности. Без этого платный трафик будет сливаться на форме-черновике, а измерить потери будет нечем.</p>
+  <p><b>Что даст конкурентное преимущество.</b> Экспертиза в узкой нише многослойной упаковки: интерактивная схема плёнки, связанная с подбором марки для каждого слоя, таблицы аналогов адгезивов и EVOH, быстрый ответ с TDS на трёх языках. Крупные дистрибьюторы закрывают широкий ассортимент, но редко дают такой точный подбор для одной технологии.</p>
+</section>
+
+<footer class="meta" style="text-transform:none;letter-spacing:0">Данные собраны 12.11.2026: curl по 60 URL sitemap, Lighthouse 12.2.1 (мобильная эмуляция), Chromium на ширинах 320, 375, 390, 427, 768, 1024, 1440, 1920 px, whois/DNS. Лабораторные цифры скорости не равны полевым Core Web Vitals.</footer>
+</div>
