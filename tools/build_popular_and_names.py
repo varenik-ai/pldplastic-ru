@@ -225,7 +225,7 @@ def process_cards(path, lang):
 def add_css():
     p = 'css/style.css'
     s = open(p, encoding='utf-8').read()
-    s = re.sub(r'\n/\* popular grades \+ names.*', '', s, flags=re.S)
+    s = re.sub(r'\n/\* popular grades \+ names.*?(?=\n/\* P0 SEO|\Z)', '', s, flags=re.S)
     open(p, 'w', encoding='utf-8').write(s.rstrip('\n') + '\n' + POP_CSS)
 
 
