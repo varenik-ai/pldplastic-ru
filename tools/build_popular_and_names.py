@@ -6,6 +6,7 @@
   2. На страницах RU — блок «Названия и частые вопросы» (по реальным запросам Яндекс Вордстат, окт–ноя 2026).
   3. В карточках products.html и en/products.html — строка «Популярные марки».
   4. Страница-справочник polymer-names.html «Полимеры: русские названия и аббревиатуры» (RU).
+  5. Статья polyamide-6-vs-66.html «PA6 или PA66» (RU) и блок ссылок «Частые запросы» на главной.
 
 «Популярные» — редакционная подборка известных на рынке марок из нашего каталога (data/grades.*.json),
 а не статистика продаж. Наличие и условия поставки подтверждаем по запросу.
@@ -16,6 +17,7 @@ import json
 import os
 import re
 
+SITE = 'https://pldpolymer.com/'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 
@@ -180,8 +182,10 @@ def popular_block(pid, lang):
 
 def names_block(pid):
     items = ''.join(f'<details class="faq-item"><summary>{H.escape(q)}</summary><p>{H.escape(a)}</p></details>' for q, a in NAMES[pid])
+    extra = ' · <a href="polyamide-6-vs-66.html">PA6 или PA66: сравнение</a>' if pid == 'pa66' else ''
+    more = f'<p class="pg-note">См. также: <a href="polymer-names.html">справочник русских названий полимеров</a>{extra}</p>'
     return ('<!-- names -->\n      <div class="proddet-body names-faq"><h2>Названия и частые вопросы</h2>'
-            + items + '</div>\n      <!-- /names -->\n')
+            + items + more + '</div>\n      <!-- /names -->\n')
 
 
 def strip(s, tag):
@@ -279,9 +283,121 @@ def build_glossary():
             '<a href="mailto:export@pldpolymer.com">export@pldpolymer.com</a> или через <a href="contact.html">форму</a>.</p>\n'
             '    <div style="overflow-x:auto;"><table class="glossary-table"><thead><tr><th>Обозначение</th><th>Русские названия</th>'
             '<th>Где применяют</th><th>Страница</th></tr></thead><tbody>' + rows + '</tbody></table></div>\n'
+            '    <h2 style="margin-top:34px;">Если в вашей спецификации российская марка</h2>\n'
+            '    <p>Отечественные полимеры маркируют по ГОСТ, ОСТ и ТУ (например, ПА 66-КС, ПА 66-ДС, ПА 12-Л, ПА 6-210/310, СКЭПТ). '
+            'Такие обозначения <strong>не совпадают</strong> с торговыми марками импортных производителей: эквивалент подбирают по свойствам '
+            '(вязкость расплава, наполнение, ударопрочность, огнестойкость, цвет) и по способу переработки. '
+            'Пришлите марку из вашей спецификации и требования к детали на <a href="mailto:export@pldpolymer.com">export@pldpolymer.com</a> '
+            'или через <a href="contact.html">форму</a> — предложим марки из каталога и вышлем TDS по запросу.</p>\n'
+            '    <p>Сравнение двух самых частых полиамидов — <a href="polyamide-6-vs-66.html">PA6 или PA66: в чём разница</a>.</p>\n'
             '  </div>\n</section>\n')
     s = re.sub(r'<section class="contact-info-section".*?</section>\n', lambda m: body, s, count=1, flags=re.S)
     open('polymer-names.html', 'w', encoding='utf-8').write(s)
+
+
+PA_URL = 'https://pldpolymer.com/polyamide-6-vs-66.html'
+PA_TITLE = 'PA6 или PA66: чем отличаются полиамид 6 и полиамид 66 — SUPULIDE'
+PA_DESC = 'Сравнение PA6 и PA66: температура плавления, жёсткость, влагопоглощение, переработка, цена. Что выбрать для детали. Марки PA66 — в каталоге.'
+PA_ROWS = [
+    ('Из чего получают', 'Полимеризация капролактама', 'Поликонденсация гексаметилендиамина и адипиновой кислоты'),
+    ('Температура плавления', 'около 220 °C', 'около 262 °C'),
+    ('Теплостойкость и жёсткость', 'ниже', 'выше'),
+    ('Влагопоглощение', 'выше', 'ниже'),
+    ('Ударная вязкость и удлинение', 'обычно выше', 'обычно ниже'),
+    ('Переработка', 'шире окно переработки, ниже температуры расплава и формы', 'уже окно переработки, выше температуры'),
+    ('Цена', 'обычно ниже', 'обычно выше'),
+]
+PA_FAQ = [
+    ('Что лучше — PA6 или PA66?',
+     'Универсального ответа нет. PA66 выбирают, когда деталь работает при повышенной температуре и нужна жёсткость; PA6 — когда важнее '
+     'ударная вязкость, внешний вид поверхности и цена.'),
+    ('Как отличить PA6 от PA66?',
+     'По маркировке в паспорте или на упаковке (PA6, PA66, ПА 6, ПА 66): на глаз их не различить. Надёжный лабораторный способ — '
+     'температура плавления (например, методом ДСК): около 220 °C у PA6 и около 262 °C у PA66.'),
+    ('Можно ли заменить PA66 на PA6?',
+     'Не всегда: при высокой температуре и нагрузке деталь из PA6 может деформироваться, а влагопоглощение сильнее меняет размеры. '
+     'Замену проверяют испытаниями на конкретной детали.'),
+]
+PA_CSS_NOTE = 'Значения ориентировочные: они зависят от марки, наполнения и влажности. Точные данные — в TDS выбранной марки.'
+
+
+def page_from_template(path, url, title, desc, body, ld=None):
+    s = open('privacy.html', encoding='utf-8').read()
+    t, d = H.escape(title, quote=True), H.escape(desc, quote=True)
+    s = re.sub(r'<title>.*?</title>', lambda m: f'<title>{H.escape(title)}</title>', s, count=1)
+    s = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{d}">', s, count=1)
+    s = re.sub(r'<meta property="og:title" content="[^"]*">', lambda m: f'<meta property="og:title" content="{t}">', s, count=1)
+    s = re.sub(r'<meta property="og:description" content="[^"]*">', lambda m: f'<meta property="og:description" content="{d}">', s, count=1)
+    s = s.replace('https://pldpolymer.com/privacy.html', url)
+    s = re.sub(r'[ \t]*<link rel="alternate" hreflang="en" href="[^"]*">\n', '', s, count=1)
+    s = s.replace('/en/privacy.html', '/en/products.html')
+    if ld:
+        tags = ''.join('  <script type="application/ld+json">\n' + json.dumps(x, ensure_ascii=False, indent=2) + '\n  </script>\n' for x in ld)
+        s = s.replace('</head>', tags + '</head>', 1)
+    s = re.sub(r'<section class="contact-info-section".*?</section>\n', lambda m: body, s, count=1, flags=re.S)
+    open(path, 'w', encoding='utf-8').write(s)
+
+
+def build_pa_article():
+    rows = ''.join(f'<tr><td>{H.escape(a)}</td><td>{H.escape(b)}</td><td>{H.escape(c)}</td></tr>' for a, b, c in PA_ROWS)
+    faq = ''.join(f'<details class="faq-item"><summary>{H.escape(q)}</summary><p>{H.escape(a)}</p></details>' for q, a in PA_FAQ)
+    crumbs = ('<p style="font-size:13px;opacity:.7;margin-bottom:10px;"><a href="/">Главная</a> › <a href="products.html">Продукты</a> › '
+              '<a href="product-pa66.html">PA66</a> › PA6 или PA66</p>')
+    body = ('<section class="contact-info-section" style="padding:60px 0;background:#fff;color:#222;">\n'
+            '  <div class="container" style="max-width:860px;line-height:1.7;">\n    ' + crumbs + '\n'
+            '    <h1 style="margin-bottom:10px;">PA6 или PA66: в чём разница</h1>\n'
+            '    <p>PA6 (полиамид 6, капролактам) и PA66 (полиамид 66, нейлон 66) — два самых распространённых конструкционных полиамида. '
+            'Они похожи по применению, но различаются температурой плавления, жёсткостью, влагопоглощением и технологичностью.</p>\n'
+            '    <div style="overflow-x:auto;"><table class="glossary-table"><thead><tr><th>Свойство</th><th>PA6</th><th>PA66</th></tr></thead><tbody>'
+            + rows + '</tbody></table></div>\n'
+            f'    <p class="pg-note">{H.escape(PA_CSS_NOTE)}</p>\n'
+            '    <h2 style="margin-top:30px;">Что выбрать</h2>\n'
+            '    <ul><li><strong>PA66</strong> — если деталь работает при повышенной температуре, нужны жёсткость и стойкость к ползучести: '
+            'электротехника и разъёмы, шестерни, автомобильные конструкционные детали, стеклонаполненные марки.</li>'
+            '<li><strong>PA6</strong> — если важнее ударная вязкость, качество поверхности и цена: корпуса, бытовые и спортивные изделия, нити и плёнки.</li></ul>\n'
+            '    <h2 style="margin-top:30px;">Влага и переработка</h2>\n'
+            '    <p>Поглощённая влага снижает жёсткость полиамида и меняет размеры детали, поэтому для точных изделий учитывают кондиционирование. '
+            'Перед литьём гранулы сушат до остаточной влажности, указанной в TDS марки: у PA66 окно переработки уже, чем у PA6.</p>\n'
+            '    <h2 style="margin-top:30px;">Марки PA66 в каталоге</h2>\n'
+            '    <p>Подборка популярных марок и таблицы характеристик — на странице <a href="product-pa66.html">PA66 (полиамид 66)</a>. '
+            'Нужен именно PA6 — напишите на <a href="mailto:export@pldpolymer.com">export@pldpolymer.com</a> или через <a href="contact.html">форму</a>: '
+            'уточним возможность поставки. Цены и TDS — по запросу. Названия материалов на русском — в <a href="polymer-names.html">справочнике</a>.</p>\n'
+            '    <h2 style="margin-top:30px;">Вопросы и ответы</h2>\n    ' + faq + '\n'
+            '  </div>\n</section>\n')
+    ld = [
+        {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Главная', 'item': SITE},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Продукты', 'item': SITE + 'products.html'},
+            {'@type': 'ListItem', 'position': 3, 'name': 'PA66', 'item': SITE + 'product-pa66.html'},
+            {'@type': 'ListItem', 'position': 4, 'name': 'PA6 или PA66', 'item': PA_URL}]},
+        {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+            {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in PA_FAQ]},
+    ]
+    page_from_template('polyamide-6-vs-66.html', PA_URL, PA_TITLE, PA_DESC, body, ld)
+
+
+HOME_LINKS = [
+    ('Полиацеталь POM — гранулы', 'product-pom.html'), ('Полиамид 66 (PA66) — гранулы', 'product-pa66.html'),
+    ('Полиамид 12 (PA12)', 'product-pa12.html'), ('Этиленвинилацетат EVA (ЭВА)', 'product-eva.html'),
+    ('EVOH — барьерный полимер', 'product-evoh.html'), ('Полиолефиновый эластомер POE', 'product-poe.html'),
+    ('Поликарбонат PC', 'product-pc.html'), ('Этиленпропиленовый каучук EPDM', 'product-epdm.html'),
+    ('Полиметилметакрилат PMMA', 'product-pmma.html'), ('Полисульфон PSU', 'product-psu.html'),
+    ('Полифенилсульфон PPSU', 'product-ppsu.html'), ('Металлоценовый полиэтилен MLLDPE', 'product-mlldpe.html'),
+    ('PA6 или PA66: сравнение', 'polyamide-6-vs-66.html'), ('Справочник русских названий', 'polymer-names.html'),
+]
+
+
+def add_home_links():
+    path = 'index.html'
+    s = open(path, encoding='utf-8').read()
+    s = re.sub(r'[ \t]*<!-- seo-links -->.*?<!-- /seo-links -->\n?', '', s, flags=re.S)
+    chips = ''.join(f'<a class="pg-chip" href="{u}">{H.escape(t)}</a>' for t, u in HOME_LINKS)
+    block = ('    <!-- seo-links -->\n    <div class="seo-links"><p class="pg-note" style="margin-top:18px;"><strong>Частые запросы:</strong></p>'
+             f'<div class="pg-chips">{chips}</div></div>\n    <!-- /seo-links -->\n')
+    m = re.search(r'(<p class="seo-text">.*?</p>\n)', s, re.S)
+    assert m, 'нет seo-text на главной'
+    s = s[:m.end()] + block + s[m.end():]
+    open(path, 'w', encoding='utf-8').write(s)
 
 
 def main():
@@ -296,6 +412,8 @@ def main():
     process_cards('en/products.html', 'en')
     add_css()
     build_glossary()
+    build_pa_article()
+    add_home_links()
     print('ok')
 
 

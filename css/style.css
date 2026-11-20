@@ -1836,18 +1836,6 @@ p.about-text {
 /* Колонка с описанием продукта не должна растягиваться широкой таблицей марок */
 .proddet-wrap > main { min-width: 0; }
 
-/* P0 SEO (tools/build_p0_seo.py) */
-.prod-hero-h1-d { display: block; font-size: clamp(13px, .36em, 22px); font-weight: 600; letter-spacing: 0; line-height: 1.3; margin-top: 8px; }
-.prod-hero-section { height: auto; min-height: 340px; }
-@media (max-width: 768px) { .prod-hero-section { height: auto; min-height: 250px; } }
-@media (max-width: 480px) { .prod-hero-section { height: auto; min-height: 220px; } }
-.supply-terms { margin-top: 24px; }
-.supply-list { list-style: none; margin: 10px 0 8px; padding: 0; }
-.supply-list li { padding: 7px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
-.supply-list li strong { display: inline-block; min-width: 150px; }
-.supply-note { font-size: 13px; color: #666; margin: 6px 0 0; }
-@media (max-width: 600px) { .supply-list li strong { display: block; min-width: 0; } }
-
 /* popular grades + names (tools/build_popular_and_names.py) */
 .popular-grades { margin-top: 24px; }
 .pg-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 8px; }
@@ -1863,3 +1851,15 @@ a.pg-chip:hover { background: #e6efff; }
 .glossary-table th { background: #f0f5ff; }
 .glossary-table td:first-child { font-weight: 700; white-space: nowrap; }
 @media (max-width: 700px) { .glossary-table td:first-child { white-space: normal; } .glossary-table { font-size: 13px; } }
+
+/* P0 SEO (tools/build_p0_seo.py) */
+.prod-hero-h1-d { display: block; font-size: clamp(13px, .36em, 22px); font-weight: 600; letter-spacing: 0; line-height: 1.3; margin-top: 8px; }
+.prod-hero-section { height: auto; min-height: 340px; }
+@media (max-width: 768px) { .prod-hero-section { height: auto; min-height: 250px; } }
+@media (max-width: 480px) { .prod-hero-section { height: auto; min-height: 220px; } }
+.supply-terms { margin-top: 24px; }
+.supply-list { list-style: none; margin: 10px 0 8px; padding: 0; }
+.supply-list li { padding: 7px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+.supply-list li strong { display: inline-block; min-width: 150px; }
+.supply-note { font-size: 13px; color: #666; margin: 6px 0 0; }
+@media (max-width: 600px) { .supply-list li strong { display: block; min-width: 0; } }
