@@ -144,6 +144,12 @@ NAMES = {
     ],
 }
 
+EXTRA_LINKS = {
+    'pa66': [('polyamide-6-vs-66.html', 'PA6 или PA66: сравнение')],
+    'evoh': [('pex-evoh-pipes.html', 'PE-Xa/EVOH: что означает маркировка трубы')],
+    'eva': [('eva-ethylene-vinyl-acetate.html', 'Этиленвинилацетат: что это за материал')],
+}
+
 POP_CSS = """
 /* popular grades + names (tools/build_popular_and_names.py) */
 .popular-grades { margin-top: 24px; }
@@ -182,7 +188,7 @@ def popular_block(pid, lang):
 
 def names_block(pid):
     items = ''.join(f'<details class="faq-item"><summary>{H.escape(q)}</summary><p>{H.escape(a)}</p></details>' for q, a in NAMES[pid])
-    extra = ' · <a href="polyamide-6-vs-66.html">PA6 или PA66: сравнение</a>' if pid == 'pa66' else ''
+    extra = ''.join(f' · <a href="{u}">{H.escape(t)}</a>' for u, t in EXTRA_LINKS.get(pid, []))
     more = f'<p class="pg-note">См. также: <a href="polymer-names.html">справочник русских названий полимеров</a>{extra}</p>'
     return ('<!-- names -->\n      <div class="proddet-body names-faq"><h2>Названия и частые вопросы</h2>'
             + items + more + '</div>\n      <!-- /names -->\n')
@@ -383,7 +389,8 @@ HOME_LINKS = [
     ('Поликарбонат PC', 'product-pc.html'), ('Этиленпропиленовый каучук EPDM', 'product-epdm.html'),
     ('Полиметилметакрилат PMMA', 'product-pmma.html'), ('Полисульфон PSU', 'product-psu.html'),
     ('Полифенилсульфон PPSU', 'product-ppsu.html'), ('Металлоценовый полиэтилен MLLDPE', 'product-mlldpe.html'),
-    ('PA6 или PA66: сравнение', 'polyamide-6-vs-66.html'), ('Справочник русских названий', 'polymer-names.html'),
+    ('PA6 или PA66: сравнение', 'polyamide-6-vs-66.html'), ('PE-Xa/EVOH: что означает', 'pex-evoh-pipes.html'),
+    ('Этиленвинилацетат: что это', 'eva-ethylene-vinyl-acetate.html'), ('Справочник русских названий', 'polymer-names.html'),
 ]
 
 
@@ -400,6 +407,127 @@ def add_home_links():
     open(path, 'w', encoding='utf-8').write(s)
 
 
+def table_html(head, rows):
+    th = ''.join(f'<th>{H.escape(h)}</th>' for h in head)
+    tr = ''.join('<tr>' + ''.join(f'<td>{H.escape(c)}</td>' for c in r) + '</tr>' for r in rows)
+    return f'<div style="overflow-x:auto;"><table class="glossary-table"><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
+
+
+ARTICLES = [
+    {
+        'slug': 'pex-evoh-pipes.html',
+        'parent': ('product-evoh.html', 'EVOH'),
+        'crumb': 'PE-Xa/EVOH',
+        'title': 'Труба PE-Xa/EVOH: что означает маркировка и зачем нужен слой EVOH — SUPULIDE',
+        'desc': 'Что значит PE-Xa/EVOH на трубе для отопления, зачем нужен кислородный барьер, как читать 16×2,2. Подбор марок EVOH для производителей труб — по запросу.',
+        'h1': 'PE-Xa/EVOH: что означает маркировка трубы',
+        'lead': 'Надпись PE-Xa/EVOH на трубе для отопления и тёплого пола означает, что труба из сшитого полиэтилена (PE-Xa) имеет тонкий слой EVOH — '
+                'этиленвинилового спирта. Этот слой работает как кислородный барьер.',
+        'sections': [
+            ('Расшифровка обозначений', table_html(['Обозначение', 'Что это'], [
+                ('PE-X (PEX)', 'сшитый полиэтилен'),
+                ('PE-Xa / Xb / Xc', 'способ сшивки: a — пероксидный, b — силановый, c — радиационный'),
+                ('PE-RT', 'полиэтилен повышенной термостойкости (несшитый)'),
+                ('EVOH', 'этиленвиниловый спирт — барьерный слой против кислорода'),
+                ('16×2,2', 'наружный диаметр 16 мм и толщина стенки 2,2 мм'),
+            ])),
+            ('Зачем в трубе слой EVOH', '<p>Стенка полиэтиленовой трубы немного пропускает кислород из воздуха. В закрытой системе отопления кислород '
+                'вызывает коррозию стальных и чугунных элементов (радиаторов, котла, насоса) и образование шлама. Слой EVOH ограничивает проникновение кислорода '
+                'в теплоноситель. Допустимая кислородопроницаемость нормируется, например, стандартом DIN 4726; труба без барьерного слоя, как правило, '
+                'ему не соответствует.</p>'),
+            ('Как устроена такая труба', '<p>Барьерный слой наносят при соэкструзии вместе с основным слоем полиэтилена. EVOH плохо сцепляется с полиэтиленом, '
+                'поэтому между слоями используют связующие (адгезионные) слои. Положение барьерного слоя зависит от конструкции трубы; важно, чтобы он был защищён '
+                'от влаги, потому что при высокой влажности барьерные свойства EVOH ухудшаются.</p>'),
+            ('Где слой не нужен', '<p>Для питьевого водоснабжения кислородный барьер, как правило, не требуется: он нужен в системах отопления и тёплого пола, '
+                'где теплоноситель циркулирует в замкнутом контуре с металлическими элементами.</p>'),
+            ('Что поставляет SUPULIDE', '<p>Мы поставляем гранулы EVOH для производителей многослойных труб, плёнок и упаковки (готовые трубы не продаём). '
+                'Марки и характеристики — на странице <a href="product-evoh.html">EVOH</a>. Для подбора марки под вашу линию пришлите диаметр трубы, '
+                'толщину барьерного слоя и тип экструдера на <a href="mailto:export@pldpolymer.com">export@pldpolymer.com</a> или через '
+                '<a href="contact.html">форму</a>. Цены и TDS — по запросу.</p>'),
+        ],
+        'faq': [
+            ('Нужен ли EVOH в трубе для водопровода?',
+             'Для питьевого водоснабжения кислородный барьер, как правило, не требуется. Он нужен в системах отопления и тёплого пола.'),
+            ('Чем PE-Xa/EVOH отличается от PE-RT/EVOH?',
+             'Основным слоем: PE-Xa — сшитый полиэтилен, PE-RT — несшитый термостойкий. Барьерный слой EVOH в обоих случаях выполняет одну функцию.'),
+            ('Почему важна защита слоя EVOH от влаги?',
+             'При высокой влажности барьерные свойства EVOH снижаются, поэтому слой размещают внутри структуры или защищают внешним слоем полиолефина.'),
+        ],
+    },
+    {
+        'slug': 'eva-ethylene-vinyl-acetate.html',
+        'parent': ('product-eva.html', 'EVA'),
+        'crumb': 'Этиленвинилацетат',
+        'title': 'Этиленвинилацетат (EVA, ЭВА): что это за материал, гранулы и пена — SUPULIDE',
+        'desc': 'Что такое этиленвинилацетат (EVA, ЭВА, СЭВА): роль винилацетата, из чего делают EVA-пену и подошву, чем гранулы отличаются от листов. Марки — в каталоге.',
+        'h1': 'Этиленвинилацетат (EVA, ЭВА): что это за материал',
+        'lead': 'EVA — сополимер этилена и винилацетата (VA). В русскоязычных источниках его называют этиленвинилацетатом, ЭВА или СЭВА. '
+                'Из него делают вспененные листы и подошву, термоплавкие клеи, плёнки и инкапсулянт для солнечных модулей.',
+        'sections': [
+            ('Главный параметр — содержание винилацетата', '<p>Чем больше VA в сополимере, тем мягче, прозрачнее и клейче материал и ниже его температура плавления. '
+                'Промышленные марки охватывают диапазон примерно от 9 до 40 % VA. Вторая важная характеристика — показатель текучести расплава (ПТР): '
+                'от него зависит способ переработки.</p>'),
+            ('Где применяют', table_html(['Область', 'Что делают'], [
+                ('Обувь и вспененные изделия', 'подошвы, стельки, маты, коврики'),
+                ('Клеи', 'термоплавкие клеи и герметики'),
+                ('Упаковка', 'плёнки и термосвариваемые слои'),
+                ('Солнечные модули', 'инкапсулирующие плёнки'),
+                ('Кабельная промышленность', 'компаунды для оболочек и изоляции'),
+            ])),
+            ('Как делают EVA-пену и подошву', '<p>Гранулы EVA смешивают с вспенивающим и сшивающим агентами, наполнителями и красителями, затем прессуют и вспенивают. '
+                'Так получают листы, подошвы и маты. Эту переработку выполняет заказчик: мы поставляем гранулы, а не готовые листы или пену.</p>'),
+            ('Пластик это или резина', '<p>EVA — термопластичный сополимер, а не каучук. Вспененная сшитая EVA легче и эластичнее обычных пластиков, '
+                'поэтому её разговорно называют «искусственной резиной».</p>'),
+            ('Как выбрать марку', '<p>Назовите назначение, нужное содержание VA и ПТР — подберём марку из каталога. Марки и таблицы характеристик — на странице '
+                '<a href="product-eva.html">EVA</a>, пример карточки — <a href="grade-evasine-eva-ue4055.html">EVASINE® UE4055</a>. '
+                'Запрос — на <a href="mailto:export@pldpolymer.com">export@pldpolymer.com</a> или через <a href="contact.html">форму</a>; цены и TDS — по запросу. '
+                'Другие русские названия материалов — в <a href="polymer-names.html">справочнике</a>.</p>'),
+        ],
+        'faq': [
+            ('Что такое ЭВА?', 'ЭВА — русская аббревиатура этиленвинилацетата (EVA), сополимера этилена и винилацетата.'),
+            ('Вы продаёте листы и пену EVA?', 'Нет, мы поставляем гранулы для литья, экструзии, клеёв, плёнок и вспененных изделий; листы и подошвы делает заказчик.'),
+            ('Какое содержание VA выбрать?', 'Оно зависит от назначения: для мягких, клейких и прозрачных материалов нужно больше VA, для жёстких и прочных — меньше. Подбор — по запросу.'),
+        ],
+    },
+]
+
+
+def build_article(a):
+    url = SITE + a['slug']
+    faq = ''.join(f'<details class="faq-item"><summary>{H.escape(q)}</summary><p>{H.escape(t)}</p></details>' for q, t in a['faq'])
+    secs = ''.join(f'<h2 style="margin-top:30px;">{H.escape(h)}</h2>\n    {c}\n' for h, c in a['sections'])
+    pp, pn = a['parent']
+    crumbs = ('<p style="font-size:13px;opacity:.7;margin-bottom:10px;"><a href="/">Главная</a> › <a href="products.html">Продукты</a> › '
+              f'<a href="{pp}">{H.escape(pn)}</a> › {H.escape(a["crumb"])}</p>')
+    body = ('<section class="contact-info-section" style="padding:60px 0;background:#fff;color:#222;">\n'
+            '  <div class="container" style="max-width:860px;line-height:1.7;">\n    ' + crumbs + '\n'
+            f'    <h1 style="margin-bottom:10px;">{H.escape(a["h1"])}</h1>\n    <p>{H.escape(a["lead"])}</p>\n    ' + secs
+            + '    <h2 style="margin-top:30px;">Вопросы и ответы</h2>\n    ' + faq + '\n  </div>\n</section>\n')
+    ld = [
+        {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Главная', 'item': SITE},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Продукты', 'item': SITE + 'products.html'},
+            {'@type': 'ListItem', 'position': 3, 'name': pn, 'item': SITE + pp},
+            {'@type': 'ListItem', 'position': 4, 'name': a['crumb'], 'item': url}]},
+        {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+            {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': t}} for q, t in a['faq']]},
+    ]
+    page_from_template(a['slug'], url, a['title'], a['desc'], body, ld)
+
+
+def ensure_sitemap(slugs):
+    m = open('sitemap.xml', encoding='utf-8').read()
+    anchor = '  <url><loc>https://pldpolymer.com/privacy.html</loc>'
+    for slug in slugs:
+        u = SITE + slug
+        if u in m:
+            continue
+        new = (f'  <url><loc>{u}</loc><lastmod>2026-11-20</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>'
+               f'<xhtml:link rel="alternate" hreflang="ru" href="{u}"/><xhtml:link rel="alternate" hreflang="x-default" href="{u}"/></url>\n')
+        m = m.replace(anchor, new + anchor, 1)
+    open('sitemap.xml', 'w', encoding='utf-8').write(m)
+
+
 def main():
     for pid in POPULAR:
         for lang, path in (('ru', f'product-{pid}.html'), ('en', f'en/product-{pid}.html')):
@@ -413,6 +541,9 @@ def main():
     add_css()
     build_glossary()
     build_pa_article()
+    for a in ARTICLES:
+        build_article(a)
+    ensure_sitemap(['polymer-names.html', 'polyamide-6-vs-66.html'] + [a['slug'] for a in ARTICLES])
     add_home_links()
     print('ok')
 
